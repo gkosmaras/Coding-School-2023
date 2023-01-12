@@ -32,7 +32,7 @@
             // Excercise 4
             int age = 43;
             string gender = " male ";
-            result = "You are " + gender + "and you look younger than " + age + ".";
+            result = "You are " + gender + "and look younger than " + age + ".";
             Console.WriteLine(result);
 
             // Excercise 5
