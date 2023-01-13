@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Special;
+using Input;
 
 namespace Session_I
 {
@@ -12,9 +12,7 @@ namespace Session_I
         public string Answer()
         {
             Inputer temp = new Inputer();
-            string temp1 = temp.Answer();
-            //string temp = "tesfgjhgttest";
-            char[] array = temp1.ToCharArray();
+            char[] array = (temp.Answer1()).ToCharArray();
             StringBuilder tempSolved = new StringBuilder();
             for (int i = array.Length - 1; i >= 0; i--)
             {
