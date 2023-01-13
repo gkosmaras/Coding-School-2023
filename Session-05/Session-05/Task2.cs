@@ -5,9 +5,9 @@ namespace Session_II
 {
     public class SumProd
     {
-        public int Answer()
+        public long Answer()
         {
-            int sum = 0;
+            long sum = 0;
             Inputer temp = new Inputer();
             int number = temp.Answer2();
             string oper = temp.Answer3();
