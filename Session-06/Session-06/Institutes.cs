@@ -1,9 +1,4 @@
-﻿using Beings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Students;
 using Lessons;
 using Score;
 using Calendar;
@@ -24,11 +19,13 @@ namespace Institutes
         {
             ID = id;
         }
-        public Institute(Guid id, string name) : this(id)
+        public Institute(Guid id, string name)
+            : this(id)
         {
             Name = name;
         }
-        public Institute(Guid id, string name, int years) : this(id, name)
+        public Institute(Guid id, string name, int years)
+            : this(id, name)
         {
             YearsInService = years;
         }
@@ -41,30 +38,4 @@ namespace Institutes
 
         }
     }
-
-    public class University : Institute
-    {
-        public Student[] Students { get; set; }
-        public Courses[] Courses { get; set; }
-        public Grades[] Grade { get; set; }
-        public Schedule[] ScheduledCourse { get; set; }
-
-        public void GetStudents()
-        {
-
-        }
-        public void GetCourses()
-        {
-
-        }
-        public void GetGrades()
-        {
-
-        }
-        public void SetSchedule(Guid courseId, Guid professorID, DateTime datetime)
-        {
-
-        }
-    }
-
 }

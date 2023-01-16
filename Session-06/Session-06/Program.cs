@@ -1,17 +1,11 @@
-﻿using Beings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Students;
 namespace Session_06
 {
     public class Program
     {
         private static void Main(string[] args)
         {
-            Student temp = new Student(Guid.NewGuid(), "Test1Name", 32, 12345);
+            Student temp = new Student(Guid.NewGuid(), "Test_Name", 23, 2478543);
             Console.WriteLine(temp.Name);
             temp.GetName();
         }
