@@ -18,7 +18,7 @@ namespace Input
         {
             repeat:
                 Console.WriteLine("Please enter an integer:");
-                string temp = Console.ReadLine();
+                string temp = Answer1();
                 int value;
                 bool valid = int.TryParse(temp, out value);
                 if (valid)
