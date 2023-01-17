@@ -10,7 +10,7 @@ namespace Session_07
     public class ActionRequest
     {
         public Guid RequestID { get; set; }
-        public string Input { get; set; }
+        public string? Input { get; set; }
         public ActionRequest() 
         {
             RequestID = Guid.NewGuid();
