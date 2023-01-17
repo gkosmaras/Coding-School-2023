@@ -1,96 +1,243 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Session_07
 {
-    public enum ActionEnum
+    internal class ActionResolver : Resovler
     {
-        Convert,
-        Uppercase,
-        Reverse
-    }
-    public class ActionResolver
-    {
-        public string Resolve(ActionEnum task, string test)
+        public MessageLogger Logger { get; set; }
+
+        public ActionResolver()
         {
-            string result = "";
-            switch (task)
+            Logger = new MessageLogger();
+        }
+        public ActionResponse Excecute(ActionRequest request)
+        {
+            var response = new ActionResponse();
+            response.RequestID = request.RequestID;
+
+            switch (request.Action)
             {
                 case ActionEnum.Convert:
-                    result = AnswerConvert(test);
+                    response.Output = DecimalToBinary(request.RequestID, request.Input);
+                    if (response.Output != null)
+                    {
+                        LogEventMessage(request.RequestID, request.Input, response.Output, request.Action, DateTime.Now);
+                    }
+
                     break;
                 case ActionEnum.Uppercase:
-                    result = AnswerUppercase(test);
+                    response.Output = UppercaseTheBiggest(request.Input, request.RequestID);
+                    if (response.Output != null)
+                    {
+                        LogEventMessage(request.RequestID, request.Input, response.Output, request.Action, DateTime.Now);
+                    }
                     break;
                 case ActionEnum.Reverse:
-                    result = AnswerReverse(test);
+                    response.Output = ReverseString(request.Input, request.RequestID);
+                    if (response.Output != null)
+                    {
+                        LogEventMessage(request.RequestID, request.Input, response.Output, request.Action, DateTime.Now);
+                    }
                     break;
-                default: result = "Enter a valid action";
+                default:
+                    response.Output = null;
+                    LogEventError(request.RequestID, request.Input, request.Action, DateTime.Now);
                     break;
+
             }
 
+            return response;
+        }
+
+
+
+
+
+
+
+        public string DecimalToBinary(Guid requestID, string input)
+        {
+            string binaryOutput = null;
+            int number;
+            try
+            {
+                if (input == null)
+                {
+                    throw new ArgumentNullException("Parameter is null");
+                }
+                if (Int32.TryParse(input, out number))
+                {
+                    binaryOutput = Calculate(number);
+                }
+                return binaryOutput;
+            }
+            catch (Exception ex)
+            {
+                LogEventExceptionConvert(input, ex, DateTime.Now, requestID);
+                return null;
+            }
+        }
+        public string Calculate(int number)
+        {
+            string result = string.Empty;
+            while (number > 1)
+            {
+                int remainder = number % 2;
+                result = Convert.ToString(remainder) + result;
+                number /= 2;
+            }
+            result = Convert.ToString(number) + result;
             return result;
         }
 
-        public string AnswerConvert(string test)
+        public override void LogEventExceptionConvert(string requestIn, Exception exeption, DateTime timeStamp, Guid requestID)
         {
-            string result = "";
-            if (decimal.TryParse(test.ToString(), out _))
+            Logger.Write(new Message()
             {
-                int num = Convert.ToInt32(test);
-                while (num > 1)
-                {
-                    int remainder = num % 2;
-                    result = Convert.ToString(remainder) + result;
-                    num = num / 2;
-                }
-                result = Convert.ToString(num) + result;
-                return result;
-            }
-            else
+                Text = $" Operation [{requestID}] : Exception in conversion: {exeption}. Input was'{requestIn}'.",
+                TimeStamp = timeStamp
+            });
+        }
+
+        public string ReverseString(string str, Guid requestID)
+        {
+            return ReverseStringRecursion(str, requestID);
+        }
+
+        public string ReverseStringRecursion(string str, Guid requestID)
+        {
+            try
             {
-                result = "Not a decimal";
-                return result;
+                if (str.Length > 0)
+                    return str[str.Length - 1] + ReverseString(str.Substring(0, str.Length - 1), requestID);
+                else
+                    return str;
             }
+            catch (Exception ex)
+            {
+                LogEventExceptionReverse(str, ex, DateTime.Now, requestID);
+                return null;
+            }
+        }
+
+        public override void LogEventExceptionReverse(string requestIn, Exception exeption, DateTime timeStamp, Guid requestID)
+        {
+            Logger.Write(new Message()
+            {
+                Text = $"Operation [{requestID}] : Exception in reversal: {exeption}. Input was'{requestIn}'.",
+                TimeStamp = timeStamp
+            });
 
         }
 
-        public string AnswerUppercase(string test)
+
+
+        public string UppercaseTheBiggest(string str, Guid requestID)
         {
-            if (test.IndexOf(" ") >= 0)
+            int numOfWords = 0;
+            int maxWordSize = 0;
+            int? index = null;
+            string outputUpper = str;
+            if (!String.IsNullOrEmpty(str))
             {
-                    string[] words = test.Split(' ');
-                    string result = "";
-                    foreach (string word in words)
+
+                try
+                {
+                    string[] words = str.Split(' ');
+                    for (int i = 0; i < words.Length; i++)
                     {
-                        if (word.Length > result.Length)
+                        if (words[i] != String.Empty)
                         {
-                            result = word;
+                            CheckWordSize(ref numOfWords, ref maxWordSize, ref index, words, i);
                         }
                     }
-                    result = result.ToUpper();
-                    return result;
+                    if (index != null && numOfWords > 1)
+                    {
+                        outputUpper = Rebuild(index, words);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogEventExceptionUppercase(str, ex, DateTime.Now, requestID);
+                    return null;
+                }
             }
-            else
+            else { LogNullEventError(requestID, "NULL_TYPE", DateTime.Now); return null; }
+            return outputUpper;
+        }
+
+        public void CheckWordSize(ref int numOfWords, ref int maxLength, ref int? index, string[] words, int i)
+        {
+            numOfWords++;
+            if (words[i].Length > maxLength)
             {
-                string result = "Input does not contain whitespaces";
-                return result;
+                SwapBiggerWord(out maxLength, out index, words, i);
             }
         }
-        public string AnswerReverse(string test)
-        {
-            if (Regex.IsMatch(test, "^[A-Za-z ]+$", RegexOptions.IgnoreCase))
-            {
-                char[] result = test.ToCharArray();
-                Array.Reverse(result);
-                return new string(result);
-            }
-            else
-            {
-                string result = "Not a valid input";
-                return result;
-            }
 
+        public void SwapBiggerWord(out int maxLength, out int? index, string[] words, int i)
+        {
+            maxLength = words[i].Length;
+            index = i;
+        }
+
+        public string Rebuild(int? index, string[] words)
+        {
+            string outputUpper;
+            words[(int)index] = words[(int)index].ToUpper();
+            outputUpper = string.Join(' ', words);
+            return outputUpper;
+        }
+
+
+        //VIRTUAL OVERRIDES
+        public override void LogEventExceptionUppercase(string requestIn, Exception exeption, DateTime timeStamp, Guid requestID)
+        {
+            Logger.Write(new Message()
+            {
+                Text = $"Operation[{requestID}] : Exception in uppercasing: {exeption}. Input was: '{requestIn}'.",
+                TimeStamp = timeStamp
+            });
+        }
+
+
+        public override void LogEventMessage(string description, DateTime timeStamp)
+        {
+            Logger.Write(new Message()
+            {
+                Text = description,
+                TimeStamp = timeStamp
+            });
+        }
+
+
+        public override void LogEventMessage(Guid requestID, string requestIn, string requestOut, ActionEnum action, DateTime timeStamp)
+        {
+            Logger.Write(new Message()
+            {
+                Text = $"{requestID} : Going {action} on: '{requestIn}'. Result: '{requestOut}' .",
+                TimeStamp = timeStamp
+            });
+        }
+        public override void LogEventError(Guid requestID, string requestIn, ActionEnum action, DateTime timeStamp)
+        {
+            Logger.Write(new Message()
+            {
+                Text = $"ERROR: Request [{requestID}] : Action was out of Scope: '{action}' with input: '{requestIn}'.",
+                TimeStamp = timeStamp
+            });
+        }
+        public void LogNullEventError(Guid requestID, string requestIn, DateTime timeStamp)
+        {
+            Logger.Write(new Message()
+            {
+                Text = $"ERROR: Request [{requestID}] : Input: '{requestIn}' is null.",
+                TimeStamp = timeStamp
+            });
         }
     }
 }
-

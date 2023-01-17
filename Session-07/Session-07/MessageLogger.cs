@@ -6,31 +6,37 @@ using System.Threading.Tasks;
 
 namespace Session_07
 {
-    public class MessageLogger
+    internal class MessageLogger
     {
-        public string log = String.Empty;
-        public Message[] Messages { get; }
+        public Message[] Messages { get; set; }
+        int storedMessages = 0;
+        int maxStoredMessages = 100;
+
         public MessageLogger()
         {
-            Messages = new Message[1000];
+            Messages = new Message[maxStoredMessages];
         }
+
         public string ReadAll()
         {
-            string log = String.Empty;
-/*            foreach (var message in Messages) 
+            string msgLog = String.Empty;
+            for (int i = 0; i < storedMessages; i++)
             {
-                log += message.ToString();
-            }*/
-            return log;
+                msgLog += Messages[i].Text + Environment.NewLine;
+            }
+            return msgLog;
         }
+
         public void Clear()
         {
             Array.Clear(Messages, 0, Messages.Length);
-
+            storedMessages = 0;
         }
-        public void Write()
-        {
 
+        public void Write(Message msg)
+        {
+            Messages[storedMessages] = msg;
+            storedMessages++;
         }
     }
 }

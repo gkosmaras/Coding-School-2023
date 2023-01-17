@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Session_07
-{
-    public class ActionRequest : ActionResolver
+    namespace Session_07
     {
-        public Guid RequestID { get; set; }
-        public string? Input { get; set; }
-        public ActionRequest() 
+        internal class ActionRequest
         {
-            RequestID = Guid.NewGuid();
+            public Guid RequestID { get; set; }
+            public string Input { get; set; }
+            public ActionEnum Action { get; set; }
 
+
+            public ActionRequest()
+            {
+                RequestID = Guid.NewGuid();
+            }
         }
     }
-}

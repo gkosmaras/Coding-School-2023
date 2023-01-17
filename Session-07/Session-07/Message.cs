@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace Session_07
 {
-    public class Message
+    internal class Message
     {
         public Guid ID { get; set; }
         public DateTime TimeStamp { get; set; }
         public string Text { get; set; }
-        public Message(string text)
+
+        public Message()
         {
             ID = Guid.NewGuid();
-            TimeStamp = DateTime.Now;
-            Text = text;
         }
     }
 }
