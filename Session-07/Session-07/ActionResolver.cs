@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Session_07
+﻿namespace Session_07
 {
     public enum ActionEnum
     {
@@ -12,16 +6,63 @@ namespace Session_07
         Uppercase,
         Reverse
     }
-    public class ActionResolver
+    public class ActionResolver 
     {
-        public MessageLogger Logger { get; set; }
-        public ActionResolver()
+        public string Resolve(ActionEnum task, string test) 
         {
+            string result = "";
+            switch (task)
+            {
+                case ActionEnum.Convert:
+                    result = AnswerConvert(test);
+                    break;
+                case ActionEnum.Uppercase:
+                    result = AnswerUppercase(test);
+                    break;
+                case ActionEnum.Reverse:
+                    result = AnswerReverse(test);
+                    break;
+                default: result = "4";
+                    break;
+            }
 
+            return result;
         }
-        public ActionResponse Execute(ActionRequest request)
+
+        public string AnswerConvert(string test)
         {
-            return null;
+            int num = Convert.ToInt32(test);
+            string result = "";
+            while (num > 1)
+            {
+                int remainder = num % 2;
+                result = Convert.ToString(remainder) + result;
+                num = num / 2;
+            }
+            result = Convert.ToString(num) + result;
+            return result;
+        }
+
+        public string AnswerUppercase(string test)
+        {
+            string[] words = test.Split(' ');
+            string result = "";
+            foreach (string word in words)
+            {
+                if (word.Length > result.Length)
+                {
+                    result = word;
+                }
+            }
+            result = result.ToUpper();
+            return result;
+        }
+
+        public string AnswerReverse(string test)
+        {
+            char[] result = test.ToCharArray();
+            Array.Reverse(result);
+            return new string(result);
         }
     }
 }

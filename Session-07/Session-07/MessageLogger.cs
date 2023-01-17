@@ -8,6 +8,7 @@ namespace Session_07
 {
     public class MessageLogger
     {
+        public string log = String.Empty;
         public Message[] Messages { get; }
         public MessageLogger()
         {
@@ -16,12 +17,16 @@ namespace Session_07
         public string ReadAll()
         {
             string log = String.Empty;
-
+/*            foreach (var message in Messages) 
+            {
+                log += message.ToString();
+            }*/
             return log;
         }
         public void Clear()
         {
             Array.Clear(Messages, 0, Messages.Length);
+
         }
         public void Write()
         {
