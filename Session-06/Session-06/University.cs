@@ -9,18 +9,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Session_06
+namespace Uni
 {
     public class University : Institute
     {
-        Student[] Students { get; set; }
-        Courses[] Courses { get; set; }
-        Grades[] Grade { get; set; }
-        Schedule[] ScheduledCourse { get; set; }
+        public Student[] Students { get; set; }
+        public Courses[] Courses { get; set; }
+        public Grades[] Grade { get; set; }
+        public Schedule[] ScheduledCourse { get; set; }
 
         public University()
         {
-
+            Students = new Student[20];
         }
         public University(Guid id)
             : base(id)
