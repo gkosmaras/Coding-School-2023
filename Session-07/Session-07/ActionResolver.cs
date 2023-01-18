@@ -100,7 +100,8 @@ namespace Session_07
             {
                 Text = $" Operation [{requestID}] : Exception in conversion: {exeption}. Input was'{requestIn}'.",
                 TimeStamp = timeStamp
-            });
+            }
+            );
         }
 
         public string ReverseString(string str, Guid requestID)
@@ -130,7 +131,8 @@ namespace Session_07
             {
                 Text = $"Operation [{requestID}] : Exception in reversal: {exeption}. Input was'{requestIn}'.",
                 TimeStamp = timeStamp
-            });
+            }
+            );
 
         }
 
@@ -201,7 +203,8 @@ namespace Session_07
             {
                 Text = $"Operation[{requestID}] : Exception in uppercasing: {exeption}. Input was: '{requestIn}'.",
                 TimeStamp = timeStamp
-            });
+            }
+            );
         }
 
 
@@ -211,7 +214,8 @@ namespace Session_07
             {
                 Text = description,
                 TimeStamp = timeStamp
-            });
+            }
+            );
         }
 
 
@@ -221,7 +225,8 @@ namespace Session_07
             {
                 Text = $"{requestID} : Going {action} on: '{requestIn}'. Result: '{requestOut}' .",
                 TimeStamp = timeStamp
-            });
+            }
+            );
         }
         public override void LogEventError(Guid requestID, string requestIn, ActionEnum action, DateTime timeStamp)
         {
@@ -229,7 +234,8 @@ namespace Session_07
             {
                 Text = $"ERROR: Request [{requestID}] : Action was out of Scope: '{action}' with input: '{requestIn}'.",
                 TimeStamp = timeStamp
-            });
+            }
+            );
         }
         public void LogNullEventError(Guid requestID, string requestIn, DateTime timeStamp)
         {
@@ -237,7 +243,8 @@ namespace Session_07
             {
                 Text = $"ERROR: Request [{requestID}] : Input: '{requestIn}' is null.",
                 TimeStamp = timeStamp
-            });
+            }
+            );
         }
     }
 }
