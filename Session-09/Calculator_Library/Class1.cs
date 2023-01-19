@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Text.RegularExpressions;
 
 namespace Calculator_Library
 {
@@ -32,6 +33,27 @@ namespace Calculator_Library
             }
             return result;
 
+        }
+        public object Parser(string x, string y)
+        {
+            if (int.TryParse(x, out int value))
+            {
+                y += x;
+            }
+            else
+            {
+                var regex = new Regex(@"(\d$)|([.]$)|(^$)");
+                if (regex.Match(y).Success)
+                {
+                    y += x;
+                }
+                else
+                {
+                    y = y.Remove(y.Length - 1, 1);
+                    y += x;
+                }
+            }
+            return y;
         }
     }
 }

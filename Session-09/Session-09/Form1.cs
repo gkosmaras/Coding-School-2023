@@ -16,29 +16,9 @@ namespace Session_09
         private void buttonClick(object sender, EventArgs e)
         {
             string entry = (sender as Button).Text;
-            if (int.TryParse(entry, out int value))
-            {
-                calculation += entry;
-                textBox.Text = calculation;
-
-
-            }
-            else
-            {
-                var regex = new Regex(@"(\d$)|([.]$)|(^$)");
-                if (regex.Match(calculation).Success)
-                {
-                    calculation += entry;
-                    textBox.Text = calculation;
-                }
-                else
-                {
-                    calculation = calculation.Remove(calculation.Length - 1, 1);
-                    calculation += entry;
-                    textBox.Text = calculation;
-                }
-            }
-
+            Calculator result = new Calculator();
+            calculation = result.Parser(entry, calculation).ToString();
+            textBox.Text = calculation;
         }
 
         public void buttonSqrt(object sender, EventArgs e)
@@ -47,6 +27,7 @@ namespace Session_09
             Calculator result = new Calculator();
             answer = result.Calc(calculation);
             textBox.Text = result.Rooter(answer);
+            calculation = string.Empty;
 
         }
         public void buttonEqual(object sender, EventArgs e)
