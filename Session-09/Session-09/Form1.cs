@@ -16,23 +16,43 @@ namespace Session_09
         private void buttonClick(object sender, EventArgs e)
         {
             string entry = (sender as Button).Text;
-            var regex = new Regex(@"(\d$)|([.]$)|(^$)");
-            if (regex.Match(calculation).Success)
+            if (int.TryParse(entry, out int value))
             {
                 calculation += entry;
                 textBox.Text = calculation;
+
+
             }
             else
             {
-                calculation = calculation.Remove(calculation.Length - 1, 1);
-                calculation += entry;
-                textBox.Text = calculation;
+                var regex = new Regex(@"(\d$)|([.]$)|(^$)");
+                if (regex.Match(calculation).Success)
+                {
+                    calculation += entry;
+                    textBox.Text = calculation;
+                }
+                else
+                {
+                    calculation = calculation.Remove(calculation.Length - 1, 1);
+                    calculation += entry;
+                    textBox.Text = calculation;
+                }
             }
+
+        }
+
+        public void buttonSqrt(object sender, EventArgs e)
+        {
+            string answer;
+            Calculator result = new Calculator();
+            answer = result.Calc(calculation);
+            textBox.Text = result.Rooter(answer);
+
         }
         public void buttonEqual(object sender, EventArgs e)
         {
             Calculator result = new Calculator();
-            textBox.Text = result.Calc(calculation).ToString();
+            textBox.Text = result.Calc(calculation);
             calculation = string.Empty;
         }
     }
