@@ -55,5 +55,19 @@ namespace Calculator_Library
             }
             return y;
         }
+        public string Power(string x)
+        {
+            string left;
+            string right;
+            left = x.Substring(0, x.IndexOf("^"));
+            right = x.Substring(x.IndexOf("^") + 1);
+            x = Math.Pow(Convert.ToDouble(left), Convert.ToDouble(right)).ToString();
+            return x;
+        }
+        public string Replacer(string x)
+        {
+            x = x.Replace(",", ".");
+            return x;
+        }
     }
 }

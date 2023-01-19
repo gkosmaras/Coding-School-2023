@@ -18,6 +18,7 @@ namespace Session_09
             string entry = (sender as Button).Text;
             Calculator result = new Calculator();
             calculation = result.Parser(entry, calculation).ToString();
+            calculation = result.Replacer(calculation);
             textBox.Text = calculation;
         }
 
@@ -26,15 +27,30 @@ namespace Session_09
             string answer;
             Calculator result = new Calculator();
             answer = result.Calc(calculation);
-            textBox.Text = result.Rooter(answer);
-            calculation = string.Empty;
-
+            calculation = result.Rooter(answer);
+            calculation = result.Replacer(calculation);
+            textBox.Text = calculation;
         }
         public void buttonEqual(object sender, EventArgs e)
         {
             Calculator result = new Calculator();
-            textBox.Text = result.Calc(calculation);
+
+            if (calculation.Contains("^"))
+            {
+                calculation = result.Power(calculation);
+            }
+            else
+            {
+                calculation = result.Calc(calculation);
+            }
+            calculation = result.Replacer(calculation);
+            textBox.Text = calculation;
+
+        }
+        public void buttonClear(object sender, EventArgs e)
+        {
             calculation = string.Empty;
+            textBox.Text = calculation;
         }
     }
 }
