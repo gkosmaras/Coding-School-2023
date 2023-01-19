@@ -1,11 +1,12 @@
 using System.Data;
 using System.Xml.Serialization;
+using Calculator_Library;
 
 namespace Session_09
 {
     public partial class Form1 : Form
     {
-        private string calculation = "";
+        private string calculation = string.Empty;
         public Form1()
         {
             InitializeComponent();
@@ -18,9 +19,9 @@ namespace Session_09
         }
         public void buttonEqual(object sender, EventArgs e)
         {
-            DataTable dataTable = new DataTable();
-            textBox.Text = (dataTable.Compute(calculation, "")).ToString();
-            calculation = "";
+            Calculator result = new Calculator();
+            textBox.Text = result.Calc(calculation).ToString();
+            calculation = string.Empty;
         }
     }
 }
