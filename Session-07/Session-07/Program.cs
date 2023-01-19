@@ -10,7 +10,7 @@ internal class Program
 
         ActionRequest temp2 = new ActionRequest() { Input = "Pallindrome", Action = ActionEnum.Reverse };
 
-        ActionRequest temp3 = new ActionRequest() { Input = "28", Action = ActionEnum.Convert };
+        ActionRequest temp3 = new ActionRequest() { Input = "123", Action = ActionEnum.Convert };
 
 /*        string testVar = null;
 
