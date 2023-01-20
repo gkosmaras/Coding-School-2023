@@ -13,11 +13,12 @@ namespace Session_10.Libraries
         public Guid ProfessorID { get; set; }
         public DateTime Calendar { get; set; }
         
-        public Schedule()
+        public Schedule(Guid courseID, Guid professorID, DateTime time)
         {
             ID = Guid.NewGuid();
-            CourseID = Guid.NewGuid();
-            ProfessorID = Guid.NewGuid();
+            CourseID = courseID;
+            ProfessorID = professorID;
+            Calendar = time;
         }
     }
 }

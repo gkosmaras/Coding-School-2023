@@ -13,9 +13,12 @@ namespace Session_10.Libraries
         public Guid CourseID { get; set; }
         public int Score { get; set; }
 
-        public Grade()
+        public Grade(Guid studentID, Guid courseID, int score)
         {
             ID = Guid.NewGuid();
+            StudentID = studentID;
+            CourseID = courseID;
+            Score = score;
         }
     }
 }

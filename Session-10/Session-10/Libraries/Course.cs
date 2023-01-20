@@ -12,9 +12,11 @@ namespace Session_10.Libraries
         public string Code { get; set; }
         public string Subject { get; set; }
         
-        public Course()
+        public Course(string code, string subject)
         {
             ID = Guid.NewGuid();
+            Code = code;
+            Subject = subject;
         }
     }
 }
