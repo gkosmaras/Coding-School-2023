@@ -29,7 +29,7 @@ namespace Session_10.Libraries
             Students = new List<Student>();
             Courses = new List<Course>();
             Grades = new List<Grade>();
-            Professors = new List<Professor>()
+            Professors = new List<Professor>();
             Schedules = new List<Schedule>();
 
         }
