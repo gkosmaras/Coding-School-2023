@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Session_10.Libraries;
 
 namespace Session_10.Libraries
 {
@@ -16,27 +17,19 @@ namespace Session_10.Libraries
             ID = Guid.NewGuid();
         }
     }
-    public class Person
-    {
-        public Guid ID { get; set; }
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public Person()
-        {
-            ID = Guid.NewGuid();
-        }
-    }
     public class University : Institute
     {
         public List<Student> Students { get; set; }
+        public List<Course> Courses { get; set; }
+        public List<Grade> Grades { get; set; }
+        public List<Schedule> Schedules { get; set; }
         public University()
         {
             Students = new List<Student>();
+            Courses = new List<Course>();
+            Grades = new List<Grade>();
+            Schedules = new List<Schedule>();
+
         }
     }
-    public class Student : Person
-    {
-        public int RegistrationNumber { get; set; }
-    }
-
 }
