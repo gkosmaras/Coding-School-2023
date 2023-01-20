@@ -32,6 +32,8 @@
             this.grvCourses = new System.Windows.Forms.DataGridView();
             this.grvGrades = new System.Windows.Forms.DataGridView();
             this.grvSchedules = new System.Windows.Forms.DataGridView();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvStudents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvCourses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvGrades)).BeginInit();
@@ -71,11 +73,33 @@
             this.grvSchedules.Size = new System.Drawing.Size(517, 163);
             this.grvSchedules.TabIndex = 3;
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(12, 422);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(126, 70);
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSaver);
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Location = new System.Drawing.Point(949, 422);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(126, 70);
+            this.btnLoad.TabIndex = 5;
+            this.btnLoad.Text = "Load";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoader);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1173, 504);
+            this.Controls.Add(this.btnLoad);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.grvSchedules);
             this.Controls.Add(this.grvGrades);
             this.Controls.Add(this.grvCourses);
@@ -98,5 +122,7 @@
         private DataGridView grvCourses;
         private DataGridView grvGrades;
         private DataGridView grvSchedules;
+        private Button btnSave;
+        private Button btnLoad;
     }
 }
