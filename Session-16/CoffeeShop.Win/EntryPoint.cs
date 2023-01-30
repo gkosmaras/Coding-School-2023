@@ -1,4 +1,4 @@
-﻿using Library;
+﻿using CoffeeShop.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,44 +11,36 @@ using System.Windows.Forms;
 using System.IO;
 using static DevExpress.Utils.Svg.CommonSvgImages;
 
-namespace Session_11 {
-    public partial class EntryPoint : Form {
-
-        /*DevExpress.XtraGrid.GridControl gridControl;
-        DevExpress.XtraGrid.Views.Grid.GridView gridView;*/
-
-
-        
+namespace Session_11
+{
+    public partial class EntryPoint : Form
+    {
         public CoffeeShopData Data { get; set; }
         private CoffeeShopData _CoffeeShopData = new CoffeeShopData();
         Serializer serializer = new Serializer();
 
-        public EntryPoint() {
+        public EntryPoint()
+        {
             InitializeComponent();
-
         }
 
         public object LoadJson(string file)
         {
             object employees = serializer.DeserializeFromFile<CoffeeShopData>(file);
             return employees;
-
         }
-        private void btnManager_Click(object sender, EventArgs e) {
+        private void btnManager_Click(object sender, EventArgs e)
+        {
             this.Hide();
             ManagerForm form1 = new ManagerForm(_CoffeeShopData);
             form1.Show(); 
-
         }
 
-        private void btnCustomer_Click(object sender, EventArgs e) {
-            
+        private void btnCustomer_Click(object sender, EventArgs e)
+        {
             this.Hide();
-
             CustomerForm customer = new CustomerForm(_CoffeeShopData);
             customer.Show();
-
-            
         }
 
         public void btnLoadJson(object sender, EventArgs e)
@@ -57,20 +49,13 @@ namespace Session_11 {
             {
                 _CoffeeShopData = (CoffeeShopData)LoadJson("test1.json");
             }
-
-
         }
-        private void EntryPoint_Load(object sender, EventArgs e) {
+        private void EntryPoint_Load(object sender, EventArgs e)
+        {
             if (File.Exists("test1.json"))
             {
                 _CoffeeShopData = (CoffeeShopData)LoadJson("test1.json");
             }
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

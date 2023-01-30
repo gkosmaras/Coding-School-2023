@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
+	<TargetFramework>net7.0-windows</TargetFramework>
     <RootNamespace>Session_11</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -11,10 +12,12 @@
 
   <ItemGroup>
     <PackageReference Include="DevExpress.Win.Design" Version="22.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Library\CoffeeShop.Model.csproj" />
+    <ProjectReference Include="..\CoffeeShop.Model\CoffeeShop.Model.csproj" />
+    <ProjectReference Include="..\CoffeeShop.Orm\CoffeeShop.Orm.csproj" />
   </ItemGroup>
 
   <ItemGroup>

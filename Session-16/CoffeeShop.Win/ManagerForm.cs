@@ -5,11 +5,11 @@ using DevExpress.Utils.DPI;
 using DevExpress.XtraCharts;
 using DevExpress.XtraSpreadsheet.Export;
 using DevExpress.XtraSpreadsheet.Model;
-using Library;
+using CoffeeShop.Model;
 using System.Collections.ObjectModel;
 using System.Linq;
 using static DevExpress.Utils.Svg.CommonSvgImages;
-using static Library.Product;
+using static CoffeeShop.Model.Product;
 
 namespace Session_11
 {

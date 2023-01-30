@@ -15,7 +15,8 @@ namespace EF.Course.ORM.Configurations
         {
             builder.ToTable("Todo");
             builder.HasKey(todo => todo.ID);
-            builder.Property(todo => todo.Title).HasMaxLength(50);
+            builder.Property(todo => todo.ID).ValueGeneratedOnAdd();
+            builder.Property(todo => todo.Title).HasMaxLength(50).IsRequired(true);
         }
     }
 }
