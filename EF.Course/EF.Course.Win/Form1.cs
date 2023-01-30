@@ -1,4 +1,4 @@
-namespace WinFormsApp1
+namespace EF.Course.Win
 {
     public partial class Form1 : Form
     {

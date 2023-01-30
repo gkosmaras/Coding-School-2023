@@ -1,4 +1,4 @@
-namespace WinFormsApp1
+namespace EF.Course.Win
 {
     internal static class Program
     {
