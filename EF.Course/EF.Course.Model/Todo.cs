@@ -14,6 +14,7 @@ namespace EF.Course.Model
             Title = title;
         }
 
+        public int ID { get; set; }
         public string Title { get; set; }
         public bool Finished { get; set; }
     }

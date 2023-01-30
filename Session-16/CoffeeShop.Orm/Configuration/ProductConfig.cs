@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ef.Course.ORM
+namespace CoffeeShop.Orm.Configuration
 {
-    internal class TodoContext
+    internal class ProductConfig
     {
     }
 }

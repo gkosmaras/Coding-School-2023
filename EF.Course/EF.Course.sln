@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Course.Win", "EF.Course.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Course.Model", "EF.Course.Model\EF.Course.Model.csproj", "{94C33F6A-9C46-4B21-B994-050DB691983D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ef.Course.ORM", "Ef.Course.ORM\Ef.Course.ORM.csproj", "{EFEA921B-E25E-4F70-8C99-B26F556BCBE5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Course.ORM", "Ef.Course.ORM\EF.Course.ORM.csproj", "{EFEA921B-E25E-4F70-8C99-B26F556BCBE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
