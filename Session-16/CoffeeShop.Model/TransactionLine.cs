@@ -16,6 +16,8 @@ namespace CoffeeShop.Model
         public decimal Price { get; set; }
         public decimal TotalCost { get; set; }        
         public decimal TotalPrice { get; set; }
+        public Transaction Transaction { get; set; }
+        public Product Product { get; set; }
 
         public TransactionLine()
         {

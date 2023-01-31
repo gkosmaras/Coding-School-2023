@@ -22,7 +22,7 @@ namespace CoffeeShop.Orm.Configuration
             builder.Property(ee => ee.Name).HasMaxLength(30);
             builder.Property(ee => ee.Surname).HasMaxLength(30);
             builder.Property(ee => ee.TypeOfEmployee).HasMaxLength(10);
-            builder.Property(ee => ee.SalaryPerMonth);
+            builder.Property(ee => ee.SalaryPerMonth).HasColumnType("decimal(5,2)").HasPrecision(5, 2);
         }
     }
 }

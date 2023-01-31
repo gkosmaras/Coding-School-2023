@@ -15,12 +15,17 @@ namespace CoffeeShop.Orm.Configuration
         {
             builder.ToTable("Products");
             builder.HasKey(prod => prod.ID);
-            builder.Property(prod => prod.Code).HasMaxLength(10);
-            builder.Property(prod => prod.Description).HasMaxLength(30);
+            builder.Property(prod => prod.Code)
+                    .HasMaxLength(10);
+            builder.Property(prod => prod.Description)
+                    .HasMaxLength(30);
             builder.Property(prod => prod.ProductCategoryID);
             builder.Property(prod => prod.TypeOfProduct);
             builder.Property(prod => prod.Price);
             builder.Property(prod => prod.Cost);
+            builder.HasOne(prod => prod.ProductCategory)
+                    .WithOne(prodCat => prodCat.Product)
+                    .HasForeignKey<Product>(prod => prod.ID)
         }
     }
 }
