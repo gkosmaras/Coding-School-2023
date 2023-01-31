@@ -21,9 +21,9 @@ namespace CoffeeShop.Orm.Configuration
                 .HasMaxLength(10);
             builder.Property(prodCat => prodCat.ProductType)
                 .HasMaxLength(10);
-            builder.HasOne(prodCat => prodCat.Product)
+/*            builder.HasOne(prodCat => prodCat.Product)
                     .WithOne(prod => prod.ProductCategory)
-                    .HasForeignKey<Product>(prod => prod.ProductCategoryID);
+                    .HasForeignKey<Product>(prod => prod.ProductCategoryID);*/
         }
     }
 }

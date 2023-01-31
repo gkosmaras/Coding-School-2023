@@ -8,6 +8,7 @@ using DevExpress.XtraSpreadsheet.Model;
 using CoffeeShop.Model;
 using System.Collections.ObjectModel;
 using System.Linq;
+using CoffeeShop.Orm.Repositories;
 using static DevExpress.Utils.Svg.CommonSvgImages;
 using static CoffeeShop.Model.Product;
 
@@ -17,15 +18,17 @@ namespace Session_11
        
         public CoffeeShopData Data { get; set; }
         private CoffeeShopData _CoffeeShopData=new CoffeeShopData();
-        List<Product> products;
+/*        List<Product> products;
         List<Employee> employees;
-        List<TransactionLine> transaction_Lines;
+        List<TransactionLine> transaction_Lines;*/
         Serializer serializer = new Serializer();
+        private ProductRepository _productRepo = new ProductRepository();
 
         public ManagerForm(CoffeeShopData test) 
         {
-            _CoffeeShopData = test;
+            //_CoffeeShopData = test;
             InitializeComponent();
+            Refreshed();
             btnSaveEmployees.Enabled = false;
             btnSaveProducts.Enabled = false;
         }
@@ -69,9 +72,17 @@ namespace Session_11
             cmbProType.Text = "";
             txtPrice.Text = "";
             txtCost.Text = "";
-            _CoffeeShopData.products.Add(newProduct);
+            _productRepo.Add(newProduct);
+            Refreshed();
+/*            gridProducts.DataSource = null;
+            gridProducts.DataSource = _CoffeeShopData.products;*/
+        }
+        private void Refreshed()
+        {
             gridProducts.DataSource = null;
-            gridProducts.DataSource = _CoffeeShopData.products;
+            gridProducts.DataSource = _productRepo.GetAll();
+            gridProducts.Update();
+            gridProducts.Refresh();
         }
         public void btnSaveJson(object sender, EventArgs e)
         {

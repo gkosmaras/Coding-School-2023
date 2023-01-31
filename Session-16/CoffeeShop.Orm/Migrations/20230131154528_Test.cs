@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CoffeeShop.Orm.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,17 +40,17 @@ namespace CoffeeShop.Orm.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductCategory",
+                name: "ProductCategories",
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Code = table.Column<int>(type: "int", maxLength: 5, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    ProductType = table.Column<int>(type: "int", maxLength: 10, nullable: false)
+                    Code = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductCategory", x => x.ID);
+                    table.PrimaryKey("PK_ProductCategories", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,8 +62,8 @@ namespace CoffeeShop.Orm.Migrations
                     CustomerID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EmployeeID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TypeOfPayment = table.Column<int>(type: "int", nullable: false),
-                    Cost = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(5,2)", nullable: false)
+                    Cost = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,16 +91,16 @@ namespace CoffeeShop.Orm.Migrations
                     Description = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     ProductCategoryID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TypeOfProduct = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
+                    Cost = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Products_ProductCategory_ProductCategoryID",
+                        name: "FK_Products_ProductCategories_ProductCategoryID",
                         column: x => x.ProductCategoryID,
-                        principalTable: "ProductCategory",
+                        principalTable: "ProductCategories",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -114,9 +114,9 @@ namespace CoffeeShop.Orm.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TotalCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
+                    TotalCost = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -161,7 +161,7 @@ namespace CoffeeShop.Orm.Migrations
                 name: "Transactions");
 
             migrationBuilder.DropTable(
-                name: "ProductCategory");
+                name: "ProductCategories");
 
             migrationBuilder.DropTable(
                 name: "Customers");

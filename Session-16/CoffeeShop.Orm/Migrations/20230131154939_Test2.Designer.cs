@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeShop.Orm.Migrations
 {
     [DbContext(typeof(AddDbContext))]
-    [Migration("20230131134502_Initial")]
-    partial class Initial
+    [Migration("20230131154939_Test2")]
+    partial class Test2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,7 +85,8 @@ namespace CoffeeShop.Orm.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -93,7 +94,8 @@ namespace CoffeeShop.Orm.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<Guid>("ProductCategoryID")
                         .HasColumnType("uniqueidentifier");
@@ -116,21 +118,18 @@ namespace CoffeeShop.Orm.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Code")
-                        .HasMaxLength(5)
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductType")
-                        .HasMaxLength(10)
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.ToTable("ProductCategory", (string)null);
+                    b.ToTable("ProductCategory");
                 });
 
             modelBuilder.Entity("CoffeeShop.Model.Transaction", b =>
@@ -139,6 +138,7 @@ namespace CoffeeShop.Orm.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Cost")
+                        .HasPrecision(5, 2)
                         .HasColumnType("decimal(5, 2)");
 
                     b.Property<Guid>("CustomerID")
@@ -151,6 +151,7 @@ namespace CoffeeShop.Orm.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("TotalPrice")
+                        .HasPrecision(5, 2)
                         .HasColumnType("decimal(5, 2)");
 
                     b.Property<int>("TypeOfPayment")
@@ -174,7 +175,8 @@ namespace CoffeeShop.Orm.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<Guid>("ProductID")
                         .HasColumnType("uniqueidentifier");
@@ -183,10 +185,12 @@ namespace CoffeeShop.Orm.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalCost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.HasKey("ID");
 

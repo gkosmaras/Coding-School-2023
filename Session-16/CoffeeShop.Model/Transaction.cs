@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CoffeeShop.Model
 {
-    public class Transaction {
+    public class Transaction : IEntityBase
+    {
         public enum MethodPayment {
             Cash,
             Credit_Card

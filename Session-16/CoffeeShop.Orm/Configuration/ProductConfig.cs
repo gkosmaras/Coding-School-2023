@@ -27,9 +27,9 @@ namespace CoffeeShop.Orm.Configuration
             builder.Property(prod => prod.Cost)
                     .HasColumnType("decimal(5,2)")
                     .HasPrecision(5, 2);
-            builder.HasOne(prod => prod.ProductCategory)
+/*            builder.HasOne(prod => prod.ProductCategory)
                     .WithOne(prodCat => prodCat.Product)
-                    .HasForeignKey<Product>(prod => prod.ID);
+                    .HasForeignKey<Product>(prod => prod.ID);*/
         }
     }
 }

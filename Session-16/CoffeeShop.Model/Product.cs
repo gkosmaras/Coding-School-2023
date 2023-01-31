@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CoffeeShop.Model
 {
-    public class Product  {
-
+    public class Product : IEntityBase 
+    {
         public enum ProductType {
             Coffee,
             Beverages,

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoffeeShop.Model
 {
-    public class TransactionLine
+    public class TransactionLine : IEntityBase
     {
         public Guid ID { get; set; }
         public Guid ProductID { get; set; }

@@ -10,7 +10,7 @@ namespace CoffeeShop.Model
         Waiter
     }
 
-    public class Employee
+    public class Employee : IEntityBase
     {
        public Guid ID { get; set; }
        public string Name { get; set; }

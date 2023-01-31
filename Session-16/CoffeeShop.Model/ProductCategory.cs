@@ -7,7 +7,8 @@ using static CoffeeShop.Model.Product;
 
 namespace CoffeeShop.Model
 {
-    public class ProductCategory {
+    public class ProductCategory : IEntityBase
+    {
         public Guid ID { get; set; }
         public int Code { get; set; }
         public string Description { get; set; }
