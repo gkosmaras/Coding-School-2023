@@ -19,10 +19,15 @@ namespace CoffeeShop.Orm.Configuration
             builder.Property(transln => transln.Date);
             builder.Property(transln => transln.Description);
             builder.Property(transln => transln.Quantity);
-            builder.Property(transln => transln.Price);
-            builder.Property(transln => transln.TotalCost);
-            builder.Property(transln => transln.TotalPrice);
-
+            builder.Property(transln => transln.Price)
+                    .HasColumnType("decimal(5,2)")
+                    .HasPrecision(5, 2);
+            builder.Property(transln => transln.TotalCost)
+                    .HasColumnType("decimal(5,2)")
+                    .HasPrecision(5, 2);
+            builder.Property(transln => transln.TotalPrice)
+                    .HasColumnType("decimal(5,2)")
+                    .HasPrecision(5, 2);
         }
     }
 }

@@ -21,11 +21,15 @@ namespace CoffeeShop.Orm.Configuration
                     .HasMaxLength(30);
             builder.Property(prod => prod.ProductCategoryID);
             builder.Property(prod => prod.TypeOfProduct);
-            builder.Property(prod => prod.Price);
-            builder.Property(prod => prod.Cost);
+            builder.Property(prod => prod.Price)
+                    .HasColumnType("decimal(5,2)")
+                    .HasPrecision(5, 2);
+            builder.Property(prod => prod.Cost)
+                    .HasColumnType("decimal(5,2)")
+                    .HasPrecision(5, 2);
             builder.HasOne(prod => prod.ProductCategory)
                     .WithOne(prodCat => prodCat.Product)
-                    .HasForeignKey<Product>(prod => prod.ID)
+                    .HasForeignKey<Product>(prod => prod.ID);
         }
     }
 }

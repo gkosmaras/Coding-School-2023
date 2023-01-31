@@ -17,6 +17,7 @@ namespace CoffeeShop.Model
        public string Surname { get; set; }
        public EmployeeType TypeOfEmployee { get; set; }
         public decimal SalaryPerMonth { get; set; }
+        public Transaction Transaction { get; set; }
         public Employee()
         {
             ID = Guid.NewGuid();
