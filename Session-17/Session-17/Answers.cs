@@ -20,7 +20,7 @@ namespace Session_17
                 "Ναι, καθώς τα GET είναι τρόπος παραλαβής δεδομένων από server.",
                 "Κάνοντας χρήση API της μορφής Webhook, μπορούμε να έχουμε μόνο POST requests.",
                 "400 Bad Request, καθώς στο documentation αναφέρει [...]client error (e.g., malformed request syntax, invalid request message framing[...]",
-                "Αν η δεν υπάρχει επικοινωνία λόγω πτώσης του server ή maintenance τότε 503 Service Unavailable. Ειδάλλως 502 Bad Gateway.",
+                "Αν δεν υπάρχει επικοινωνία λόγω πτώσης του server ή maintenance τότε 503 Service Unavailable. Ειδάλλως 502 Bad Gateway.",
                 "Ναι, αλλά καθώς πρόκεται για προσωπικά δεδομένα, καλύτερα να τα στέλνουμε κάνοντας χρήση της POST.",
                 "To POST δημιουργεί ένα καινούριο αντικείμενο στο url του server κάθε φορά που καλείται, και το μόνο που απαιτέιται να γνωρίζουμε είναι το ίδιο το host url. Στέλνοντας δύο φορές την ίδια POST request δημιουργεί δύο αντικείμενα. Το PUT απαιτεί από τον χρήστη να ορίσει το url (host + endpoint). Αν το αντικείμενο υπάρχει ήδη, αντικαθίσταται.",
                 "Χρησιμοποιούμε την μέθοδο POST, επιλέγουμε την καρτέλα Body -> binary, και select file για να επισυνάψουμε το αρχείο."
