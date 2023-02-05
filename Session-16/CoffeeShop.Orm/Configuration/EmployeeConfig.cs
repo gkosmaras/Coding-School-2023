@@ -1,5 +1,6 @@
 ﻿using CoffeeShop.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,7 @@ namespace CoffeeShop.Orm.Configuration
         {
 
         }
-
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Employee> builder)
+        public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.ToTable("Employees");
             builder.HasKey(ee => ee.ID);
@@ -26,11 +26,8 @@ namespace CoffeeShop.Orm.Configuration
             builder.Property(ee => ee.TypeOfEmployee)
                     .HasMaxLength(10);
             builder.Property(ee => ee.SalaryPerMonth)
-                    .HasColumnType("decimal(5,2)")
-                    .HasPrecision(5, 2);
-            builder.HasOne(ee => ee.Transaction)
-                    .WithOne(trans => trans.Employee)
-                    .HasForeignKey<Transaction>(trans => trans.ID);
+                    .HasColumnType("decimal(6,1)")
+                    .HasPrecision(6, 2);
         }
     }
 }

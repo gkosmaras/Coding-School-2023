@@ -8,7 +8,7 @@ using CoffeeShop.Orm.Context;
 
 namespace CoffeeShop.Orm.Repositories
 {
-    public class TransactionRepository : IEntityRepository<Transaction>
+/*    public class TransactionRepository : IEntityRepository<Transaction>
     {
         public void Add(Transaction ent)
         {
@@ -54,5 +54,5 @@ namespace CoffeeShop.Orm.Repositories
             tempTrans.Cost = ent.Cost;
             context.SaveChanges();
         }
-    }
+    }*/
 }

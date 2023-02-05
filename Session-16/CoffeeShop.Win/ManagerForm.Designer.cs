@@ -69,6 +69,7 @@
             this.btnLedger = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.btnLoadEmployees = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridProducts)).BeginInit();
@@ -514,12 +515,23 @@
             this.label10.TabIndex = 40;
             this.label10.Text = "Products";
             // 
-            // Form1
+            // btnLoadEmployees
+            // 
+            this.btnLoadEmployees.Location = new System.Drawing.Point(579, 89);
+            this.btnLoadEmployees.Name = "btnLoadEmployees";
+            this.btnLoadEmployees.Size = new System.Drawing.Size(163, 35);
+            this.btnLoadEmployees.TabIndex = 41;
+            this.btnLoadEmployees.Text = "Load";
+            this.btnLoadEmployees.UseVisualStyleBackColor = true;
+            this.btnLoadEmployees.Click += new System.EventHandler(this.btnLoadEmployees_Click);
+            // 
+            // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(1549, 679);
+            this.Controls.Add(this.btnLoadEmployees);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnLedger);
@@ -548,7 +560,7 @@
             this.Controls.Add(this.txtSalary);
             this.Controls.Add(this.txtSurname);
             this.Controls.Add(this.txtName);
-            this.Name = "Form1";
+            this.Name = "ManagerForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridEmployee)).EndInit();
@@ -612,5 +624,6 @@
         private Button btnLedger;
         private Label label1;
         private Label label10;
+        private Button btnLoadEmployees;
     }
 }

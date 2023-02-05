@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CoffeeShop.Orm.Repositories
 {
-    public class ProductRepository : IEntityRepository<Product>
+/*    public class ProductRepository : IEntityRepository<Product>
     {
         public void Add(Product ent)
         {
@@ -52,6 +52,6 @@ namespace CoffeeShop.Orm.Repositories
             tempPro.ProductCategory = ent.ProductCategory;
             context.SaveChanges();
         }
-    }
+    }*/
 }
 

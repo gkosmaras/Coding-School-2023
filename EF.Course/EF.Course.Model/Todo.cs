@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EF.Course.Model
 {
-    public class Todo
+    public class Todo : EntityBase
     {
         public Todo(string title)
         {
             Title = title;
+            TodoComments = new List<TodoComment>();
         }
 
-        public int ID { get; set; }
+        [Required]
         public string Title { get; set; }
+
         public bool Finished { get; set; }
+
+        // Relations
+
+        public TodoInfo TodoInfo { get; set; } = null!;
+        public List<TodoComment> TodoComments { get; set; }
     }
 }

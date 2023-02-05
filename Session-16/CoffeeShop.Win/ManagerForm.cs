@@ -11,6 +11,7 @@ using System.Linq;
 using CoffeeShop.Orm.Repositories;
 using static DevExpress.Utils.Svg.CommonSvgImages;
 using static CoffeeShop.Model.Product;
+using Microsoft.EntityFrameworkCore;
 
 namespace Session_11
 {
@@ -22,13 +23,13 @@ namespace Session_11
         List<Employee> employees;
         List<TransactionLine> transaction_Lines;*/
         Serializer serializer = new Serializer();
-        private ProductRepository _productRepo = new ProductRepository();
+        private EmployeeRepository _eeRepo = new EmployeeRepository();
 
         public ManagerForm(CoffeeShopData test) 
         {
             //_CoffeeShopData = test;
             InitializeComponent();
-            Refreshed();
+            refreshEmployees();
             btnSaveEmployees.Enabled = false;
             btnSaveProducts.Enabled = false;
         }
@@ -36,7 +37,6 @@ namespace Session_11
         private void Form1_Load(object sender, EventArgs e) 
         {
             gridProducts.DataSource = _CoffeeShopData.products;
-            gridEmployee.DataSource = _CoffeeShopData.employees;
         }
         public void WriteJson(object obj, string file) 
         {
@@ -54,9 +54,8 @@ namespace Session_11
             txtSurname.Text = "";
             cmbType.Text = "";
             txtSalary.Text = "";
-            _CoffeeShopData.employees.Add(newEmployee);
-            gridEmployee.DataSource = null;
-            gridEmployee.DataSource = _CoffeeShopData.employees;
+            _eeRepo.Add(newEmployee);
+            refreshEmployees();
         }
         public void btnSaveProductsClick(object sender, EventArgs e)
         {
@@ -72,21 +71,33 @@ namespace Session_11
             cmbProType.Text = "";
             txtPrice.Text = "";
             txtCost.Text = "";
-            _productRepo.Add(newProduct);
-            Refreshed();
-/*            gridProducts.DataSource = null;
-            gridProducts.DataSource = _CoffeeShopData.products;*/
-        }
-        private void Refreshed()
-        {
             gridProducts.DataSource = null;
-            gridProducts.DataSource = _productRepo.GetAll();
-            gridProducts.Update();
-            gridProducts.Refresh();
+            gridProducts.DataSource = _CoffeeShopData.products;
+        }
+        public void refreshEmployees()
+        {
+            gridEmployee.DataSource = null;
+            gridEmployee.DataSource = _eeRepo.GetAll();
+            gridEmployee.Update();
+            gridEmployee.Refresh();
+        }
+        public void btnLoadEmployees_Click(object sender, EventArgs e)
+        {
+            refreshEmployees();
         }
         public void btnSaveJson(object sender, EventArgs e)
         {
-            WriteJson(_CoffeeShopData, "test1.json") ;
+            List<Employee> employees = _eeRepo.GetAll();
+            foreach(var ee in employees)
+            {
+                _eeRepo.Delete(ee.ID);
+            }
+            employees = gridEmployee.DataSource as List<Employee>;
+            foreach (var ee in employees)
+            {
+                _eeRepo.Add(ee);
+            }
+            //WriteJson(_CoffeeShopData, "test1.json") ;
         }
         private bool setEmployeeButtonVisibility()
         {
@@ -176,7 +187,5 @@ namespace Session_11
             EntryPoint entryPoint = new EntryPoint();
             entryPoint.Show();
         }
-
-
     } 
 }

@@ -9,12 +9,12 @@ using CoffeeShop.Orm.Repositories;
 
 namespace CoffeeShop.EF.Repositories
 {
-    public class CustomerRepository : IEntityRepository<Customer>
+/*    public class CustomerRepository : IEntityRepository<Customer>
     {
         public void Add(Customer ent)
         {
             using var context = new AddDbContext();
-            context.Customers.Add(ent);
+            context.Customer.Add(ent);
             context.SaveChanges();
         }
         public void Delete(Guid id)
@@ -47,5 +47,5 @@ namespace CoffeeShop.EF.Repositories
             tempCus.Transaction = ent.Transaction;
             context.SaveChanges();
         }
-    }
+    }*/
 }

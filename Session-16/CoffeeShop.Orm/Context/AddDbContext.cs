@@ -12,23 +12,23 @@ namespace CoffeeShop.Orm.Context
 {
     public class AddDbContext: DbContext
     {
-        public DbSet<Customer> Customers { get; set; }
+/*        public DbSet<Customer> Customers { get; set; }*/
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Product> Products { get; set; }
-        //public DbSet<ProductCategory> ProductCategories { get; set; }
+/*        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<TransactionLine> TransactionLines { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new CustomerConfig());
+/*            modelBuilder.ApplyConfiguration(new CustomerConfig());*/
             modelBuilder.ApplyConfiguration(new EmployeeConfig());
-            modelBuilder.ApplyConfiguration(new ProductConfig());
-            //modelBuilder.ApplyConfiguration(new ProductCatConfig());
+/*            modelBuilder.ApplyConfiguration(new ProductConfig());
+            modelBuilder.ApplyConfiguration(new ProductCatConfig());
             modelBuilder.ApplyConfiguration(new TransactionLineConfig());
-            modelBuilder.ApplyConfiguration(new TransactionConfig());
+            modelBuilder.ApplyConfiguration(new TransactionConfig());*/
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
