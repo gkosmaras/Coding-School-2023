@@ -4,7 +4,7 @@ body
     display: flex;
     flex-direction: column;
     color: black;
-    font-size:  1.1rem;
+    font-size:  1.2rem;
     box-sizing: border-box;
     margin: auto;
 }
@@ -31,6 +31,11 @@ header
     color: green; 
     text-decoration: none;
 }
+h1 
+{
+    font-weight: normal;
+    text-align: center;
+}
 .content 
 {
     padding: 20px;
@@ -50,20 +55,9 @@ header
 {
     margin-left:-60px;
 }
-.side
+.main h2
 {
-    padding-left: 10px;
-}
-.side-links li 
-{
-    padding: 5px 0;
-    list-style: none;
-    padding-left: 10px;
-}
-.side-links a 
-{
-	color: green;
-	text-decoration: none;
+    font-size: larger;
 }
 .form-item input 
 {
@@ -81,11 +75,6 @@ header
     min-height: 100px;
     margin-top: 10px;
 }
-h1 
-{
-    font-weight: normal;
-    text-align: center;
-}
 .form-item label 
 {
    font-weight: normal; 
@@ -96,4 +85,65 @@ button
     border-radius: 10px;
     background-color: darkgreen;
     color: white;
+}
+.side h2
+{
+    padding-left: 50px;
+}
+.side
+{
+    padding-left: 10px;
+}
+.side-links li 
+{
+    border-bottom: 1px solid lightgray;
+    padding: 5px 0;
+    list-style: none;
+    padding-left: 10px;
+}
+.side-links a 
+{
+	color: green;
+	text-decoration: none;
+}
+
+@media (max-width: 1080px) { 
+    body
+    {
+        font-size:20px;
+        max-width:max-content;
+        
+    }
+    header
+    {
+        flex-direction:column;
+    }
+    .nav{
+        flex-direction:column;
+    }
+    .nav li
+    {
+        padding:10px 0;
+    }
+    .content
+    {
+        padding:10px;
+    }
+    .article
+    {
+        flex-direction:column;
+        padding-left:50px;
+    }
+    .article-img
+    {
+        margin-top:0;
+    }
+    .main
+    {
+        margin-left:0;
+    }
+    .side
+    {
+        padding-left:0;
+    }
 }
