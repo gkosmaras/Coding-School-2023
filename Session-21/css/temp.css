@@ -1,24 +1,99 @@
-.boxes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  background-color: lightgray;
-  align-items: center;
-
-}
-.logo 
+body
 {
-    padding: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    font-size:  1.1rem;
+    box-sizing: border-box;
+    margin: auto;
+}
+header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:lightgray;
+    padding: 0px 15px;
+}
+.nav
+{
+    list-style: none;
+    display: flex;
 }
 .nav li
 {
-    display: inline-block;
-    list-style: none;
+    display: inline;
     padding: 10px;
-    gap: 1.4rem;   
 }
-.nav a
+.nav li a
 {
+    color: green; 
     text-decoration: none;
-    color: green;
+}
+.content 
+{
+    padding: 20px;
+    margin: 0 auto;
+}
+.article 
+{
+    display: flex;
+    margin-left:-50px;
+}
+.article-img
+{
+    scale:80%;
+    margin-top: -60px;
+}
+.main
+{
+    margin-left:-60px;
+}
+.side
+{
+    padding-left: 10px;
+}
+.side-links li 
+{
+    padding: 5px 0;
+    list-style: none;
+    padding-left: 10px;
+}
+.side-links a 
+{
+	color: green;
+	text-decoration: none;
+}
+.form-item input 
+{
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+.form-item textarea 
+{
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    min-height: 100px;
+    margin-top: 10px;
+}
+h1 
+{
+    font-weight: normal;
+    text-align: center;
+}
+.form-item label 
+{
+   font-weight: normal; 
+}
+button 
+{
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: darkgreen;
+    color: white;
 }
