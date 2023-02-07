@@ -1,3 +1,4 @@
+//Excercise 1
 function reverseStr()
 {
     let input = document.getElementById("in-reverse").value;
@@ -5,6 +6,7 @@ function reverseStr()
     let result = temp.join("");
     document.getElementById("out-reverse").value = result;
 }
+//Excercise 2
 function checkPalindrome()
 {
     let input = document.getElementById("pal-in").value;
@@ -21,21 +23,71 @@ function checkPalindrome()
         document.getElementById("pal-out").style.backgroundColor="#FFCCCB"
     }
 }
+//Excercise 3
 
-function Inputs() {
+let customers = [];
+
+function saveCustomer()
+{
+    let name = document.getElementById('name').value;
+    let surname = document.getElementById('surname').value;
+    let age = document.getElementById('age').value;
+    let gender = document.getElementById('gender').value;
+    document.getElementById('name').value = "";
+    document.getElementById('surname').value = "";
+    document.getElementById('age').value = "";
+    document.getElementById('gender').value = "";
+    customers.push({ name, surname, age, gender });
+    renderCustomers();
+}
+
+function renderCustomers()
+{
+    let customerTableBody = document.getElementById('customerTableBody');
+    customerTableBody.innerHTML = '';
+    customers.forEach(customer =>
+    {
+        let tr = document.createElement('tr');
+        tr.innerHTML = `
+      <td>${customer.name}</td>
+      <td>${customer.surname}</td>
+      <td>${customer.age}</td>
+      <td>${customer.gender}</td>`;
+        tr.addEventListener('click', () =>
+        {
+            renderCustomerDetails(customer);
+        });
+        customerTableBody.appendChild(tr);
+    });
+}
+
+function renderCustomerDetails(customer)
+{
+    document.getElementById('name').value = customer.name;
+    document.getElementById('surname').value = customer.surname;
+    document.getElementById('age').value = customer.age;
+    document.getElementById('gender').value = customer.gender;
+}
+
+//Excercise 4
+function Inputs() 
+{
     let a = document.getElementById("a").value;
     let b = document.getElementById("b").value;
-    document.getElementById("output-multiply").value = multiply(a, b);
-
+    if(isNaN(a) || isNaN(b))
+    {
+        window.alert("Invalid input")
+    }
+    else
+    {
+        document.getElementById("output-multiply").value = multiply(a, b);
+    }
 }
-
-
 function multiply(a, b)
 {
-    return a*b;
+    return a * b;
 }
-
-
+//Excercise 5
 function addToStr()
 {
     let input = document.getElementById("string-in").value;

@@ -3,17 +3,16 @@
 
 <body>
   <h1>Session-22</h1>
-  <br>
   <h2>1) Reverse String</h2>
   <div class="container" id="exc1">
       <div class="input-reverse">
-          Text to be reversed:
+          Text to be reversed:<br>
           <span id="label-input"></span>
           <input type="text" id="in-reverse">
           <button type="button" onclick="reverseStr()">Reverse!</button>
       </div>
       <div class="output-reverse">
-          Reversed text:
+          Reversed text:<br>
           <span id="label-output"></span>
           <input type="text" id="out-reverse">
       </div>
@@ -21,50 +20,77 @@
   <h2>2) Palindrome Checker</h2>
   <div class="container" id="exc2">
       <div class="palindrome-in">
-        Text to be checked:
+        Text to be checked:<br>
         <span id="label-input"></span>
         <input type="text" id="pal-in">
         <button type="button" onclick="checkPalindrome()">Check!</button>
       </div>
       <div class="palindrome-out">
-        Is palindrome?
+        Is palindrome?<br>
         <span id="label-output"></span>
         <input type="text" id="pal-out">
       </div>
   </div>
-
-  <div class="Exercise-Four">
-    <h2>4) Multiplication</h2>
-    <div class="container" id="exc4">
+  <h2>3) Customers</h3>
+  <form>
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" name="name"><br />
+      <label for="surname">Surname:</label><br />
+      <input type="text" id="surname" name="surname"><br />
+      <label for="age">Age:</label><br />
+      <input type="number" id="age" name="age"><br />
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+      </select><br />
+      <button type="button" onclick="saveCustomer()">Save</button>
+  </form>
+  <table id="customerTable">
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Age</th>
+              <th>Gender</th>
+          </tr>
+      </thead>
+      <tbody id="customerTableBody">
+      </tbody>
+  </table>
+  <h2>4) Multiplication</h2>
+  <div class="container" id="exc4">
+    <div class="number-input">
+      <!-- We could also set the input type to number and do away with the input checker -->
         <div class="input-a">
-            A:
+            A:<br>
             <span id="label-first"></span>
-            <input type="number" id="a" value="">
+            <input type="text" id="a" value="">
         </div>
         <div class="input-b">
-            B:
+            B:<br>
             <span id="label-second"></span>
-            <input type="number" id="b" value="">
-            <button type="button" onclick="multiply()">Multiply!</button>
+            <input type="text" id="b" value="">
+            <button type="button" onclick="Inputs()">Multiply!</button>
         </div>
         <div class="output-multiply">
-            Result:
+            Result:<br>
             <span id="label-multiply"></span>
             <input type="text" id="output-multiply">
         </div>
     </div>
-</div>
-
+  </div>
   <h2>5) Adding numbers</h2>
   <div class="container" id="exc5">
       <div class="string-input">
-        Enter a string:
+        Enter a string:<br>
         <span id="label-input"></span>
-        <input type="text" id="string-in" value="deified">
+        <input type="text" id="string-in">
         <button type="button" onclick="addToStr()">Go!</button>
       </div>
       <div class="string-output">
-        Answer:
+        Answer:<br>
         <span id="label-output"></span>
         <input type="text" id="string-out">
       </div>
