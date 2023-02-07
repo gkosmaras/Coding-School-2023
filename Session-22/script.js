@@ -13,3 +13,19 @@ function palindromise()
     document.getElementById("pal-out").value = (temp == input).toString();
 }
 
+function addToStr()
+{
+    let input = document.getElementById("string-in").value;
+    var regex = new RegExp(/\d+$/);
+    var digits = input.match(regex);
+    var chars = input.replace(digits, "");
+    if (digits == null)
+    {
+        digits = "1"
+    }
+    else
+    {
+        digits = (parseInt(digits)+1).toString();
+    }
+    document.getElementById("string-out").value = (chars + digits);
+}
