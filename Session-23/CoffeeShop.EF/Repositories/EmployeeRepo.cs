@@ -22,8 +22,10 @@ namespace CoffeeShop.EF.Repositories
         {
             using var context = new CoffeeShopDbContext();
             var fEmployee = context.Employees.SingleOrDefault(employee => employee.Id == id);
-            if (fEmployee == null)
+            if (fEmployee is null)
+            {
                 throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
+            }
             context.Employees.Remove(fEmployee);
             context.SaveChanges();
         }
@@ -31,8 +33,10 @@ namespace CoffeeShop.EF.Repositories
         {
             using var context = new CoffeeShopDbContext();
             var fEmployee = context.Employees.SingleOrDefault(employee => employee.Id == id);
-            if (fEmployee == null)
-                throw new KeyNotFoundException($"Given ID '{ id }' was not found in the database");
+            if (fEmployee is null)
+            {
+                throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
+            }
             fEmployee.Name = employee.Name;
             fEmployee.Surname = employee.Surname;
             fEmployee.SalaryPerMonth = employee.SalaryPerMonth;

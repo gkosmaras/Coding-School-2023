@@ -14,6 +14,10 @@ namespace CoffeeShop.EF.Repositories
         public void Create(Customer customer)
         {
             using var context = new CoffeeShopDbContext();
+            if (customer.Id != 0)
+            {
+                throw new ArgumentException("Given customer should not have an ID set", nameof(customer));
+            }
             context.Customers.Add(customer);
             context.SaveChanges();
         }
@@ -21,9 +25,9 @@ namespace CoffeeShop.EF.Repositories
         {
             using var context = new CoffeeShopDbContext();
             var fCustomer = context.Customers.SingleOrDefault(customer => customer.Id == id);
-            if (fCustomer == null)
+            if (fCustomer is null)
             {
-                return;
+                throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
             context.Customers.Remove(fCustomer);
             context.SaveChanges();
@@ -32,8 +36,10 @@ namespace CoffeeShop.EF.Repositories
         {
             using var context = new CoffeeShopDbContext();
             var fCustomer = context.Customers.SingleOrDefault(customer => customer.Id == id);
-            if (fCustomer == null)
-                return;
+            if (fCustomer is null)
+            {
+                throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
+            }
             fCustomer.Code = customer.Code;
             fCustomer.Description = customer.Description;
             fCustomer.Transactions = customer.Transactions;
