@@ -14,7 +14,9 @@ namespace CoffeeShop.EF.Repositories
         {
             using var context = new CoffeeShopDbContext();
             if (employee.Id != 0)
+            {
                 throw new ArgumentException("Given employee should not have an ID set", nameof(employee));
+            }
             context.Employees.Add(employee);
             context.SaveChanges();
         }
