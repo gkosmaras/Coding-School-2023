@@ -32,11 +32,12 @@ namespace CoffeeShop.EF.Repositories
         {
             if (customer.Id != 0)
             {
-                throw new ArgumentException("Given entity should not have an ID set", nameof(customer));
-                var lastId = _customers.OrderBy(customer => customer.Id).Last().Id;
-                customer.Id = ++lastId;
-                _customers.Add(customer);
+                throw new ArgumentException("Given customer should not have an ID set", nameof(customer));
             }
+            var lastId = _customers.OrderBy(customer => customer.Id).Last().Id;
+            customer.Id = ++lastId;
+            _customers.Add(customer);
+
         }
         public void Delete(int id)
         {
