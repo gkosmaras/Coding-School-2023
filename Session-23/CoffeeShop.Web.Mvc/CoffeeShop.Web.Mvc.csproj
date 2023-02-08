@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Mock\**" />
+    <Content Remove="Views\Mock\**" />
+    <EmbeddedResource Remove="Views\Mock\**" />
+    <None Remove="Views\Mock\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CoffeeShop.EF\CoffeeShop.EF.csproj" />
     <ProjectReference Include="..\CoffeeShop.Model\CoffeeShop.Model.csproj" />
   </ItemGroup>
@@ -17,10 +24,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Mock\" />
   </ItemGroup>
 
 </Project>

@@ -16,7 +16,7 @@ namespace CoffeeShop.EF.Repositories
             using var context = new CoffeeShopDbContext();
             if (transLine.Id != 0)
             {
-                throw new ArgumentException("Given transaction line should not have an ID set", nameof(transactionLine));
+                throw new ArgumentException("Given transaction line should not have an ID set", nameof(transLine));
             }
             context.TransactionLines.Add(transLine);
             context.SaveChanges();
