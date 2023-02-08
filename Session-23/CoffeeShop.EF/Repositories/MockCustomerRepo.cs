@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoffeeShop.Model
+namespace CoffeeShop.EF.Repositories
 {
-    public abstract class BaseEntity
+    internal class MockRepo
     {
     }
 }
