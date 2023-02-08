@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CoffeeShop.EF.Context;
 using CoffeeShop.Model;
 using CoffeeShop.EF.Repositories;
+using CoffeeShop.Model.Enums;
 
 namespace CoffeeShop.EF.Repositories
 {
@@ -17,8 +18,9 @@ namespace CoffeeShop.EF.Repositories
             _employees = new List<Employee>
             {
                 new Employee("Name1", "Surname1", 1111, Model.Enums.EmployeeType.Manager),
-                new Employee("Name2", "Surname2", 2222, Model.Enums.EmployeeType.Barista),
-                new Employee("Name3", "Surname3", 3333, Model.Enums.EmployeeType.Cashier)
+                new Employee("Name2", "Surname2", 2222, Model.Enums.EmployeeType.Cashier),
+                new Employee("Name3", "Surname3", 3333, (EmployeeType) 3),
+                new Employee("Name4", "Surname4", 4444, (EmployeeType) 4)
             };
         }
         public List<Employee> GetAll()
