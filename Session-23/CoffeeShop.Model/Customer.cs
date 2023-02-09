@@ -1,4 +1,7 @@
-﻿namespace CoffeeShop.Model
+﻿using CoffeeShop.Model.Enums;
+using System.ComponentModel.DataAnnotations;
+
+namespace CoffeeShop.Model
 {
     public class Customer
     {
@@ -26,5 +29,24 @@
         public string Code { get; set; } = null!;
         public string Description { get; set; } = null!;
     }
+    public class CustomerEditDto
+    {
+        public int Id { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+    public class CustomerDeleteDto
+    {
+        public int Id { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+    public class CustomerDetailsDto
+    {
+        public int Id { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+        public List<Transaction> Transactions { get; set; } = new List<Transaction> ();
 
+    }
 }

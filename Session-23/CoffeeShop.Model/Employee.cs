@@ -23,4 +23,27 @@ namespace CoffeeShop.Model
         // Relations
         public List<Transaction> Transactions { get; set; }
     }
+    public class EmployeeCreateDto
+    {
+        public string Name { get; set; } = null!;
+        public string Surname { get; set; } = null!;
+        public int SalaryPerMonth { get; set; }
+        public EmployeeType EmployeeType { get; set; }
+    }
+    public class EmployeeEditDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = null!;
+        public string Surname { get; set; } = null!;
+        public int SalaryPerMonth { get; set; }
+        public EmployeeType EmployeeType { get; set; }
+    }
+    public class EmployeeDeleteDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = null!;
+        public string Surname { get; set; } = null!;
+        public int SalaryPerMonth { get; set; }
+        public EmployeeType EmployeeType { get; set; }
+    }
 }

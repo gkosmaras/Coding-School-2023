@@ -16,7 +16,6 @@ namespace CoffeeShop.Web.Mvc.Controllers
         public ActionResult Index()
         {
             var customers = _customerRepo.GetAll();
-            customers = customers.ToList();
             return View(model: customers);
         }
 
@@ -32,7 +31,12 @@ namespace CoffeeShop.Web.Mvc.Controllers
             {
                 return NotFound();
             }
-            return View(model: customer);
+            var result = new CustomerDetailsDto();
+            result.Id = customer.Id;
+            result.Code = customer.Code;
+            result.Description = customer.Description;
+            result.Transactions = customer.Transactions.ToList();
+            return View(model: result);
         }
 
         // GET: CustomerController/Create
@@ -58,28 +62,49 @@ namespace CoffeeShop.Web.Mvc.Controllers
         // GET: CustomerController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var dbCustomer = _customerRepo.GetById(id);
+            if (dbCustomer == null)
+            {
+                return NotFound();
+            }
+            var customer = new CustomerEditDto();
+            customer.Code = dbCustomer.Code;
+            customer.Description = dbCustomer.Description;
+            return View(model: customer);
         }
 
         // POST: CustomerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, CustomerEditDto customer)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+            var dbCustomer = _customerRepo.GetById(id);
+            if (dbCustomer == null)
+            {
+                return NotFound();
+            }
+            dbCustomer.Code = customer.Code;
+            dbCustomer.Description = customer.Description;
+            _customerRepo.Update(id, dbCustomer);
+            return RedirectToAction("Index");
         }
 
         // GET: CustomerController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var dbCustomer = _customerRepo.GetById(id);
+            if (dbCustomer == null)
+            {
+                return NotFound();
+            }
+            var customer = new CustomerDeleteDto();
+            customer.Code = dbCustomer.Code;
+            customer.Description = dbCustomer.Description;
+            return View(model: customer);
         }
 
         // POST: CustomerController/Delete/5
@@ -87,14 +112,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _customerRepo.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }

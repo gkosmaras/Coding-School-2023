@@ -43,41 +43,69 @@ namespace CoffeeShop.Web.Mvc.Controllers
         // POST: EmployeeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Employee employee)
+        public ActionResult Create(EmployeeCreateDto employee)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            _employeeRepo.Create(employee);
+            var dbEmployee = new Employee(employee.Name, employee.Surname, employee.SalaryPerMonth, employee.EmployeeType);
+            _employeeRepo.Create(dbEmployee);
             return RedirectToAction("Index");
         }
 
         // GET: EmployeeController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var dbEmployee = _employeeRepo.GetById(id);
+            if (dbEmployee == null)
+            {
+                return NotFound();
+            }
+            var employee = new EmployeeEditDto();
+            employee.Name = dbEmployee.Name;
+            employee.Surname = dbEmployee.Surname;
+            employee.SalaryPerMonth = dbEmployee.SalaryPerMonth;
+            employee.EmployeeType = dbEmployee.EmployeeType;
+            return View(model: employee);
         }
 
         // POST: EmployeeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, EmployeeEditDto employee)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+            var dbEmployee = _employeeRepo.GetById(id);
+            if (dbEmployee == null)
+            {
+                return NotFound();
+            }
+            dbEmployee.Name = employee.Name;
+            dbEmployee.Surname = employee.Surname;
+            dbEmployee.SalaryPerMonth = employee.SalaryPerMonth;
+            dbEmployee.EmployeeType = employee.EmployeeType;
+            _employeeRepo.Update(id, dbEmployee);
+            return RedirectToAction("Index");
         }
 
         // GET: EmployeeController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var dbEmployee = _employeeRepo.GetById(id);
+            if (dbEmployee == null)
+            {
+                return NotFound();
+            }
+            var employee = new EmployeeEditDto();
+            employee.Name = dbEmployee.Name;
+            employee.Surname = dbEmployee.Surname;
+            employee.SalaryPerMonth = dbEmployee.SalaryPerMonth;
+            employee.EmployeeType = dbEmployee.EmployeeType;
+            return View(model: employee);
         }
 
         // POST: EmployeeController/Delete/5
@@ -85,14 +113,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _employeeRepo.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }
