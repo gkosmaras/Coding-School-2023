@@ -46,4 +46,13 @@ namespace CoffeeShop.Model
         public int SalaryPerMonth { get; set; }
         public EmployeeType EmployeeType { get; set; }
     }
+    public class EmployeeDetailsDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = null!;
+        public string Surname { get; set; } = null!;
+        public int SalaryPerMonth { get; set; }
+        public EmployeeType EmployeeType { get; set; }
+        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
+    }
 }

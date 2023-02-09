@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IEntityRepo<Customer>, CustomerRepo>();
 builder.Services.AddScoped<IEntityRepo<Employee>, EmployeeRepo>();
 builder.Services.AddScoped<IEntityRepo<Product>, ProductRepo>();
+builder.Services.AddScoped<IEntityRepo<ProductCategory>, ProductCategoryRepo>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

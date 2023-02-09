@@ -26,11 +26,18 @@ namespace CoffeeShop.Web.Mvc.Controllers
             {
                 return NotFound();
             }
-            var result = _employeeRepo.GetById(id.Value);
-            if (result is null)
+            var employee = _employeeRepo.GetById(id.Value);
+            if (employee is null)
             {
                 return NotFound();
             }
+            var result = new EmployeeDetailsDto();
+            result.Id = employee.Id;
+            result.Name = employee.Name;
+            result.Surname = employee.Surname;
+            result.SalaryPerMonth = employee.SalaryPerMonth;
+            result.EmployeeType = employee.EmployeeType;
+            result.Transactions = employee.Transactions.ToList();
             return View(model: result);
         }
 
