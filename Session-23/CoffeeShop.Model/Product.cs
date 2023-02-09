@@ -26,7 +26,7 @@ namespace CoffeeShop.Model
 
         public List<TransactionLine> TransactionLines { get; set; }
     }
-    public class ProductCreate
+    public class ProductCreateDto
 
     {
         public string Code { get; set; }
