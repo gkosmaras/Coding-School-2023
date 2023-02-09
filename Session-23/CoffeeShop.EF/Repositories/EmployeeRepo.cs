@@ -49,7 +49,7 @@ namespace CoffeeShop.EF.Repositories
         public Employee? GetById(int id)
         {
             using var context = new CoffeeShopDbContext();
-            var fEmployee = context.Employees.Where(employee => employee.Id == id).SingleOrDefault();
+            var fEmployee = context.Employees.Where(employee => employee.Id == id).FirstOrDefault();
             return fEmployee;
         }
         public List<Employee> GetAll()

@@ -29,7 +29,7 @@ namespace CoffeeShop.EF.Repositories
         }
         public Employee? GetById(int id)
         {
-            return _employees.SingleOrDefault(employee => employee.Id == id);
+            return _employees.FirstOrDefault(employee => employee.Id == id);
         }
         public void Create(Employee employee)
         {

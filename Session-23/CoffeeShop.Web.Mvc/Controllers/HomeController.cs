@@ -9,17 +9,14 @@ namespace CoffeeShop.Web.Mvc.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IEntityRepo<Customer> _customerRepo;
 
-        public HomeController(ILogger<HomeController> logger, IEntityRepo<Customer> customerRepo)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _customerRepo = customerRepo;
         }
 
         public IActionResult Index()
         {
-            _customerRepo.GetAll();
             string name = "Giorgos";
             return View(model: name);
         }

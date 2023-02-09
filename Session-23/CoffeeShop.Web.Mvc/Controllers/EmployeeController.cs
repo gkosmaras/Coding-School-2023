@@ -20,9 +20,18 @@ namespace CoffeeShop.Web.Mvc.Controllers
         }
 
         // GET: EmployeeController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id is null)
+            {
+                return NotFound();
+            }
+            var result = _employeeRepo.GetById(id.Value);
+            if (result is null)
+            {
+                return NotFound();
+            }
+            return View(model: result);
         }
 
         // GET: EmployeeController/Create
@@ -34,16 +43,14 @@ namespace CoffeeShop.Web.Mvc.Controllers
         // POST: EmployeeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Employee employee)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+            _employeeRepo.Create(employee);
+            return RedirectToAction("Index");
         }
 
         // GET: EmployeeController/Edit/5
