@@ -100,7 +100,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             {
                 return NotFound();
             }
-            var employee = new EmployeeEditDto();
+            var employee = new EmployeeDeleteDto();
             employee.Name = dbEmployee.Name;
             employee.Surname = dbEmployee.Surname;
             employee.SalaryPerMonth = dbEmployee.SalaryPerMonth;
