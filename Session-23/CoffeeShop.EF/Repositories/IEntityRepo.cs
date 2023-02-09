@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CoffeeShop.EF.Repositories
 {
     public interface IEntityRepo<TEntity>
-        where TEntity : BaseEntity
+        where TEntity : class
     {
         void Create(TEntity entity);
         void Update(int id, TEntity entity);

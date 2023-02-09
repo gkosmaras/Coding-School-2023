@@ -1,6 +1,6 @@
 ﻿namespace CoffeeShop.Model
 {
-    public class TransactionLine : BaseEntity
+    public class TransactionLine
     {
         public TransactionLine(int quantity, decimal discount, decimal price, decimal totalPrice)
         {

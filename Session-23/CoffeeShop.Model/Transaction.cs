@@ -2,7 +2,7 @@
 
 namespace CoffeeShop.Model
 {
-    public class Transaction : BaseEntity
+    public class Transaction
     {
         public Transaction(decimal totalPrice, PaymentMethod paymentMethod)
         {

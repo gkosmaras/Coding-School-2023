@@ -2,7 +2,7 @@
 
 namespace CoffeeShop.Model
 {
-    public class ProductCategory : BaseEntity
+    public class ProductCategory
     {
         public ProductCategory(string code, string description, ProductType productType)
         {
