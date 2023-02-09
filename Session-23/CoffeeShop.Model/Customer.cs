@@ -6,9 +6,13 @@
         {
             Code = code;
             Description = description;
-
             Transactions = new List<Transaction>();
         }
+        public Customer()
+        {
+            Transactions = new List<Transaction>();
+        }
+
 
         public int Id { get; set; }
         public string Code { get; set; }
@@ -17,4 +21,10 @@
         // Relations
         public List<Transaction> Transactions { get; set; }
     }
+    public class CustomerCreateDto
+    {
+        public string Code { get; set; } = null!;
+        public string Description { get; set; } = null!;
+    }
+
 }

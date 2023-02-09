@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CoffeeShop.EF.Context;
 using CoffeeShop.Model;
 using CoffeeShop.EF.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoffeeShop.EF.Repositories
 {
@@ -48,7 +49,7 @@ namespace CoffeeShop.EF.Repositories
         public Customer? GetById(int id)
         {
             using var context = new CoffeeShopDbContext();
-            var fCustomer = context.Customers.Where(customer => customer.Id == id).SingleOrDefault();
+            var fCustomer = context.Customers.Include(customer => customer.Transactions).SingleOrDefault(customer => customer.Id == id);
             return fCustomer;
         }
         public List<Customer> GetAll()

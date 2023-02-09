@@ -16,13 +16,23 @@ namespace CoffeeShop.Web.Mvc.Controllers
         public ActionResult Index()
         {
             var customers = _customerRepo.GetAll();
+            customers = customers.ToList();
             return View(model: customers);
         }
 
         // GET: CustomerController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var customer = _customerRepo.GetById(id.Value);
+            if (customer is null)
+            {
+                return NotFound();
+            }
+            return View(model: customer);
         }
 
         // GET: CustomerController/Create
@@ -34,16 +44,15 @@ namespace CoffeeShop.Web.Mvc.Controllers
         // POST: CustomerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CustomerCreateDto customer)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+            var dbCustomer = new Customer(customer.Code, customer.Description);
+            _customerRepo.Create(dbCustomer);
+            return RedirectToAction("Index");
         }
 
         // GET: CustomerController/Edit/5

@@ -17,7 +17,7 @@ namespace CoffeeShop.EF.Repositories
             _customers = new List<Customer>
             {
                 new Customer("001", "Retail"),
-                new Customer("002", "Retail")
+/*                new Customer("002", "Retail")*/
             };
         }
         public List<Customer> GetAll()
