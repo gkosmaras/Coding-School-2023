@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CoffeeShop.EF.Context;
 using CoffeeShop.Model;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Razor.Language.Extensions;
 
 namespace CoffeeShop.EF.Repositories
 {
@@ -52,7 +54,7 @@ namespace CoffeeShop.EF.Repositories
         public TransactionLine? GetById (int id)
         {
             using var context = new CoffeeShopDbContext();
-            var fTransLine = context.TransactionLines.Where(transLine => transLine.Id == id).SingleOrDefault();
+            var fTransLine = context.TransactionLines.Include(transLine => transLine.TransactionId).Include(transLine => transLine.ProductId).Where(transLine => transLine.Id == id).SingleOrDefault();
             return fTransLine;
         }
         public List<TransactionLine> GetAll()

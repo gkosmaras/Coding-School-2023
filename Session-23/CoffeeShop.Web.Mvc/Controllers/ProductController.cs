@@ -43,6 +43,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             result.Price = product.Price;
             result.Cost = product.Cost;
             result.ProductCategory = _prodCatRepo.GetById(product.ProductCategoryId);
+            result.TransactionLines = product.TransactionLines.ToList();
             return View(model: result);
         }
         #endregion 
