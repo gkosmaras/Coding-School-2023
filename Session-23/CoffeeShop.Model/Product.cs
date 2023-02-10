@@ -1,4 +1,5 @@
 ﻿using CoffeeShop.Model.Enums;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CoffeeShop.Model
 {
@@ -34,6 +35,8 @@ namespace CoffeeShop.Model
         public decimal Price { get; set; }
         public decimal Cost { get; set; }
         public int ProductCategoryId { get; set; }
+        public List<SelectListItem> ProductCategories { get; set; } = new List<SelectListItem>();
+
     }
     public class ProductEditDto
     {
@@ -43,6 +46,7 @@ namespace CoffeeShop.Model
         public decimal Price { get; set; }
         public decimal Cost { get; set; }
         public int ProductCategoryId { get; set; }
+        public List<SelectListItem> ProductCategories { get; set; } = new List<SelectListItem>();
     }
     public class ProductDeleteDto
     {
@@ -52,6 +56,7 @@ namespace CoffeeShop.Model
         public decimal Price { get; set; }
         public decimal Cost { get; set; }
         public int ProductCategoryId { get; set; }
+        public ProductCategory ProductCategory { get; set; }
     }
     public class ProductDetailsDto
     {
@@ -61,7 +66,7 @@ namespace CoffeeShop.Model
         public decimal Price { get; set; }
         public decimal Cost { get; set; }
         public int ProductCategoryId { get; set; }
-        public ProductType ProductType { get; set; }
+        public ProductCategory ProductCategory { get; set; }
         public List<TransactionLine> TransactionLines { get; set; } = new List<TransactionLine>();
         
     }

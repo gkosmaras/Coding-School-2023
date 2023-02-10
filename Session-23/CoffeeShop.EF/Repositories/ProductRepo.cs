@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CoffeeShop.EF.Context;
 using CoffeeShop.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoffeeShop.EF.Repositories
 {
@@ -51,13 +52,13 @@ namespace CoffeeShop.EF.Repositories
         public Product? GetById(int id)
         {
             using var context = new CoffeeShopDbContext();
-            var fProduct = context.Products.Where(product => product.Id == id).SingleOrDefault();
+            var fProduct = context.Products.Include(product => product.ProductCategory).Where(product => product.Id == id).SingleOrDefault();
             return fProduct;
         }
         public List<Product> GetAll()
         {
             using var context = new CoffeeShopDbContext();
-            var fProducts = context.Products.ToList();
+            var fProducts = context.Products.Include(product => product.ProductCategory).ToList();
             return fProducts;
         }
     }

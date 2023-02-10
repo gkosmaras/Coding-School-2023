@@ -8,9 +8,11 @@ namespace CoffeeShop.Web.Mvc.Controllers
     public class ProductController : Controller
     {
         private readonly IEntityRepo<Product> _productRepo;
-        public ProductController(IEntityRepo<Product> productRepo)
+        private readonly IEntityRepo<ProductCategory> _prodCatRepo;
+        public ProductController(IEntityRepo<Product> productRepo, IEntityRepo<ProductCategory> prodCatRepo)
         {
             _productRepo = productRepo;
+            _prodCatRepo = prodCatRepo;
         }
 
         // GET: ProductController
@@ -23,55 +25,101 @@ namespace CoffeeShop.Web.Mvc.Controllers
         // GET: ProductController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var product = _productRepo.GetById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            var result = new ProductDetailsDto();
+            result.Id = product.Id;
+            result.Code = product.Code;
+            result.Description = product.Description;
+            result.Price = product.Price;
+            result.Cost = product.Cost;
+            result.ProductCategory = _prodCatRepo.GetById(product.ProductCategoryId);
+            return View(model: result);
         }
 
         // GET: ProductController/Create
         public ActionResult Create()
         {
-            return View();
+            var product = new ProductCreateDto();
+            var prodCat = _prodCatRepo.GetAll();
+            foreach (var cat in prodCat)
+            {
+                product.ProductCategories.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(cat.ProductType.ToString(), cat.Id.ToString()));
+            }
+            return View(model: product);
         }
 
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ProductCreateDto product)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+            var dbProduct = new Product(product.Code, product.Description, product.Price, product.Cost);
+            dbProduct.ProductCategoryId = product.ProductCategoryId;
+            _productRepo.Create(dbProduct);
+            return RedirectToAction("Index");
         }
 
         // GET: ProductController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var dbProduct = _productRepo.GetById(id);
+            var prodCat = _prodCatRepo.GetAll();
+            if (dbProduct == null)
+            {
+                return NotFound();
+            }
+            var product = new ProductEditDto();
+            product.Id = dbProduct.Id;
+            foreach (var cat in prodCat)
+            {
+                product.ProductCategories.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(cat.ProductType.ToString(), cat.Id.ToString()));
+            }
+            return View(model: product);
         }
 
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, ProductEditDto product)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+            var dbProduct = new Product(product.Code, product.Description, product.Price, product.Cost);
+            dbProduct.ProductCategoryId = product.ProductCategoryId;
+            _productRepo.Update(product.Id, dbProduct);
+            return RedirectToAction("Index");
         }
 
         // GET: ProductController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var dbProduct = _productRepo.GetById(id);
+            if (dbProduct == null)
+            {
+                return NotFound();
+            }
+            var product = new ProductDeleteDto();
+            product.Id = dbProduct.Id;
+            product.Code = dbProduct.Code;
+            product.Description = dbProduct.Description;
+            product.Price = dbProduct.Price;
+            product.Cost = dbProduct.Cost;
+            product.ProductCategory = _prodCatRepo.GetById(dbProduct.ProductCategoryId);
+            return View(model: product);
         }
 
         // POST: ProductController/Delete/5
@@ -79,14 +127,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _productRepo.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }
