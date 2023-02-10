@@ -53,7 +53,7 @@ namespace CoffeeShop.EF.Repositories
         public Transaction? GetById(int id)
         {
             using var context = new CoffeeShopDbContext();
-            var fTrans = context.Transactions.Include(trans => trans.CustomerId).Include(trans => trans.EmployeeId).Where(transaction => transaction.Id == id).SingleOrDefault();
+            var fTrans = context.Transactions.Include(trans => trans.Customer).Include(trans => trans.Employee).Where(transaction => transaction.Id == id).SingleOrDefault();
             return fTrans;
         }
         public List<Transaction> GetAll()

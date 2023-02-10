@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CoffeeShop.EF.Context;
+using CoffeeShop.Model;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CoffeeShop.EF.Context;
-using CoffeeShop.Model;
 
 namespace CoffeeShop.EF.Repositories
 {
@@ -49,13 +50,13 @@ namespace CoffeeShop.EF.Repositories
         public ProductCategory? GetById(int id)
         {
             using var context = new CoffeeShopDbContext();
-            var fProductCategory = context.ProductCategories.Where(productCategory => productCategory.Id == id).SingleOrDefault();
+            var fProductCategory = context.ProductCategories.Include(prodCat => prodCat.Products).Where(productCategory => productCategory.Id == id).SingleOrDefault();
             return fProductCategory;
         }
         public List<ProductCategory> GetAll()
         {
             using var context = new CoffeeShopDbContext();
-            var fProductCategories = context.ProductCategories.ToList();
+            var fProductCategories = context.ProductCategories.Include(prodCat => prodCat.Products).ToList();
             return fProductCategories;
         }
     }
