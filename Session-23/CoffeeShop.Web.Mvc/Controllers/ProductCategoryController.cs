@@ -12,14 +12,15 @@ namespace CoffeeShop.Web.Mvc.Controllers
         {
             _prodCatRepo = prodCatRepo;
         }
-
+        #region Index
         // GET: ProductCategoryController
         public ActionResult Index()
         {
             var prodCat = _prodCatRepo.GetAll();
             return View(model: prodCat);
         }
-
+        #endregion
+        #region Details
         // GET: ProductCategoryController/Details/5
         public ActionResult Details(int? id)
         {
@@ -40,7 +41,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
             result.Products = proCat.Products.ToList();
             return View(model: result);
         }
-
+        #endregion
+        #region Create
         // GET: ProductCategoryController/Create
         public ActionResult Create()
         {
@@ -60,7 +62,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
             _prodCatRepo.Create(dbProdCat);
             return RedirectToAction("Index");
         }
-
+        #endregion
+        #region Edit
         // GET: ProductCategoryController/Edit/5
         public ActionResult Edit(int id)
         {
@@ -96,7 +99,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
             _prodCatRepo.Update(id, dbProdCat);
             return RedirectToAction("Index");
         }
-
+        #endregion
+        #region Delete
         // GET: ProductCategoryController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -120,5 +124,6 @@ namespace CoffeeShop.Web.Mvc.Controllers
             _prodCatRepo.Delete(id);
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }

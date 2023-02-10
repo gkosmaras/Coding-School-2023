@@ -12,13 +12,15 @@ namespace CoffeeShop.Web.Mvc.Controllers
         {
             _customerRepo= customerRepo;
         }
+        #region Index
         // GET: CustomerController
         public ActionResult Index()
         {
             var customers = _customerRepo.GetAll();
             return View(model: customers);
         }
-
+        #endregion
+        #region Details
         // GET: CustomerController/Details/5
         public ActionResult Details(int? id)
         {
@@ -38,7 +40,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
             result.Transactions = customer.Transactions.ToList();
             return View(model: result);
         }
-
+        #endregion
+        #region Create
         // GET: CustomerController/Create
         public ActionResult Create()
         {
@@ -58,7 +61,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
             _customerRepo.Create(dbCustomer);
             return RedirectToAction("Index");
         }
-
+        #endregion
+        #region Edit
         // GET: CustomerController/Edit/5
         public ActionResult Edit(int id)
         {
@@ -92,7 +96,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
             _customerRepo.Update(id, dbCustomer);
             return RedirectToAction("Index");
         }
-
+        #endregion
+        #region Delete
         // GET: CustomerController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -115,5 +120,6 @@ namespace CoffeeShop.Web.Mvc.Controllers
             _customerRepo.Delete(id);
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }

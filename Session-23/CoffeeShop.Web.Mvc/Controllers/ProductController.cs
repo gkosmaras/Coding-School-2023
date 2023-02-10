@@ -15,13 +15,14 @@ namespace CoffeeShop.Web.Mvc.Controllers
             _prodCatRepo = prodCatRepo;
         }
 
+        #region Index
         // GET: ProductController
         public ActionResult Index()
         {
             var products = _productRepo.GetAll();
             return View(model: products);
         }
-
+        #region Details
         // GET: ProductController/Details/5
         public ActionResult Details(int id)
         {
@@ -43,7 +44,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             result.ProductCategory = _prodCatRepo.GetById(product.ProductCategoryId);
             return View(model: result);
         }
-
+        #region Create
         // GET: ProductController/Create
         public ActionResult Create()
         {
