@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CoffeeShop.Model;
-using CoffeeShop.EF.Repositories;
 using CoffeeShop.EF.Context;
-using System.Security.Cryptography;
-using System.Runtime.CompilerServices;
+using CoffeeShop.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoffeeShop.EF.Repositories
 {
@@ -55,13 +53,13 @@ namespace CoffeeShop.EF.Repositories
         public Transaction? GetById(int id)
         {
             using var context = new CoffeeShopDbContext();
-            var fTrans = context.Transactions.Where(transaction => transaction.Id == id).SingleOrDefault();
+            var fTrans = context.Transactions.Include(trans => trans.CustomerId).Include(trans => trans.EmployeeId).Where(transaction => transaction.Id == id).SingleOrDefault();
             return fTrans;
         }
         public List<Transaction> GetAll()
         {
             using var context = new CoffeeShopDbContext();
-            var fTrans = context.Transactions.ToList();
+            var fTrans = context.Transactions.Include(trans => trans.Customer).Include(trans => trans.Employee).ToList();
             return fTrans;
         }
     }
