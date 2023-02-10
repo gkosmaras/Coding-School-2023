@@ -22,6 +22,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             var products = _productRepo.GetAll();
             return View(model: products);
         }
+        #endregion
         #region Details
         // GET: ProductController/Details/5
         public ActionResult Details(int id)
@@ -44,6 +45,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             result.ProductCategory = _prodCatRepo.GetById(product.ProductCategoryId);
             return View(model: result);
         }
+        #endregion 
         #region Create
         // GET: ProductController/Create
         public ActionResult Create()
@@ -71,7 +73,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
             _productRepo.Create(dbProduct);
             return RedirectToAction("Index");
         }
-
+        #endregion
+        #region Edit
         // GET: ProductController/Edit/5
         public ActionResult Edit(int id)
         {
@@ -85,8 +88,13 @@ namespace CoffeeShop.Web.Mvc.Controllers
             product.Id = dbProduct.Id;
             foreach (var cat in prodCat)
             {
-                product.ProductCategories.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(cat.ProductType.ToString(), cat.Id.ToString()));
+                product.ProductCategories.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(cat.Description.ToString(), cat.Id.ToString()));
             }
+            product.Code = dbProduct.Code;
+            product.Description = dbProduct.Description;
+            product.Price = dbProduct.Price;
+            product.Cost = dbProduct.Cost;
+            product.ProductCategoryId = dbProduct.ProductCategoryId;
             return View(model: product);
         }
 
@@ -104,7 +112,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
             _productRepo.Update(product.Id, dbProduct);
             return RedirectToAction("Index");
         }
-
+        #endregion
+        #region Delete
         // GET: ProductController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -131,5 +140,6 @@ namespace CoffeeShop.Web.Mvc.Controllers
             _productRepo.Delete(id);
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }
