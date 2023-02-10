@@ -51,7 +51,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             var prodCat = _prodCatRepo.GetAll();
             foreach (var cat in prodCat)
             {
-                product.ProductCategories.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(cat.ProductType.ToString(), cat.Id.ToString()));
+                product.ProductCategories.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(cat.Description.ToString(), cat.Id.ToString()));
             }
             return View(model: product);
         }
