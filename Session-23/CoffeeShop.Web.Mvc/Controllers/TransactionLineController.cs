@@ -43,7 +43,9 @@ namespace CoffeeShop.Web.Mvc.Controllers
             result.Quantity = transLine.Quantity;
             result.Discount = transLine.Discount;
             result.Price = transLine.Price;
-            result.TotalPrice = transLine.TotalPrice;
+            result.TotalPrice = transLine.Price * transLine.Quantity;
+            result.Product = _productRepo.GetById(transLine.ProductId);
+            result.Transaction = _transactionRepo.GetById(transLine.TransactionId);
             return View(model: result);
         }
         #endregion
@@ -53,9 +55,14 @@ namespace CoffeeShop.Web.Mvc.Controllers
         {
             var transLine = new TransactionLineCreateDto();
             var products = _productRepo.GetAll();
+            var transactions = _transactionRepo.GetAll();
             foreach (var prod in products)
             {
                 transLine.Products.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(prod.Description.ToString(), prod.Id.ToString()));
+            }
+            foreach (var trans in transactions)
+            {
+                transLine.Transactions.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(trans.TotalPrice.ToString(), trans.Id.ToString()));
             }
             return View(model: transLine);
         }
@@ -70,9 +77,11 @@ namespace CoffeeShop.Web.Mvc.Controllers
                 return View();
             }
             var products = _productRepo.GetAll();
-            var price = products.Where(prod => prod.Id == transLine.ProductId).SingleOrDefault();
-            var dbTransLine = new TransactionLine(transLine.Quantity, transLine.Discount, price.Price, transLine.Quantity*price.Price);
+            var price = products.Where(prod => prod.Id == transLine.ProductId).SingleOrDefault().Price;
+            var totalPrice = price * transLine.Quantity;
+            var dbTransLine = new TransactionLine(transLine.Quantity, transLine.Discount, price, totalPrice);
             dbTransLine.ProductId = transLine.ProductId;
+            dbTransLine.TransactionId = transLine.TransactionId;
             _transLineRepo.Create(dbTransLine);
             return RedirectToAction("Index");
         }

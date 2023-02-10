@@ -54,7 +54,7 @@ namespace CoffeeShop.EF.Repositories
         public TransactionLine? GetById (int id)
         {
             using var context = new CoffeeShopDbContext();
-            var fTransLine = context.TransactionLines.Include(transLine => transLine.TransactionId).Include(transLine => transLine.ProductId).Where(transLine => transLine.Id == id).SingleOrDefault();
+            var fTransLine = context.TransactionLines.Include(transLine => transLine.Transaction).Include(transLine => transLine.Product).Where(transLine => transLine.Id == id).FirstOrDefault();
             return fTransLine;
         }
         public List<TransactionLine> GetAll()

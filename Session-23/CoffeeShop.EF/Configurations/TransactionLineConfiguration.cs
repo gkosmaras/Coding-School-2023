@@ -23,10 +23,10 @@ namespace CoffeeShop.EF.Configurations
             builder.Property(t => t.TotalPrice).HasPrecision(9, 2).IsRequired();
 
             // Relations
-/*            builder.HasOne(t => t.Transaction)
+            builder.HasOne(t => t.Transaction)
                 .WithMany(t => t.TransactionLines)
                 .HasForeignKey(t => t.TransactionId)
-                .OnDelete(DeleteBehavior.Restrict);*/
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(t => t.Product)
                 .WithMany(t => t.TransactionLines)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.Design;
+using System.Transactions;
 
 namespace CoffeeShop.Model
 {
@@ -45,7 +46,7 @@ namespace CoffeeShop.Model
         public decimal Price { get; set; }
         public decimal TotalPrice { get; set; }
         public int TransactionId { get; set; }
-        public List<SelectListItem> Transactions { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> Transaction { get; set; } = new List<SelectListItem>();
         public int ProductId { get; set; }
         public List<SelectListItem> Products { get; set; } = new List<SelectListItem>();
     }
@@ -57,9 +58,9 @@ namespace CoffeeShop.Model
         public decimal Price { get; set; }
         public decimal TotalPrice { get; set; }
         public int TransactionId { get; set; }
-        public List<SelectListItem> Transactions { get; set; } = new List<SelectListItem>();
+        public Product Product { get; set; }
+        public Transaction Transaction { get; set; }
         public int ProductId { get; set; }
-        public List<SelectListItem> Products { get; set; } = new List<SelectListItem>();
     }
     public class TransactionLineDetailsDto
     {
@@ -69,8 +70,8 @@ namespace CoffeeShop.Model
         public decimal Price { get; set; }
         public decimal TotalPrice { get; set; }
         public int TransactionId { get; set; }
-        public List<SelectListItem> Transactions { get; set; } = new List<SelectListItem>();
+        public Product Product { get; set; }
+        public Transaction Transaction { get; set; }
         public int ProductId { get; set; }
-        public List<SelectListItem> Products { get; set; } = new List<SelectListItem>();
     }
 }
