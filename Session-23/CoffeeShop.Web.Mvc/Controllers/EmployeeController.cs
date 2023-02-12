@@ -1,7 +1,9 @@
 ﻿using CoffeeShop.EF.Repositories;
 using CoffeeShop.Model;
+using CoffeeShop.Model.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CoffeeShop.Web.Mvc.Controllers
 {
@@ -17,6 +19,15 @@ namespace CoffeeShop.Web.Mvc.Controllers
         public ActionResult Index()
         {
             var employees = _employeeRepo.GetAll();
+/*            if (CheckEmployees())
+            {
+                var dbEmployees = _employeeRepo.GetAll();
+                foreach (var temp in dbEmployees)
+                {
+                    _employeeRepo.Delete(temp.Id);
+                }
+                SetDefault();
+            }*/
             return View(model: employees);
         }
         #endregion
@@ -59,9 +70,19 @@ namespace CoffeeShop.Web.Mvc.Controllers
             {
                 return View();
             }
-            var dbEmployee = new Employee(employee.Name, employee.Surname, employee.SalaryPerMonth, employee.EmployeeType);
-            _employeeRepo.Create(dbEmployee);
-            return RedirectToAction("Index");
+            bool result = CheckEmployees(employee);
+            if (result) 
+            {
+                var dbEmployee = new Employee(employee.Name, employee.Surname, employee.SalaryPerMonth, employee.EmployeeType);
+                _employeeRepo.Create(dbEmployee);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Message = string.Format("Employee limit has been reached for the position of {0}.", employee.EmployeeType);
+                return View();
+            }
+
         }
         #endregion
         #region Edit
@@ -129,5 +150,43 @@ namespace CoffeeShop.Web.Mvc.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+        public bool CheckEmployees(EmployeeCreateDto employee)
+        {
+            bool result = true;
+            var type = employee.EmployeeType;
+            var dbEmployees = _employeeRepo.GetAll();
+            int manager = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Manager).Count();
+            int barista = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Barista).Count();
+            int waiter = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Waiter).Count();
+            int cashier = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Cashier).Count();
+            if (type == EmployeeType.Manager & manager >= 1)
+            {
+                result = false;
+            }
+            if (type == EmployeeType.Barista & barista >= 2)
+            {
+                result = false;
+            }
+            if (type == EmployeeType.Cashier & cashier >= 2)
+            {
+                result = false;
+            }
+            if (type == EmployeeType.Waiter & waiter >= 3)
+            {
+                result = false;
+            }
+            return result;
+        }
+        public void SetDefault()
+        {
+            var dbEmployee = new Employee("Name1", "Surname1", 4000, EmployeeType.Manager);
+            _employeeRepo.Create(dbEmployee);
+            dbEmployee = new Employee("Name2", "Surname2", 3000, EmployeeType.Barista);
+            _employeeRepo.Create(dbEmployee);
+            dbEmployee = new Employee("Name3", "Surname3", 2000, EmployeeType.Cashier);
+            _employeeRepo.Create(dbEmployee);
+            dbEmployee = new Employee("Name4", "Surname4", 1000, EmployeeType.Waiter);
+            _employeeRepo.Create(dbEmployee);
+        }
     }
 }

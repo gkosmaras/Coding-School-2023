@@ -112,7 +112,18 @@ namespace CoffeeShop.Web.Mvc.Controllers
         // GET: HomeController1/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var dbTransaction = _transactionRepo.GetById(id);
+            if (dbTransaction == null)
+            {
+                return NotFound();
+            }
+            var trans = new TransactionDeleteDto();
+            trans.Date = dbTransaction.Date;
+            trans.TotalPrice = dbTransaction.TotalPrice;
+            trans.PaymentMethod = dbTransaction.PaymentMethod;
+            trans.CustomerId = dbTransaction.CustomerId;
+            trans.EmployeeId = dbTransaction.EmployeeId;
+            return View(model: trans);
         }
 
         // POST: HomeController1/Delete/5
@@ -120,14 +131,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _transactionRepo.Delete(id);
+            return RedirectToAction("Index");
         }
         #endregion
     }
