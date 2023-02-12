@@ -19,15 +19,6 @@ namespace CoffeeShop.Web.Mvc.Controllers
         public ActionResult Index()
         {
             var employees = _employeeRepo.GetAll();
-/*            if (CheckEmployees())
-            {
-                var dbEmployees = _employeeRepo.GetAll();
-                foreach (var temp in dbEmployees)
-                {
-                    _employeeRepo.Delete(temp.Id);
-                }
-                SetDefault();
-            }*/
             return View(model: employees);
         }
         #endregion
@@ -176,17 +167,6 @@ namespace CoffeeShop.Web.Mvc.Controllers
                 result = false;
             }
             return result;
-        }
-        public void SetDefault()
-        {
-            var dbEmployee = new Employee("Name1", "Surname1", 4000, EmployeeType.Manager);
-            _employeeRepo.Create(dbEmployee);
-            dbEmployee = new Employee("Name2", "Surname2", 3000, EmployeeType.Barista);
-            _employeeRepo.Create(dbEmployee);
-            dbEmployee = new Employee("Name3", "Surname3", 2000, EmployeeType.Cashier);
-            _employeeRepo.Create(dbEmployee);
-            dbEmployee = new Employee("Name4", "Surname4", 1000, EmployeeType.Waiter);
-            _employeeRepo.Create(dbEmployee);
         }
     }
 }
