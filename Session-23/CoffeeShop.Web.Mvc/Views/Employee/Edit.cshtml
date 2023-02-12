@@ -34,6 +34,7 @@
                 <select asp-for="EmployeeType" asp-items="Html.GetEnumSelectList<EmployeeType>()">
                     <option selected="selected" value="">Please select</option>
                 </select>
+            </div>
                 @if (ViewBag.Message != null)
                 {
                     <script type="text/javascript">

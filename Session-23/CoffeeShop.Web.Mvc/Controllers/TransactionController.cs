@@ -1,8 +1,11 @@
 ﻿using CoffeeShop.EF.Repositories;
 using CoffeeShop.Model;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Transactions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Transaction = CoffeeShop.Model.Transaction;
 
 namespace CoffeeShop.Web.Mvc.Controllers
@@ -91,12 +94,30 @@ namespace CoffeeShop.Web.Mvc.Controllers
             return RedirectToAction("Index");
         }
         #endregion
-        //TODO
         #region Edit
         // GET: HomeController1/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var dbTransaction = _transactionRepo.GetById(id);
+            var dbEmployees = _employeeRepo.GetAll();
+            var dbCustomers = _customerRepo.GetAll();
+            if (dbTransaction == null)
+            {
+                return NotFound();
+            }
+            var transaction = new TransactionEditDto();
+            foreach (var ee in dbEmployees)
+            {
+                transaction.Employees.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(ee.Name.ToString(), ee.Id.ToString()));
+            }
+            foreach (var cus in dbCustomers)
+            {
+                transaction.Customers.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(cus.Id.ToString(), cus.Id.ToString()));
+            }
+            transaction.TotalPrice = transaction.TransactionLines.Sum(x => x.TotalPrice);
+            transaction.Date = dbTransaction.Date;
+            transaction.PaymentMethod = dbTransaction.PaymentMethod;
+            return View(model: transaction);
         }
 
         // POST: HomeController1/Edit/5
@@ -104,14 +125,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _transactionRepo.Delete(id);
+            return RedirectToAction("Index");
         }
         #endregion
         #region Delete
@@ -127,8 +142,8 @@ namespace CoffeeShop.Web.Mvc.Controllers
             trans.Date = dbTransaction.Date;
             trans.TotalPrice = dbTransaction.TotalPrice;
             trans.PaymentMethod = dbTransaction.PaymentMethod;
-            trans.CustomerId = dbTransaction.CustomerId;
-            trans.EmployeeId = dbTransaction.EmployeeId;
+            trans.Employee = _employeeRepo.GetById(dbTransaction.EmployeeId);
+            trans.Customer = _customerRepo.GetById(dbTransaction.CustomerId);
             return View(model: trans);
         }
 

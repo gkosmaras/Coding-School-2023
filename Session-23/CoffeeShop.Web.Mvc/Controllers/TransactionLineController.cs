@@ -146,9 +146,9 @@ namespace CoffeeShop.Web.Mvc.Controllers
             transLine.Quantity = dbTransLine.Quantity;
             transLine.Discount = dbTransLine.Discount;
             transLine.Price = dbTransLine.Price;
-            transLine.TotalPrice = dbTransLine.TotalPrice;
-            transLine.TransactionId = dbTransLine.TransactionId;
-            transLine.ProductId = dbTransLine.ProductId;
+            transLine.TotalPrice = dbTransLine.Price * dbTransLine.Quantity;
+            transLine.Product = _productRepo.GetById(dbTransLine.ProductId);
+            transLine.Transaction = _transactionRepo.GetById(dbTransLine.TransactionId);
             return View(model: transLine);
         }
 

@@ -48,6 +48,8 @@ namespace CoffeeShop.Model
         public List<SelectListItem> Customers { get; set; } = new List<SelectListItem>();
         public int EmployeeId { get; set; }
         public List<SelectListItem> Employees { get; set; } = new List<SelectListItem>();
+
+        public List<TransactionLine> TransactionLines { get; set; } = new List<TransactionLine>();
     }
     public class TransactionDeleteDto
     {
