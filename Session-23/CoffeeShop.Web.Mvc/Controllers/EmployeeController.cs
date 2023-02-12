@@ -18,6 +18,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
         // GET: EmployeeController
         public ActionResult Index()
         {
+            CheckInitialEmployees();
             var employees = _employeeRepo.GetAll();
             return View(model: employees);
         }
@@ -167,6 +168,51 @@ namespace CoffeeShop.Web.Mvc.Controllers
                 result = false;
             }
             return result;
+        }
+        public void CheckInitialEmployees()
+        {
+            bool overpopulated = false;
+            var dbEmployees = _employeeRepo.GetAll();
+            int manager = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Manager).Count();
+            int barista = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Barista).Count();
+            int waiter = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Waiter).Count();
+            int cashier = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Cashier).Count();
+            if (manager >1 || manager < 1)
+            {
+                overpopulated = true;
+            }
+            if (barista > 2 || barista < 1)
+            {
+                overpopulated = true;
+            }
+            if (cashier > 2 || cashier < 1)
+            {
+                overpopulated = true;
+            }
+            if (waiter > 3 || waiter < 1)
+            {
+                overpopulated = true;
+            }
+            Populate(overpopulated);
+        }
+        public void Populate(bool overpopulated)
+        {
+            if (overpopulated)
+            {
+                var dbEmployees = _employeeRepo.GetAll();
+                foreach (var ee in dbEmployees)
+                {
+                    _employeeRepo.Delete(ee.Id);
+                }
+                var temp= new Employee("Name1", "Surname1", 1, EmployeeType.Manager);
+                _employeeRepo.Create(temp);
+                temp = new Employee("Name2", "Surname2", 2, EmployeeType.Barista);
+                _employeeRepo.Create(temp);
+                temp = new Employee("Name3", "Surname3", 3, EmployeeType.Cashier);
+                _employeeRepo.Create(temp);
+                temp = new Employee("Name4", "Surname4", 4, EmployeeType.Waiter);
+                _employeeRepo.Create(temp);
+            }
         }
     }
 }
