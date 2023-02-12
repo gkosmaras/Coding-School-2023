@@ -91,22 +91,46 @@ namespace CoffeeShop.Web.Mvc.Controllers
         // GET: TransactionLineController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var dbTransLine = _transLineRepo.GetById(id);
+            var dbProducts = _productRepo.GetAll();
+            var dbTransactions = _transactionRepo.GetAll();
+            if (dbTransLine == null)
+            {
+                return NotFound();
+            }
+            var transLine = new TransactionLineEditDto();
+            foreach (var prod in dbProducts)
+            {
+                transLine.Products.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(prod.Description.ToString(), prod.Id.ToString()));
+            }
+            foreach (var trans in dbTransactions)
+            {
+                transLine.Transaction.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(trans.Id.ToString(), trans.Id.ToString()));
+            }
+            transLine.Quantity = dbTransLine.Quantity;
+            transLine.Discount = dbTransLine.Discount;
+            transLine.Price = dbTransLine.Price;
+            transLine.TotalPrice = dbTransLine.TotalPrice;
+            transLine.TransactionId = dbTransLine.TransactionId;
+            transLine.ProductId = dbTransLine.ProductId;
+            return View(model: transLine);
+
         }
 
         // POST: TransactionLineController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, TransactionLineEditDto transLine)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+            var dbTransLine = new TransactionLine(transLine.Quantity, transLine.Discount, transLine.Price, transLine.TotalPrice);
+            dbTransLine.TransactionId = transLine.TransactionId;
+            dbTransLine.ProductId = transLine.ProductId;
+            _transLineRepo.Update(transLine.Id, dbTransLine);
+            return RedirectToAction("Index");
         }
         #endregion
         #region Delete

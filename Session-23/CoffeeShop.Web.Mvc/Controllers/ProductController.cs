@@ -81,14 +81,14 @@ namespace CoffeeShop.Web.Mvc.Controllers
         public ActionResult Edit(int id)
         {
             var dbProduct = _productRepo.GetById(id);
-            var prodCat = _prodCatRepo.GetAll();
+            var dbProdCat = _prodCatRepo.GetAll();
             if (dbProduct == null)
             {
                 return NotFound();
             }
             var product = new ProductEditDto();
             product.Id = dbProduct.Id;
-            foreach (var cat in prodCat)
+            foreach (var cat in dbProdCat)
             {
                 product.ProductCategories.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(cat.Description.ToString(), cat.Id.ToString()));
             }
