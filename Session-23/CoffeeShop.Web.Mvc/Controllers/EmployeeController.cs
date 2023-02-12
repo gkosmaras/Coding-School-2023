@@ -18,6 +18,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
         // GET: EmployeeController
         public ActionResult Index()
         {
+            
             CheckInitialEmployees();
             var employees = _employeeRepo.GetAll();
             return View(model: employees);
@@ -62,8 +63,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             {
                 return View();
             }
-            bool result = CheckEmployees(employee);
-            if (result) 
+            if (CheckEmployeesCreate(employee)) 
             {
                 var dbEmployee = new Employee(employee.Name, employee.Surname, employee.SalaryPerMonth, employee.EmployeeType);
                 _employeeRepo.Create(dbEmployee);
@@ -112,7 +112,15 @@ namespace CoffeeShop.Web.Mvc.Controllers
             dbEmployee.Surname = employee.Surname;
             dbEmployee.SalaryPerMonth = employee.SalaryPerMonth;
             dbEmployee.EmployeeType = employee.EmployeeType;
-            _employeeRepo.Update(id, dbEmployee);
+            if (CheckEmployeesEdit(employee))
+            {
+                _employeeRepo.Update(id, dbEmployee);
+            }
+            else
+            {
+                ViewBag.Message = string.Format("Employee limit has been reached for the position of {0}.", employee.EmployeeType);
+                return View();
+            }
             return RedirectToAction("Index");
         }
         #endregion
@@ -121,11 +129,11 @@ namespace CoffeeShop.Web.Mvc.Controllers
         public ActionResult Delete(int id)
         {
             var dbEmployee = _employeeRepo.GetById(id);
+            var employee = new EmployeeDeleteDto();
             if (dbEmployee == null)
             {
                 return NotFound();
             }
-            var employee = new EmployeeDeleteDto();
             employee.Name = dbEmployee.Name;
             employee.Surname = dbEmployee.Surname;
             employee.SalaryPerMonth = dbEmployee.SalaryPerMonth;
@@ -138,11 +146,27 @@ namespace CoffeeShop.Web.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            _employeeRepo.Delete(id);
-            return RedirectToAction("Index");
+            var dbEmployee = _employeeRepo.GetById(id);
+            var employee = new EmployeeDeleteDto();
+            if (CheckEmployeesDelete(id))
+            {
+                _employeeRepo.Delete(id);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Message = string.Format("Can not delete the last worker from position {0}.", dbEmployee.EmployeeType);
+                employee.Name = dbEmployee.Name;
+                employee.Surname = dbEmployee.Surname;
+                employee.SalaryPerMonth = dbEmployee.SalaryPerMonth;
+                employee.EmployeeType = dbEmployee.EmployeeType;
+                return View(model: employee);
+            }
+            
         }
         #endregion
-        public bool CheckEmployees(EmployeeCreateDto employee)
+        #region Methods
+        public bool CheckEmployeesCreate(EmployeeCreateDto employee)
         {
             bool result = true;
             var type = employee.EmployeeType;
@@ -169,6 +193,60 @@ namespace CoffeeShop.Web.Mvc.Controllers
             }
             return result;
         }
+        public bool CheckEmployeesEdit(EmployeeEditDto employee)
+        {
+            bool result = true;
+            var type = employee.EmployeeType;
+            var dbEmployees = _employeeRepo.GetAll();
+            int manager = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Manager).Count();
+            int barista = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Barista).Count();
+            int waiter = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Waiter).Count();
+            int cashier = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Cashier).Count();
+            if (type == EmployeeType.Manager & manager >= 1)
+            {
+                result = false;
+            }
+            if (type == EmployeeType.Barista & barista >= 2)
+            {
+                result = false;
+            }
+            if (type == EmployeeType.Cashier & cashier >= 2)
+            {
+                result = false;
+            }
+            if (type == EmployeeType.Waiter & waiter >= 3)
+            {
+                result = false;
+            }
+            return result;
+        }
+        public bool CheckEmployeesDelete(int id)
+        {
+            bool result = true;
+            var dbEmployees = _employeeRepo.GetAll();
+            var employee = _employeeRepo.GetById(id);
+            int manager = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Manager).Count();
+            int barista = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Barista).Count();
+            int waiter = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Waiter).Count();
+            int cashier = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Cashier).Count();
+            if (employee.EmployeeType == EmployeeType.Manager)
+            {
+                result = false;
+            }
+            if (employee.EmployeeType == EmployeeType.Barista & barista == 1)
+            {
+                return false;
+            }
+            if (employee.EmployeeType == EmployeeType.Waiter & waiter == 1)
+            {
+                return false;
+            }
+            if (employee.EmployeeType == EmployeeType.Cashier & cashier == 1)
+            {
+                return false;
+            }
+            return result;
+        }
         public void CheckInitialEmployees()
         {
             bool overpopulated = false;
@@ -177,7 +255,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             int barista = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Barista).Count();
             int waiter = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Waiter).Count();
             int cashier = dbEmployees.Where(ee => ee.EmployeeType == EmployeeType.Cashier).Count();
-            if (manager >1 || manager < 1)
+            if (manager > 1 || manager < 1)
             {
                 overpopulated = true;
             }
@@ -204,7 +282,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
                 {
                     _employeeRepo.Delete(ee.Id);
                 }
-                var temp= new Employee("Name1", "Surname1", 1, EmployeeType.Manager);
+                var temp = new Employee("Name1", "Surname1", 1, EmployeeType.Manager);
                 _employeeRepo.Create(temp);
                 temp = new Employee("Name2", "Surname2", 2, EmployeeType.Barista);
                 _employeeRepo.Create(temp);
@@ -214,5 +292,6 @@ namespace CoffeeShop.Web.Mvc.Controllers
                 _employeeRepo.Create(temp);
             }
         }
+        #endregion
     }
 }
