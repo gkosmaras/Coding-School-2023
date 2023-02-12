@@ -60,7 +60,7 @@ namespace CoffeeShop.EF.Repositories
         public List<TransactionLine> GetAll()
         {
             using var context = new CoffeeShopDbContext();
-            var fTransLine = context.TransactionLines.ToList();
+            var fTransLine = context.TransactionLines.Include(transLine => transLine.Transaction).Include(transLine => transLine.Product).ToList();
             return fTransLine;
         }
     }

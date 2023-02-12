@@ -58,7 +58,7 @@ namespace CoffeeShop.EF.Repositories
         public List<Product> GetAll()
         {
             using var context = new CoffeeShopDbContext();
-            var fProducts = context.Products.ToList();
+            var fProducts = context.Products.Include(product => product.ProductCategory).ToList();
             return fProducts;
         }
     }

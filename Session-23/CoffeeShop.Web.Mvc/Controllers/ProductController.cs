@@ -20,6 +20,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
         public ActionResult Index()
         {
             var products = _productRepo.GetAll();
+            
             return View(model: products);
         }
         #endregion

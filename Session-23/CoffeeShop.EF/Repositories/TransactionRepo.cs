@@ -59,7 +59,7 @@ namespace CoffeeShop.EF.Repositories
         public List<Transaction> GetAll()
         {
             using var context = new CoffeeShopDbContext();
-            var fTrans = context.Transactions.ToList();
+            var fTrans = context.Transactions.Include(trans => trans.TransactionLines).ToList();
             return fTrans;
         }
     }

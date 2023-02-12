@@ -24,6 +24,14 @@ namespace CoffeeShop.Web.Mvc.Controllers
         public ActionResult Index()
         {
             var transactions = _transactionRepo.GetAll();
+            foreach (var trans in transactions)
+            {
+                trans.TotalPrice = 0;
+                foreach (var transLine in trans.TransactionLines)
+                {
+                    trans.TotalPrice += transLine.TotalPrice;
+                }
+            }
             return View(model: transactions);
         }
         #endregion
@@ -43,11 +51,15 @@ namespace CoffeeShop.Web.Mvc.Controllers
             var result = new TransactionDetailsDto();
             result.Id = transaction.Id;
             result.Date = transaction.Date;
-            result.TotalPrice = transaction.TotalPrice;
+            //result.TotalPrice = transaction.TotalPrice;
             result.PaymentMethod = transaction.PaymentMethod;
             result.Employees = _employeeRepo.GetById(transaction.EmployeeId);
             result.Customers = _customerRepo.GetById(transaction.CustomerId);
             result.TransactionLines = transaction.TransactionLines.ToList();
+            foreach (var item in result.TransactionLines)
+            {
+                result.TotalPrice += item.TotalPrice;
+            }
             return View(model: result);
         }
         #endregion
@@ -86,6 +98,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+        //TODO
         #region Edit
         // GET: HomeController1/Edit/5
         public ActionResult Edit(int id)

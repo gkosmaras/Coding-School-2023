@@ -1,6 +1,7 @@
 ﻿using CoffeeShop.EF.Repositories;
 using CoffeeShop.Model;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks.Dataflow;
 
@@ -62,7 +63,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             }
             foreach (var trans in transactions)
             {
-                transLine.Transactions.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(trans.TotalPrice.ToString(), trans.Id.ToString()));
+                transLine.Transactions.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(trans.Id.ToString(), trans.Id.ToString()));
             }
             return View(model: transLine);
         }
