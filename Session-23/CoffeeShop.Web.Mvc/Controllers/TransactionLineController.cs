@@ -84,7 +84,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             dbTransLine.ProductId = transLine.ProductId;
             dbTransLine.TransactionId = transLine.TransactionId;
             _transLineRepo.Create(dbTransLine);
-            return RedirectToAction("Index");
+            return RedirectToAction("Create");
         }
         #endregion
         #region Edit

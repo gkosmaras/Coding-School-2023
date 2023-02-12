@@ -51,11 +51,19 @@ namespace CoffeeShop.Web.Mvc.Controllers
             result.Id = transaction.Id;
             result.Date = transaction.Date;
             result.TotalPrice = transaction.TransactionLines.Sum(x => x.TotalPrice);
+            if (result.TotalPrice > 10)
+            {
+                result.TotalPrice *= Convert.ToDecimal(0.85);
+                foreach (var trans in transaction.TransactionLines)
+                {
+                    trans.Discount = trans.TotalPrice * Convert.ToDecimal(0.15);
+                }
+            }
             result.PaymentMethod = transaction.PaymentMethod;
             result.Employees = _employeeRepo.GetById(transaction.EmployeeId);
             result.Customers = _customerRepo.GetById(transaction.CustomerId);
             result.TransactionLines = transaction.TransactionLines.ToList();
-
+            ViewBag.Discount = transaction.TransactionLines.Sum(x => x.Discount);
             return View(model: result);
         }
         #endregion
