@@ -41,13 +41,13 @@
         <thead>
             <tr>
                 <th>
-                    Date
+                    @Html.DisplayNameFor(modelItem => modelItem.Transactions.First().Date)
                 </th>
                 <th>
-                    TotalPrice
+                    @Html.DisplayNameFor(modelItem => modelItem.Transactions.First().TotalPrice)
                 </th>
                 <th>
-                    PaymentMethod
+                    @Html.DisplayNameFor(modelItem => modelItem.Transactions.First().PaymentMethod)
                 </th>
                 <th></th>
             </tr>
