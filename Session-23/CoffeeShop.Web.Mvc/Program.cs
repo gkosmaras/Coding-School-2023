@@ -1,5 +1,6 @@
 using CoffeeShop.EF.Repositories;
 using CoffeeShop.Model;
+using MathNet.Numerics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddScoped<IEntityRepo<Product>, ProductRepo>();
 builder.Services.AddScoped<IEntityRepo<ProductCategory>, ProductCategoryRepo>();
 builder.Services.AddScoped<IEntityRepo<TransactionLine>, TransactionLineRepo>();
 builder.Services.AddScoped<IEntityRepo<Transaction>, TransactionRepo>();
+builder.Services.AddMvc().AddControllersAsServices();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -48,6 +48,8 @@ namespace CoffeeShop.EF.Repositories
             fTrans.EmployeeId = transaction.EmployeeId;
             fTrans.Employee = transaction.Employee;
             fTrans.TransactionLines = transaction.TransactionLines;
+            context.Entry(fTrans).Property(u => u.CustomerId).IsModified = false;
+            context.Entry(fTrans).Property(u => u.EmployeeId).IsModified = false;
             context.SaveChanges();
         }
         public Transaction? GetById(int id)

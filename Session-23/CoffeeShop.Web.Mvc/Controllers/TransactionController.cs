@@ -82,6 +82,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             {
                 transaction.Employees.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(ee.Name.ToString(), ee.Id.ToString()));
             }
+            //transaction.Date = DateTime.Now;
             return View(model: transaction);
         }
 
@@ -122,18 +123,65 @@ namespace CoffeeShop.Web.Mvc.Controllers
             {
                 transaction.Customers.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(cus.Id.ToString(), cus.Id.ToString()));
             }
-            transaction.TotalPrice = transaction.TransactionLines.Sum(x => x.TotalPrice);
+            transaction.TotalPrice = dbTransaction.TransactionLines.Sum(x => x.TotalPrice);
             transaction.Date = dbTransaction.Date;
             transaction.PaymentMethod = dbTransaction.PaymentMethod;
             return View(model: transaction);
+        }
+        public ActionResult Editor(int id)
+        {
+            var dbTransaction = _transactionRepo.GetById(id);
+            var dbEmployees = _employeeRepo.GetAll();
+            var dbCustomers = _customerRepo.GetAll();
+            if (dbTransaction == null)
+            {
+                return NotFound();
+            }
+            var transaction = new TransactionEditDto();
+            foreach (var ee in dbEmployees)
+            {
+                transaction.Employees.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(ee.Name.ToString(), ee.Id.ToString()));
+            }
+            foreach (var cus in dbCustomers)
+            {
+                transaction.Customers.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(cus.Id.ToString(), cus.Id.ToString()));
+            }
+            transaction.TotalPrice = dbTransaction.TransactionLines.Sum(x => x.TotalPrice);
+            transaction.Date = dbTransaction.Date;
+            transaction.PaymentMethod = dbTransaction.PaymentMethod;
+            return View(model: transaction);
+        }
+        // POST: HomeController1/Editor/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editor(int id, TransactionEditDto transaction)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var dbTransaction = new Transaction(transaction.TotalPrice, transaction.PaymentMethod);
+            dbTransaction.CustomerId = transaction.CustomerId;
+            dbTransaction.EmployeeId = transaction.EmployeeId;
+            dbTransaction.PaymentMethod = transaction.PaymentMethod;
+            _transactionRepo.Update(transaction.Id, dbTransaction);
+            return RedirectToAction("Index");
         }
 
         // POST: HomeController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, TransactionEditDto transaction)
         {
-            _transactionRepo.Delete(id);
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var dbTransaction = new Transaction(transaction.TotalPrice, transaction.PaymentMethod);
+            dbTransaction.CustomerId = transaction.CustomerId;
+            dbTransaction.EmployeeId = transaction.EmployeeId;
+            dbTransaction.PaymentMethod = transaction.PaymentMethod;
+            _transactionRepo.Update(transaction.Id, dbTransaction);
             return RedirectToAction("Index");
         }
         #endregion

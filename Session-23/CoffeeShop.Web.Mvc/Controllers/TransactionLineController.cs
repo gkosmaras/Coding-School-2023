@@ -3,6 +3,7 @@ using CoffeeShop.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 using System.Threading.Tasks.Dataflow;
 
 namespace CoffeeShop.Web.Mvc.Controllers
@@ -12,11 +13,15 @@ namespace CoffeeShop.Web.Mvc.Controllers
         private readonly IEntityRepo<TransactionLine> _transLineRepo;
         private readonly IEntityRepo<Transaction> _transactionRepo;
         private readonly IEntityRepo<Product> _productRepo;
-        public TransactionLineController(IEntityRepo<TransactionLine> transLineRepo, IEntityRepo<Transaction> TransactionRepo, IEntityRepo<Product> productRepo)
+        private readonly IEntityRepo<Employee> _employeeRepo;
+        private readonly IEntityRepo<Customer> _customerRepo;
+        public TransactionLineController(IEntityRepo<TransactionLine> transLineRepo, IEntityRepo<Transaction> TransactionRepo, IEntityRepo<Product> productRepo, IEntityRepo<Employee> employeeRepo, IEntityRepo<Customer> customerRepo)
         {
             _transLineRepo = transLineRepo;
             _transactionRepo = TransactionRepo;
             _productRepo = productRepo;
+            _employeeRepo = employeeRepo;
+            _customerRepo = customerRepo;
         }
         #region Index
         // GET: TransactionLineController
@@ -83,8 +88,21 @@ namespace CoffeeShop.Web.Mvc.Controllers
             var dbTransLine = new TransactionLine(transLine.Quantity, transLine.Discount, price, totalPrice);
             dbTransLine.ProductId = transLine.ProductId;
             dbTransLine.TransactionId = transLine.TransactionId;
-            _transLineRepo.Create(dbTransLine);
-            return RedirectToAction("Create");
+
+            if (Check(transLine, price))
+            {
+                _transLineRepo.Create(dbTransLine);
+                return RedirectToAction("Create");
+            }
+            else
+            {
+                ViewBag.Message = "error";
+                var transaction = _transactionRepo.GetById(transLine.TransactionId);
+               //Editor(transaction.Id);
+                _transLineRepo.Create(dbTransLine);
+                var temp = _transactionRepo.GetById(transLine.TransactionId);
+                return RedirectToAction("Editor", "Transaction", new {transaction.Id});
+            }
         }
         #endregion
         #region Edit
@@ -161,5 +179,17 @@ namespace CoffeeShop.Web.Mvc.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+        public bool Check(TransactionLineCreateDto transLine, decimal price)
+        {
+            bool result = true;
+            var transaction = _transactionRepo.GetById(transLine.TransactionId);
+            transaction.TotalPrice = transaction.TransactionLines.Sum(x => x.TotalPrice);
+            var temp = transaction.TotalPrice;
+            if (temp + price > 50 & transaction.PaymentMethod == Model.Enums.PaymentMethod.CreditCard)
+            {
+                result = false;
+            }
+            return result;
+        }
     }
 }

@@ -14,6 +14,11 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input type="date" asp-for="Date" class="form-control" value=@DateTime.Today.ToString("yyyy-MM-dd")/>
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
                 <label asp-for="PaymentMethod" class="control-label"></label>
                 <select asp-for="PaymentMethod" asp-items="Html.GetEnumSelectList<PaymentMethod>()">
                     <option selected="selected" value="">Please select</option>
