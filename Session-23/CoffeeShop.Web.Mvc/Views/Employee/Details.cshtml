@@ -60,7 +60,7 @@
                         @Html.DisplayFor(modelItem => item.Date)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                        @Html.DisplayFor(modelItem => modelItem.Transactions.First().TotalPrice)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PaymentMethod)

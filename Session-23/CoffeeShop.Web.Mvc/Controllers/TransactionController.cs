@@ -3,6 +3,7 @@ using CoffeeShop.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Transactions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -34,6 +35,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
                 {
                     trans.TotalPrice *= Convert.ToDecimal(0.85);
                 }
+                _transactionRepo.Update(trans.Id, trans);
             }
 
             return View(model: transactions);
