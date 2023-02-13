@@ -1,5 +1,7 @@
 ﻿using CoffeeShop.Model.Enums;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace CoffeeShop.Model
 {
@@ -16,7 +18,9 @@ namespace CoffeeShop.Model
 
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        [Display(Name = "Total price")]
         public decimal TotalPrice { get; set; }
+        [Display(Name = "Method of payment")]
         public PaymentMethod PaymentMethod { get; set; }
 
         // Relations
@@ -31,7 +35,9 @@ namespace CoffeeShop.Model
     public class TransactionCreateDto
     {
         public DateTime Date { get; set; }
+        [Display(Name = "Total price")]
         public decimal TotalPrice { get; set; }
+        [Display(Name = "Method of payment")]
         public PaymentMethod PaymentMethod { get; set; }
         public int CustomerId { get; set; }
         public List<SelectListItem> Customers { get; set; } = new List<SelectListItem>();
@@ -42,7 +48,9 @@ namespace CoffeeShop.Model
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        [Display(Name = "Total price")]
         public decimal TotalPrice { get; set; }
+        [Display(Name = "Method of payment")]
         public PaymentMethod PaymentMethod { get; set; }
         public int CustomerId { get; set; }
         public List<SelectListItem> Customers { get; set; } = new List<SelectListItem>();
@@ -55,7 +63,9 @@ namespace CoffeeShop.Model
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        [Display(Name = "Total price")]
         public decimal TotalPrice { get; set; }
+        [Display(Name = "Method of payment")]
         public PaymentMethod PaymentMethod { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
@@ -66,7 +76,9 @@ namespace CoffeeShop.Model
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        [Display(Name = "Total price")]
         public decimal TotalPrice { get; set; }
+        [Display(Name = "Method of payment")]
         public PaymentMethod PaymentMethod { get; set; }
         public int CustomerId { get; set; }
         public Customer Customers { get; set; }

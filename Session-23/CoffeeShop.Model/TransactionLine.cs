@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
 using System.Transactions;
+using System.Xml.Linq;
 
 namespace CoffeeShop.Model
 {
@@ -18,6 +20,7 @@ namespace CoffeeShop.Model
         public int Quantity { get; set; }
         public decimal Discount { get; set; }
         public decimal Price { get; set; }
+        [Display(Name = "Total price")]
         public decimal TotalPrice { get; set; }
 
         // Relations
@@ -32,6 +35,7 @@ namespace CoffeeShop.Model
         public int Quantity { get; set; }
         public decimal Discount { get; set; }
         public decimal Price { get; set; }
+        [Display(Name = "Total price")]
         public decimal TotalPrice { get; set; }
         public int TransactionId { get; set; }
         public List<SelectListItem> Transactions { get; set; } = new List<SelectListItem>();
@@ -44,6 +48,7 @@ namespace CoffeeShop.Model
         public int Quantity { get; set; }
         public decimal Discount { get; set; }
         public decimal Price { get; set; }
+        [Display(Name = "Total price")]
         public decimal TotalPrice { get; set; }
         public int TransactionId { get; set; }
         public List<SelectListItem> Transaction { get; set; } = new List<SelectListItem>();
@@ -56,6 +61,7 @@ namespace CoffeeShop.Model
         public int Quantity { get; set; }
         public decimal Discount { get; set; }
         public decimal Price { get; set; }
+        [Display(Name = "Total price")]
         public decimal TotalPrice { get; set; }
         public int TransactionId { get; set; }
         public Product Product { get; set; }
@@ -68,6 +74,7 @@ namespace CoffeeShop.Model
         public int Quantity { get; set; }
         public decimal Discount { get; set; }
         public decimal Price { get; set; }
+        [Display(Name = "Total price")]
         public decimal TotalPrice { get; set; }
         public int TransactionId { get; set; }
         public Product Product { get; set; }
