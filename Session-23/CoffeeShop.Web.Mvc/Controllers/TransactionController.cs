@@ -30,7 +30,12 @@ namespace CoffeeShop.Web.Mvc.Controllers
             foreach (var trans in transactions)
             {
                 trans.TotalPrice = trans.TransactionLines.Sum(x => x.TotalPrice);
+                if (trans.TotalPrice > 10)
+                {
+                    trans.TotalPrice *= Convert.ToDecimal(0.85);
+                }
             }
+
             return View(model: transactions);
         }
         #endregion

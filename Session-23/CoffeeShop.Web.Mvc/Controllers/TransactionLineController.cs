@@ -89,7 +89,7 @@ namespace CoffeeShop.Web.Mvc.Controllers
             dbTransLine.ProductId = transLine.ProductId;
             dbTransLine.TransactionId = transLine.TransactionId;
 
-            if (Check(transLine, price))
+            if (Check(transLine, totalPrice))
             {
                 _transLineRepo.Create(dbTransLine);
                 return RedirectToAction("Create");

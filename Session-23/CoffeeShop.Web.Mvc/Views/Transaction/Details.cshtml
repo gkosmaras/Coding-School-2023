@@ -23,31 +23,31 @@
             @Html.DisplayFor(model => model.TotalPrice)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransactionLines)
+            Discount
         </dt>
         <dd class = "col-sm-10">
             @ViewBag.Discount
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PaymentMethod)
+            Payment Method
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PaymentMethod)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employees.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employees.Name)
+        </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Customers.Code)
+            Customer Code
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Customers.Code)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Employees.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Employees.Name)
-        </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Customers.Id)
+            Customer ID
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Customers.Id)
