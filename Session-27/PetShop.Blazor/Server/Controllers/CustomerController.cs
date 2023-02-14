@@ -4,7 +4,7 @@ using PetShop.Blazor.Shared.DTO.Customer;
 using PetShop.EF.Repositories;
 using PetShop.Models;
 
-namespace PetShop.Blazor.Server.Controllers
+/*namespace PetShop.Blazor.Server.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -66,4 +66,4 @@ namespace PetShop.Blazor.Server.Controllers
             _customerRepo.Delete(id);
         }
     }
-}
+}*/
