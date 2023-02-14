@@ -4,7 +4,7 @@ using PetShop.Blazor.Shared.DTO.Customer;
 using PetShop.EF.Repositories;
 using PetShop.Models;
 
-/*namespace PetShop.Blazor.Server.Controllers
+namespace PetShop.Blazor.Server.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -19,7 +19,7 @@ using PetShop.Models;
         [HttpGet]
         public async Task<IEnumerable<CustomerDto>> Get()
         {
-            var dbCustomer= _customerRepo.GetAll();
+            var dbCustomer = _customerRepo.GetAll();
             var result = dbCustomer.Select(cus => new CustomerDto
             {
                 Id = cus.Id,
@@ -35,6 +35,10 @@ using PetShop.Models;
         public async Task<CustomerEditDto> GetById(int id)
         {
             var dbCustomer = _customerRepo.GetById(id);
+            if (dbCustomer == null)
+            {
+                throw new ArgumentNullException();
+            }
             var result = new CustomerEditDto
             {
                 Id = id,
@@ -54,6 +58,10 @@ using PetShop.Models;
         public async Task Put(CustomerEditDto customer)
         {
             var dbCustomer = _customerRepo.GetById(customer.Id);
+            if (dbCustomer == null)
+            {
+                throw new ArgumentNullException();
+            }
             dbCustomer.Name = customer.Name;
             dbCustomer.Surname = customer.Surname;
             dbCustomer.Phone = customer.Phone;
@@ -66,4 +74,4 @@ using PetShop.Models;
             _customerRepo.Delete(id);
         }
     }
-}*/
+}

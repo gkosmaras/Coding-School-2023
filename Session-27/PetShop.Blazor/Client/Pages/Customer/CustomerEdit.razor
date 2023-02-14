@@ -1,0 +1,74 @@
+﻿@page "/customer/edit/{Id:int?}"
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+@using PetShop.Blazor.Shared.DTO.Customer;
+
+<h3>CustomerEdit</h3>
+
+@if (Customer == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input class="form-control" @bind=@Customer!.Name type="text" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Surname</label>
+            <input class="form-control" @bind=@Customer.Surname type="text" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Phone</label>
+            <input class="form-control" @bind=@Customer.Phone type="number" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">TIN</label>
+            <input class="form-control" @bind=@Customer.Tin type="text" />
+        </div>
+    </div>
+    <div class="row" style="margin-top:20px" >
+        <div class="col">
+            <button class="btn-success" @onclick="OnSave">Save</button>
+            <button class="btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    CustomerEditDto? Customer { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id == null)
+        {
+            Customer = new();
+        }
+        else
+        {
+            Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>($"customer/{Id}");
+        }
+    }
+    private void OnCancel()
+    {
+        navigationManager.NavigateTo("customer");
+    }
+    private async Task OnSave()
+    {
+        HttpResponseMessage? response = null;
+        if (Id == null)
+        {
+            response = await httpClient.PostAsJsonAsync("customer", Customer);
+        }
+        else
+        {
+            response = await httpClient.PutAsJsonAsync("customer", Customer);
+        }
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("customer");
+    }
+}

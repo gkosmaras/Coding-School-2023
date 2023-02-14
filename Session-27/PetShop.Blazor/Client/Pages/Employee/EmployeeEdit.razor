@@ -1,0 +1,80 @@
+﻿@page "/employee/edit/{id:int?}"
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+@using PetShop.Blazor.Shared.DTO.Employee;
+@using PetShop.Models.Enums;
+
+<h3>CustomerEdit</h3>
+
+@if (Employee == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input class="form-control" @bind=@Employee!.Name type="text" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Surname</label>
+            <input class="form-control" @bind=@Employee.Surname type="text" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Type of employee</label>
+            <select class="form-control"@bind="Employee.EmployeeType"> 
+                @foreach(var eeType in Enum.GetValues<EmployeeType>())
+                    {
+                        <option value="@eeType">@eeType</option>
+                    }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Monthly Salary</label>
+            <input class="form-control" @bind=@Employee.SalaryPerMonth type="number" />
+        </div>
+    </div>
+    <div class="row" style="margin-top:20px">
+        <div class="col">
+            <button class="btn-success" @onclick="OnSave">Save</button>
+            <button class="btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    EmployeeEditDto? Employee { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id == null)
+        {
+            Employee = new();
+        }
+        else
+        {
+            Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>($"employee/{Id}");
+        }
+    }
+    private void OnCancel()
+    {
+        navigationManager.NavigateTo("employee");
+    }
+    private async Task OnSave()
+    {
+        HttpResponseMessage? response = null;
+        if (Id == null)
+        {
+            response = await httpClient.PostAsJsonAsync("employee", Employee);
+        }
+        else
+        {
+            response = await httpClient.PutAsJsonAsync("employee", Employee);
+        }
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("employee");
+    }
+}

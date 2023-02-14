@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PetShop.Blazor.Shared.DTO.Employee
 {
-    public class EmployeeDto
+    public class EmployeeEditDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

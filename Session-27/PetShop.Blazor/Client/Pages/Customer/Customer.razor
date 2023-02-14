@@ -5,7 +5,7 @@
 @using PetShop.Blazor.Shared.DTO.Customer;
 
 <h3>Customer</h3>
-@*
+
 @if (loading)
 {
     <p>Loading...</p>
@@ -46,6 +46,10 @@ else
     bool loading { get; set; } = true;
     protected override async Task OnInitializedAsync()
     {
+        if (customer == null)
+        {
+            throw new ArgumentNullException();
+        }
         await LoadItemsFromServer();
         loading = false;
     }
@@ -63,7 +67,7 @@ else
     }
     private async Task DeleteCustomer(CustomerDto customer)
     {
-        var confirm = await jsRuntime.InvokeAsync<bool>("confirm", "Confirm customer delete?");
+        var confirm = await jsRuntime.InvokeAsync<bool>("confirm", "Confirm customer deletion?");
         if (confirm)
         {
             var response = await httpClient.DeleteAsync($"customer/{customer.Id}");
@@ -72,4 +76,4 @@ else
         }
 
     }
-}*@
+}
