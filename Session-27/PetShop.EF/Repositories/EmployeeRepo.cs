@@ -48,7 +48,8 @@ namespace PetShop.EF.Repositories
         public Employee? GetById(int id)
         {
             using var context = new PetShopDbContext();
-            var dbEmployee = context.Employees.Include(ee => ee.Transactions).Where(ee => ee.Id == id).SingleOrDefault();
+            var dbEmployee = context.Employees.Where(ee => ee.Id == id)
+                .Include(ee => ee.Transactions).SingleOrDefault();
             return dbEmployee;
         }
         public IList<Employee> GetAll()

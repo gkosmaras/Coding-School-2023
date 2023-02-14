@@ -48,7 +48,8 @@ namespace PetShop.EF.Repositories
         public PetFood? GetById(int id)
         {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.PetFoods.Include(pFood => pFood.Transactions).Where(pFood => pFood.Id == id).SingleOrDefault();
+            var dbPetFood = context.PetFoods.Where(pFood => pFood.Id == id)
+                .Include(pFood => pFood.Transactions).SingleOrDefault();
             return dbPetFood;
         }
         public IList<PetFood> GetAll()
