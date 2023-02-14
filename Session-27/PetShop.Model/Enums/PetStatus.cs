@@ -2,7 +2,7 @@
 {
     public enum PetStatus
     {
-        Ok = 1,
+        OK = 1,
         Unhealthy = 2,
         Recovering = 3
     }
