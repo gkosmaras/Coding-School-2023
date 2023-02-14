@@ -25,7 +25,7 @@ namespace PetShop.EF.Repositories
         {
             using var context = new PetShopDbContext();
             var dbEmployee = context.Employees.Where(ee => ee.Id == id).SingleOrDefault();
-            if (employee.Id == 0)
+            if (dbEmployee == null)
             {
                 throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
