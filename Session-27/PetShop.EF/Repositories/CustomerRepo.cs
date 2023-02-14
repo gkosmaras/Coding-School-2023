@@ -27,7 +27,7 @@ namespace PetShop.EF.Repositories
             var dbCustomer = context.Customers.Where(cus => cus.Id == id).SingleOrDefault();
             if (customer.Id == 0)
             {
-                throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
+                throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
             dbCustomer.Name = customer.Name;
             dbCustomer.Surname = customer.Surname;
@@ -41,9 +41,10 @@ namespace PetShop.EF.Repositories
             var dbCustomer = context.Customers.Where(cus => cus.Id == id).SingleOrDefault();
             if (dbCustomer == null)
             {
-                throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
+                throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
             context.Remove(dbCustomer);
+            context.SaveChanges();
         }
         public Customer? GetById(int id)
         {

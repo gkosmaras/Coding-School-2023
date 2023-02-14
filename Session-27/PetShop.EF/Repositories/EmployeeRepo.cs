@@ -16,7 +16,7 @@ namespace PetShop.EF.Repositories
             using var context = new PetShopDbContext();
             if (employee.Id != 0)
             {
-                throw new ArgumentException("Given entity should not have an ID set", nameof(customer));
+                throw new ArgumentException("Given entity should not have an ID set", nameof(employee));
             }
             context.Add(employee);
             context.SaveChanges();
@@ -27,7 +27,7 @@ namespace PetShop.EF.Repositories
             var dbEmployee = context.Employees.Where(ee => ee.Id == id).SingleOrDefault();
             if (employee.Id == 0)
             {
-                throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
+                throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
             dbEmployee.Name = employee.Name;
             dbEmployee.Surname = employee.Surname;
@@ -40,9 +40,10 @@ namespace PetShop.EF.Repositories
             var dbEmployee = context.Employees.Where(ee => ee.Id == id).SingleOrDefault();
             if (dbEmployee == null)
             {
-                throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
+                throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
             context.Remove(dbEmployee);
+            context.SaveChanges();
         }
         public Employee? GetById(int id)
         {
