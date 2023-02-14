@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PetShop.EF.Context;
-using PetShop.Model;
+using PetShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
