@@ -9,12 +9,17 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="PetShop.Blazor.Client" />
     <None Remove="PetShop.Blazor.Shared" />
+    <None Remove="Microsoft.EntityFrameworkCore.Design" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\PetShop.EF\PetShop.EF.csproj" />
