@@ -1,0 +1,48 @@
+﻿@page "/customer"
+@using PetShop.Blazor.Shared.DTO;
+@inject HttpClient httpClient
+
+<h3>Customer</h3>
+
+@if (loading)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class=" table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Phone</th>
+                <th>Tin</th>
+            </tr>
+        </thead>
+                <tbody>
+                    @foreach (var cus in customer)
+                    {
+                        <tr>
+                            <td>@cus.Name</td>
+                            <td>@cus.Surname</td>
+                            <td>@cus.Phone</td>
+                            <td>@cus.Tin</td>
+                        </tr>
+                    }
+                </tbody>
+    </table>
+}
+
+@code {
+    private List<CustomerDto> customer = new ();
+    bool loading { get; set; } = true;
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadItemsFromServer();
+        loading = false;
+    }
+    private async Task LoadItemsFromServer()
+    {
+        customer = await httpClient.GetFromJsonAsync<List<CustomerDto>>("customer");
+    }
+}

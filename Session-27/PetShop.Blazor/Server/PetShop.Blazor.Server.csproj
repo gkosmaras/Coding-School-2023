@@ -17,6 +17,8 @@
     <None Remove="PetShop.Blazor.Shared" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\PetShop.EF\PetShop.EF.csproj" />
+    <ProjectReference Include="..\..\PetShop.Model\PetShop.Models.csproj" />
     <ProjectReference Include="..\Client\PetShop.Blazor.Client.csproj" />
     <ProjectReference Include="..\Shared\PetShop.Blazor.Shared.csproj" />
   </ItemGroup>

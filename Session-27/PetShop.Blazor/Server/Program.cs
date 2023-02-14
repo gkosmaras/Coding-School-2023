@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.ResponseCompression;
+using PetShop.EF.Repositories;
+using PetShop.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IEntityRepo<Customer>, CustomerRepo>();
 
 var app = builder.Build();
 
