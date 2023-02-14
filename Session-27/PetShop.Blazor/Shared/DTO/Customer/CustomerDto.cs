@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetShop.Blazor.Shared.DTO
+namespace PetShop.Blazor.Shared.DTO.Customer
 {
     public class CustomerDto
     {

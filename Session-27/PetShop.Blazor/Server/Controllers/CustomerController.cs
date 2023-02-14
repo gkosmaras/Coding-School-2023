@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PetShop.Blazor.Shared.DTO;
+using PetShop.Blazor.Shared.DTO.Customer;
 using PetShop.EF.Repositories;
 using PetShop.Models;
 
