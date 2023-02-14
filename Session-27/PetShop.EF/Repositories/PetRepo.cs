@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using PetShop.EF.Context;
+using PetShop.EF.Repositories;
 using PetShop.Models;
 using System;
 using System.Collections.Generic;
@@ -8,26 +9,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetShop.EF.Repositories
-{
-    public class PetRepo : IEntityRepo<Pet>
-    {
-        public void Add(Pet pet)
-        {
+namespace PetShop.EF.Repositories {
+
+    public class PetRepo : IEntityRepo<Pet> {
+
+        public IList<Pet> GetAll() {
             using var context = new PetShopDbContext();
-            if (pet.Id != null)
-            {
+            var dbPet = context.Pets.Include(p => p.Transactions).ToList();
+            return dbPet;
+        }
+
+        public Pet? GetById(int id) {
+            using var context = new PetShopDbContext();
+            var dbPet = context.Pets.Where(p => p.Id == id).Include(p => p.Transactions).SingleOrDefault();
+            return dbPet;
+        }
+
+        public void Add(Pet pet) {
+            using var context = new PetShopDbContext();
+            if (pet.Id != 0) {
                 throw new ArgumentException("Given entity should not have an ID set", nameof(pet));
             }
             context.Add(pet);
             context.SaveChanges();
         }
-        public void Update(int id, Pet pet)
-        {
+
+        public void Update(int id, Pet pet) {
             using var context = new PetShopDbContext();
             var dbPet = context.Pets.Where(p => p.Id == id).SingleOrDefault();
-            if (pet.Id == 0)
-            {
+            if (dbPet == null) {
                 throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
             }
             dbPet.Breed = pet.Breed;
@@ -37,28 +47,18 @@ namespace PetShop.EF.Repositories
             dbPet.Cost = pet.Cost;
             context.SaveChanges();
         }
-        public void Delete(int id)
-        {
+
+        public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbPet = context.Pets.Where(p =>p.Id == id).SingleOrDefault();
-            if (dbPet.Id == 0)
-            {
+            var dbPet = context.Pets.Where(p => p.Id == id).SingleOrDefault();
+            if (dbPet == null) {
                 throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
             }
             context.Remove(dbPet);
         }
-        public Pet? GetById(int id)
-        {
-            using var context = new PetShopDbContext();
-            var dbPet = context.Pets.Where(p => p.Id == id)
-                .Include(p => p.Transactions).SingleOrDefault();
-            return dbPet;
-        }
-        public IList<Pet> GetAll()
-        {
-            using var context = new PetShopDbContext();
-            var dbPet = context.Pets.Include(p => p.Transactions).ToList();
-            return dbPet;
-        }
+
     }
+
 }
+
+

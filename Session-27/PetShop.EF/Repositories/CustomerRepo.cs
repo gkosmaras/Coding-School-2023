@@ -7,26 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetShop.EF.Repositories
-{
-    public class CustomerRepo : IEntityRepo<Customer>
-    {
-        public void Add(Customer customer)
-        {
+namespace PetShop.EF.Repositories {
+
+    public class CustomerRepo : IEntityRepo<Customer> {
+
+        public void Add(Customer customer) {
             using var context = new PetShopDbContext();
-            if (customer.Id != 0)
-            {
+            if (customer.Id != 0) {
                 throw new ArgumentException("Given entity should not have an ID set", nameof(customer));
             }
             context.Add(customer);
             context.SaveChanges();
         }
-        public void Update(int id, Customer customer)
-        {
+
+        public void Update(int id, Customer customer) {
             using var context = new PetShopDbContext();
             var dbCustomer = context.Customers.Where(cus => cus.Id == id).SingleOrDefault();
-            if (customer.Id == 0)
-            {
+            if (dbCustomer is null) {
                 throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
             dbCustomer.Name = customer.Name;
@@ -35,30 +32,30 @@ namespace PetShop.EF.Repositories
             dbCustomer.Tin = customer.Tin;
             context.SaveChanges();
         }
-        public void Delete(int id)
-        {
+
+        public void Delete(int id) {
             using var context = new PetShopDbContext();
             var dbCustomer = context.Customers.Where(cus => cus.Id == id).SingleOrDefault();
-            if (dbCustomer == null)
-            {
+            if (dbCustomer == null) {
                 throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
             context.Remove(dbCustomer);
             context.SaveChanges();
         }
-        public Customer? GetById(int id)
-        {
+
+        public Customer? GetById(int id) {
             using var context = new PetShopDbContext();
             var dbCustomer = context.Customers.Where(cus => cus.Id == id)
                 .Include(cus => cus.Transactions).SingleOrDefault();
             return dbCustomer;
         }
-        public IList<Customer> GetAll()
-        {
+
+        public IList<Customer> GetAll() {
             using var context = new PetShopDbContext();
             var dbCustomer = context.Customers.Include(cus => cus.Transactions).ToList();
             return dbCustomer;
         }
+
     }
-    
+
 }
