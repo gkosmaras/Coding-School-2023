@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PetShop.Models;
 
-using PetShop.Model;
+namespace PetShop.EF.Configurations {
 
-namespace PetShop.EF.Configurations
-{
-    public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
-    {
-        public void Configure(EntityTypeBuilder<Transaction> builder)
-        {
+    public class TransactionConfiguration : IEntityTypeConfiguration<Transaction> {
+
+        public void Configure(EntityTypeBuilder<Transaction> builder) {
+
             // Table Name
             builder.ToTable("Transactions");
 
@@ -43,6 +42,9 @@ namespace PetShop.EF.Configurations
                 .WithMany(t => t.Transactions)
                 .HasForeignKey(t => t.PetFoodId)
                 .OnDelete(DeleteBehavior.Restrict);
+
         }
+
     }
+
 }

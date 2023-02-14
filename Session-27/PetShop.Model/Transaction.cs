@@ -1,15 +1,6 @@
-﻿namespace PetShop.Model
-{
-    public class Transaction
-    {
-        public Transaction(decimal petPrice, int petFoodQty, decimal petFoodPrice, decimal totalPrice)
-        {
-            Date = DateTime.Now;
-            PetPrice = petPrice;
-            PetFoodPrice = petFoodPrice;
-            PetFoodQty = petFoodQty;
-            TotalPrice = totalPrice;
-        }
+﻿namespace PetShop.Models {
+
+    public class Transaction {
 
         public int Id { get; set; }
         public DateTime Date { get; set; }
@@ -30,5 +21,15 @@
 
         public int PetFoodId { get; set; }
         public PetFood PetFood { get; set; } = null!;
+
+        public Transaction(decimal petPrice, int petFoodQty, decimal petFoodPrice, decimal totalPrice) {
+            Date = DateTime.Now;
+            PetPrice = petPrice;
+            PetFoodPrice = petFoodPrice;
+            PetFoodQty = petFoodQty;
+            TotalPrice = totalPrice;
+        }
+
     }
+
 }

@@ -1,15 +1,6 @@
-﻿namespace PetShop.Model {
+﻿namespace PetShop.Models {
 
     public class Customer {
-
-        public Customer(string name, string surname, int phone, string tin) {
-            Name = name;
-            Surname = surname;
-            Phone = phone;
-            Tin = tin;
-
-            Transactions = new List<Transaction>();
-        }
 
         public int Id { get; set; }
         public string Name { get; set; }
@@ -20,11 +11,14 @@
         // Relations
         public List<Transaction> Transactions { get; set; }
 
-    }
+        public Customer(string name, string surname, int phone, string tin) {
+            Name = name;
+            Surname = surname;
+            Phone = phone;
+            Tin = tin;
+            Transactions = new List<Transaction>();
+        }
 
-
-    public class Test {
-        // Do test
     }
 
 }

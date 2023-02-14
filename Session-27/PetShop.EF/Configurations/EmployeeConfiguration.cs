@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PetShop.Models;
 
-using PetShop.Model;
+namespace PetShop.EF.Configurations {
 
-namespace PetShop.EF.Configurations
-{
-    public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
-    {
-        public void Configure(EntityTypeBuilder<Employee> builder)
-        {
+    public class EmployeeConfiguration : IEntityTypeConfiguration<Employee> {
+
+        public void Configure(EntityTypeBuilder<Employee> builder) {
+
             // Table Name
             builder.ToTable("Employees");
 
@@ -22,7 +21,8 @@ namespace PetShop.EF.Configurations
             builder.Property(t => t.SalaryPerMonth).IsRequired();
             builder.Property(t => t.EmployeeType).IsRequired();
 
-            // Relations
         }
+
     }
+
 }

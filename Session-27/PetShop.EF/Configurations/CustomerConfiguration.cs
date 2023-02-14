@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PetShop.Models;
 
-using PetShop.Model;
+namespace PetShop.EF.Configurations {
 
-namespace PetShop.EF.Configurations
-{
-    public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
-    {
-        public void Configure(EntityTypeBuilder<Customer> builder)
-        {
+    public class CustomerConfiguration : IEntityTypeConfiguration<Customer> {
+
+        public void Configure(EntityTypeBuilder<Customer> builder) {
+
             // Table Name
             builder.ToTable("Customers");
 
@@ -22,8 +21,8 @@ namespace PetShop.EF.Configurations
             builder.Property(t => t.Phone).IsRequired();
             builder.Property(t => t.Tin).HasMaxLength(30).IsRequired();
 
-            // Relations
-
         }
+
     }
+
 }

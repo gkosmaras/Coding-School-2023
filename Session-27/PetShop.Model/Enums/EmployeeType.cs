@@ -1,4 +1,4 @@
-﻿namespace PetShop.Model.Enums
+﻿namespace PetShop.Models.Enums
 {
     public enum EmployeeType
     {

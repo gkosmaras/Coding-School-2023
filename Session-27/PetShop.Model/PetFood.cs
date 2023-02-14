@@ -1,17 +1,8 @@
-﻿using PetShop.Model.Enums;
+﻿using PetShop.Models.Enums;
 
-namespace PetShop.Model
-{
-    public class PetFood
-    {
-        public PetFood(AnimalType animalType, decimal price, decimal cost)
-        {
-            AnimalType = animalType;
-            Price = price;
-            Cost = cost;
+namespace PetShop.Models {
 
-            Transactions = new List<Transaction>();
-        }
+    public class PetFood {
 
         public int Id { get; set; }
         public AnimalType AnimalType { get; set; }
@@ -20,5 +11,14 @@ namespace PetShop.Model
 
         // Relations
         public List<Transaction> Transactions { get; set; }
+
+        public PetFood(AnimalType animalType, decimal price, decimal cost) {
+            AnimalType = animalType;
+            Price = price;
+            Cost = cost;
+            Transactions = new List<Transaction>();
+        }
+
     }
+
 }
