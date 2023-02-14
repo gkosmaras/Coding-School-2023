@@ -38,11 +38,22 @@ namespace PetShop.EF.Repositories
         {
             using var context = new PetShopDbContext();
             var dbEmployee = context.Employees.Where(ee => ee.Id == id).SingleOrDefault();
+            if (dbEmployee == null)
+            {
+                throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
+            }
+            context.Remove(dbEmployee);
         }
         public Employee? GetById(int id)
         {
             using var context = new PetShopDbContext();
             var dbEmployee = context.Employees.Include(ee => ee.Transactions).Where(ee => ee.Id == id).SingleOrDefault();
+            return dbEmployee;
+        }
+        public IList<Employee> GetAll()
+        {
+            using var context = new PetShopDbContext();
+            var dbEmployee = context.Employees.Include(ee => ee.Transactions).ToList();
             return dbEmployee;
         }
     }
