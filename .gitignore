@@ -364,3 +364,6 @@ FodyWeavers.xsd
 Session-00
 Session-XX
 /Session-06/.cr/personal/FavoritesList
+
+# DS Store files
+*.DS_Store
