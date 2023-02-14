@@ -1,9 +1,8 @@
-﻿namespace PetShop.Model
-{
-    public class Customer
-    {
-        public Customer(string name, string surname, int phone, string tin)
-        {
+﻿namespace PetShop.Model {
+
+    public class Customer {
+
+        public Customer(string name, string surname, int phone, string tin) {
             Name = name;
             Surname = surname;
             Phone = phone;
@@ -20,5 +19,12 @@
 
         // Relations
         public List<Transaction> Transactions { get; set; }
+
     }
+
+
+    public class Test {
+        // Do test
+    }
+
 }
