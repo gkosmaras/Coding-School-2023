@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PetShop.EF.Repositories;
 using PetShop.Models;
-using PetShop.Models.Enums;
 using PetShop.Blazor.Shared.DTO.Pet;
-using PetShop.Blazor.Shared.DTO.Customer;
 
 namespace PetShop.Blazor.Server.Controllers {
 
@@ -21,7 +19,6 @@ namespace PetShop.Blazor.Server.Controllers {
 
         [HttpGet]
         public async Task<IEnumerable<PetDto>> Get() {
-
             var response = _petRepo.GetAll();
 
             return response.Select(pet => new PetDto {
@@ -38,37 +35,53 @@ namespace PetShop.Blazor.Server.Controllers {
         [HttpGet("{id}")]
         public async Task<PetEditDto> GetById(int id) {
 
-            var response = _petRepo.GetById(id);
+            var dbPet = _petRepo.GetById(id);
 
-            return new PetEditDto {
+            if (dbPet == null) {
+                throw new ArgumentNullException();
+            }
+
+            var result = new PetEditDto {
                 Id = id,
-                Breed = response.Breed,
-                AnimalType = response.AnimalType,
-                PetStatus = response.PetStatus,
-                Price = response.Price,
-                Cost = response.Cost
+                Breed = dbPet.Breed,
+                AnimalType = dbPet.AnimalType,
+                PetStatus = dbPet.PetStatus,
+                Price = dbPet.Price,
+                Cost = dbPet.Cost
             };
+
+            return result;
 
         }
 
         [HttpPost]
         public async Task Post(PetEditDto pet) {
-            var newPet = new Pet(pet.Breed, pet.AnimalType, pet.PetStatus, pet.Price, pet.Cost);
-            _petRepo.Add(newPet);
+            var dbPet = new Pet(
+                pet.Breed,
+                pet.AnimalType,
+                pet.PetStatus,
+                pet.Price,
+                pet.Cost
+                );
+            _petRepo.Add(dbPet);
         }
 
         [HttpPut]
         public async Task Put(PetEditDto pet) {
 
-            var itemToUpdate = _petRepo.GetById(pet.Id);
+            var dbPet = _petRepo.GetById(pet.Id);
 
-            itemToUpdate.Breed = pet.Breed;
-            itemToUpdate.AnimalType = pet.AnimalType;
-            itemToUpdate.PetStatus = pet.PetStatus;
-            itemToUpdate.Price = pet.Price;
-            itemToUpdate.Cost = pet.Cost;
+            if (dbPet == null) {
+                throw new ArgumentNullException();
+            }
 
-            _petRepo.Update(pet.Id, itemToUpdate);
+            dbPet.Breed = pet.Breed;
+            dbPet.AnimalType = pet.AnimalType;
+            dbPet.PetStatus = pet.PetStatus;
+            dbPet.Price = pet.Price;
+            dbPet.Cost = pet.Cost;
+
+            _petRepo.Update(pet.Id, dbPet);
 
         }
 

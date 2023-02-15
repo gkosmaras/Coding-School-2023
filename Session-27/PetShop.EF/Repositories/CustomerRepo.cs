@@ -11,6 +11,23 @@ namespace PetShop.EF.Repositories {
 
     public class CustomerRepo : IEntityRepo<Customer> {
 
+        public IList<Customer> GetAll() {
+            using var context = new PetShopDbContext();
+            var dbCustomer = context.Customers
+                .Include(cus => cus.Transactions)
+                .ToList();
+            return dbCustomer;
+        }
+
+        public Customer? GetById(int id) {
+            using var context = new PetShopDbContext();
+            var dbCustomer = context.Customers
+                .Where(cus => cus.Id == id)
+                .Include(cus => cus.Transactions)
+                .SingleOrDefault();
+            return dbCustomer;
+        }
+
         public void Add(Customer customer) {
             using var context = new PetShopDbContext();
             if (customer.Id != 0) {
@@ -22,7 +39,9 @@ namespace PetShop.EF.Repositories {
 
         public void Update(int id, Customer customer) {
             using var context = new PetShopDbContext();
-            var dbCustomer = context.Customers.Where(cus => cus.Id == id).SingleOrDefault();
+            var dbCustomer = context.Customers
+                .Where(cus => cus.Id == id)
+                .SingleOrDefault();
             if (dbCustomer is null) {
                 throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
@@ -35,25 +54,14 @@ namespace PetShop.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbCustomer = context.Customers.Where(cus => cus.Id == id).SingleOrDefault();
+            var dbCustomer = context.Customers
+                .Where(cus => cus.Id == id)
+                .SingleOrDefault();
             if (dbCustomer == null) {
                 throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
             context.Remove(dbCustomer);
             context.SaveChanges();
-        }
-
-        public Customer? GetById(int id) {
-            using var context = new PetShopDbContext();
-            var dbCustomer = context.Customers.Where(cus => cus.Id == id)
-                .Include(cus => cus.Transactions).SingleOrDefault();
-            return dbCustomer;
-        }
-
-        public IList<Customer> GetAll() {
-            using var context = new PetShopDbContext();
-            var dbCustomer = context.Customers.Include(cus => cus.Transactions).ToList();
-            return dbCustomer;
         }
 
     }

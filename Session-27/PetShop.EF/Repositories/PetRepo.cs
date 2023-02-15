@@ -8,13 +8,18 @@ namespace PetShop.EF.Repositories {
 
         public IList<Pet> GetAll() {
             using var context = new PetShopDbContext();
-            var dbPet = context.Pets.ToList();
+            var dbPet = context.Pets
+                .Include(p => p.Transactions)
+                .ToList();
             return dbPet;
         }
 
         public Pet? GetById(int id) {
             using var context = new PetShopDbContext();
-            var dbPet = context.Pets.Include(p => p.Transactions).SingleOrDefault(p => p.Id == id);
+            var dbPet = context.Pets
+                .Where(p => p.Id == id)
+                .Include(p => p.Transactions)
+                .SingleOrDefault();
             return dbPet;
         }
 
@@ -29,7 +34,9 @@ namespace PetShop.EF.Repositories {
 
         public void Update(int id, Pet pet) {
             using var context = new PetShopDbContext();
-            var dbPet = context.Pets.SingleOrDefault(p => p.Id == id);
+            var dbPet = context.Pets
+                .Where(p => p.Id == id)
+                .SingleOrDefault();
             if (dbPet == null) {
                 throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
             }
@@ -43,7 +50,9 @@ namespace PetShop.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbPet = context.Pets.SingleOrDefault(p => p.Id == id);
+            var dbPet = context.Pets
+                .Where(p => p.Id == id)
+                .SingleOrDefault();
             if (dbPet == null) {
                 throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
             }

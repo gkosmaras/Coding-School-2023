@@ -5,7 +5,7 @@
 @using PetShop.Blazor.Shared.DTO.PetFood;
 @using PetShop.Blazor.Shared.DTO.Transaction;
 
-<h3>TransactionEdit</h3>
+<h3>Transaction Edit</h3>
 
 @if (loading)
 {
@@ -60,7 +60,7 @@ else
     <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Pet Food</label>
-            <select clas="form-select" @bind="@Transaction.PetFoodId">
+            <select class="form-select" @bind="@Transaction.PetFoodId">
                 @foreach (var petFood in Transaction.PetFoods)
                 {
                     <option value="@petFood.Id">@petFood.AnimalType</option>
@@ -68,8 +68,6 @@ else
             </select>
         </div>
     </div>
-
-
 
     <div class="row mb-3">
         <div class="row" style="margin-top:20px">

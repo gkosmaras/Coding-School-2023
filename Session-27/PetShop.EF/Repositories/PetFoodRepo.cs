@@ -9,13 +9,18 @@ namespace PetShop.EF.Repositories {
 
         public IList<PetFood> GetAll() {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.PetFoods.ToList();
+            var dbPetFood = context.PetFoods
+                .Include(pf => pf.Transactions)
+                .ToList();
             return dbPetFood;
         }
 
         public PetFood? GetById(int id) {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.PetFoods.Include(p => p.Transactions).SingleOrDefault(pf => pf.Id == id);
+            var dbPetFood = context.PetFoods
+                .Where(pf => pf.Id == id)
+                .Include(pf => pf.Transactions)
+                .SingleOrDefault();
             return dbPetFood;
         }
 
@@ -30,7 +35,9 @@ namespace PetShop.EF.Repositories {
 
         public void Update(int id, PetFood petFood) {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.PetFoods.SingleOrDefault(pf => pf.Id == id);
+            var dbPetFood = context.PetFoods
+                .Where(pf => pf.Id == id)
+                .SingleOrDefault();
             if (dbPetFood == null) {
                 throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
             }
@@ -42,7 +49,9 @@ namespace PetShop.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.PetFoods.SingleOrDefault(pf => pf.Id == id);
+            var dbPetFood = context.PetFoods
+                .Where(pf => pf.Id == id)
+                .SingleOrDefault();
             if (dbPetFood == null) {
                 throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
             }

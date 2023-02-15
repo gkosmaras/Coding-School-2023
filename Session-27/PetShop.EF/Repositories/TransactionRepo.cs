@@ -14,21 +14,23 @@ namespace PetShop.EF.Repositories {
         public IList<Transaction> GetAll() {
             using var context = new PetShopDbContext();
             var dbTransaction = context.Transactions
-                .Include(trans => trans.Customer)
-                .Include(trans => trans.Employee)
-                .Include(trans => trans.Pet)
-                .Include(trans => trans.PetFood)
+                .Include(tr => tr.Customer)
+                .Include(tr => tr.Employee)
+                .Include(tr => tr.Pet)
+                .Include(tr => tr.PetFood)
                 .ToList();
             return dbTransaction;
         }
 
         public Transaction? GetById(int id) {
             using var context = new PetShopDbContext();
-            var dbTransaction = context.Transactions.Where(trans => trans.Id == id)
-                .Include(trans => trans.Customer)
-                .Include(trans => trans.Employee)
-                .Include(trans => trans.Pet)
-                .Include(trans => trans.PetFood).SingleOrDefault();
+            var dbTransaction = context.Transactions
+                .Where(tr => tr.Id == id)
+                .Include(tr => tr.Customer)
+                .Include(tr => tr.Employee)
+                .Include(tr => tr.Pet)
+                .Include(tr => tr.PetFood)
+                .SingleOrDefault();
             return dbTransaction;
         }
 
@@ -43,7 +45,9 @@ namespace PetShop.EF.Repositories {
 
         public void Update(int id, Transaction transaction) {
             using var context = new PetShopDbContext();
-            var dbTransaction = context.Transactions.Where(trans => trans.Id == id).SingleOrDefault();
+            var dbTransaction = context.Transactions.
+                Where(tr => tr.Id == id)
+                .SingleOrDefault();
             if (dbTransaction == null) {
                 throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
@@ -61,7 +65,9 @@ namespace PetShop.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbTransaction = context.Transactions.Where(trans => trans.Id == id).SingleOrDefault();
+            var dbTransaction = context.Transactions
+                .Where(tr => tr.Id == id)
+                .SingleOrDefault();
             if (dbTransaction == null) {
                 throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
             }
