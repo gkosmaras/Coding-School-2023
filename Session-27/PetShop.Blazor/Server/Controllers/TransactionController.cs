@@ -29,14 +29,10 @@ namespace PetShop.Blazor.Server.Controllers {
                 PetPrice = Transaction.PetPrice,
                 PetFoodQty = Transaction.PetFoodQty,
                 PetFoodPrice = Transaction.PetFoodPrice,
-                TotalPrice = Transaction.TotalPrice      
+                TotalPrice = Transaction.TotalPrice,
+                
             });
 
-        }
-
-        [HttpDelete("{id}")]
-        public async Task Delete(int id) {
-            _transactionRepo.Delete(id);
         }
 
     }

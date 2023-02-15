@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PetShop.Blazor.Shared.DTO.Transaction {
+﻿namespace PetShop.Blazor.Shared.DTO.Transaction {
 
     public class TransactionDto {
 
