@@ -15,8 +15,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="DTO\Pet\" />
+    <None Remove="DTO\PetFood\" />
+    <None Remove="DTO\Transaction\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTO\Pet\" />
+    <Folder Include="DTO\PetFood\" />
+    <Folder Include="DTO\Transaction\" />
   </ItemGroup>
 </Project>
