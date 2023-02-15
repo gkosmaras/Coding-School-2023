@@ -1,20 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PetShop.EF.Repositories;
+using PetShop.Models;
+using PetShop.Models.Enums;
+using PetShop.Blazor.Shared.DTO.Transaction;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+namespace PetShop.Blazor.Server.Controllers {
 
-namespace PetShop.Blazor.Server.Controllers
-{
-    public class TransactionController : Controller
-    {
-        // GET: /<controller>/
-        public IActionResult Index()
-        {
-            return View();
+    [Route("[controller]")]
+    [ApiController]
+
+    public class TransactionController : ControllerBase {
+
+        private readonly IEntityRepo<Transaction> _transactionRepo;
+
+        public TransactionController(IEntityRepo<Transaction> transactionRepo) {
+            _transactionRepo = transactionRepo;
         }
-    }
-}
 
+        [HttpGet]
+        public async Task<IEnumerable<TransactionDto>> Get() {
+
+            var response = _transactionRepo.GetAll();
+
+            return response.Select(Transaction => new TransactionDto {
+                Id = Transaction.Id,
+                Date = Transaction.Date,
+                PetPrice = Transaction.PetPrice,
+                PetFoodQty = Transaction.PetFoodQty,
+                PetFoodPrice = Transaction.PetFoodPrice,
+                TotalPrice = Transaction.TotalPrice      
+            });
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task Delete(int id) {
+            _transactionRepo.Delete(id);
+        }
+
+    }
+
+}
