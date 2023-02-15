@@ -21,6 +21,5 @@
   <ItemGroup>
     <Folder Include="DTO\Pet\" />
     <Folder Include="DTO\PetFood\" />
-    <Folder Include="DTO\Transaction\" />
   </ItemGroup>
 </Project>

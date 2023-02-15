@@ -14,10 +14,10 @@ namespace PetShop.EF.Repositories {
         public IList<Transaction> GetAll() {
             using var context = new PetShopDbContext();
             var dbTransaction = context.Transactions
-                //.Include(trans => trans.Customer)
-                //.Include(trans => trans.Employee)
-                //.Include(trans => trans.Pet)
-                //.Include(trans => trans.PetFood)
+                .Include(trans => trans.Customer)
+                .Include(trans => trans.Employee)
+                .Include(trans => trans.Pet)
+                .Include(trans => trans.PetFood)
                 .ToList();
             return dbTransaction;
         }

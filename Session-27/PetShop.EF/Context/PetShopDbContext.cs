@@ -24,9 +24,10 @@ namespace PetShop.EF.Context {
 
         }
 
-        /* George Kosmaras DB Connection.  
+/*        George Kosmaras DB Connection.*/
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
 
             optionsBuilder.UseSqlServer(
                 "Data Source=(localdb)\\MSSQLLocalDB;" +
@@ -41,11 +42,11 @@ namespace PetShop.EF.Context {
 
             base.OnConfiguring(optionsBuilder);
 
-        } */
+        }
 
         /* Ioannis Koukotzilas DB Connection */
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+/*        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 
             optionsBuilder.UseSqlServer(
                 "Data Source=localhost; " +
@@ -61,7 +62,7 @@ namespace PetShop.EF.Context {
 
             base.OnConfiguring(optionsBuilder);
 
-        }
+        }*/
 
     }
 
