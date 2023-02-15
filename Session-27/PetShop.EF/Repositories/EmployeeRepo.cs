@@ -32,7 +32,7 @@ namespace PetShop.EF.Repositories
             dbEmployee.Name = employee.Name;
             dbEmployee.Surname = employee.Surname;
             dbEmployee.SalaryPerMonth  = employee.SalaryPerMonth;
-            employee.EmployeeType = employee.EmployeeType;
+            dbEmployee.EmployeeType = employee.EmployeeType;
             context.SaveChanges();
         }
         public void Delete(int id)
