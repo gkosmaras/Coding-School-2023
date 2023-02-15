@@ -50,13 +50,17 @@ namespace PetShop.Blazor.Server.Controllers
 
         }
         [HttpGet("{id}")]
-        public TransactionEditDto GetById(int id)
+        public async Task <TransactionEditDto> GetById(int id)
         {
             var dbTransaction = _transactionRepo.GetById(id);
             var dbCustomer = _customerRepo.GetAll();
             var dbEmployee = _employeerRepo.GetAll();
             var dbPet = _petRepo.GetAll();
             var dbPetFood = _petFoodRepo.GetAll();
+            if (dbTransaction == null)
+            {
+                throw new ArgumentNullException();
+            }
             var result = new TransactionEditDto
             {
                 Date = DateTime.Now,
@@ -93,6 +97,7 @@ namespace PetShop.Blazor.Server.Controllers
             var temp = Convert.ToDecimal(transaction.Pets.Sum(x => x.Price));
             var temp1 = transaction.PetFoodQty;
             var temp2 = (transaction.PetFoodQty) * transaction.PetFoods.Sum(x => x.Price);
+
             var trans = new Transaction(temp, temp1, temp2, temp1 + temp2);
             trans.CustomerId = transaction.CustomerId;
             trans.EmployeeId = transaction.EmployeeId;
@@ -105,12 +110,29 @@ namespace PetShop.Blazor.Server.Controllers
         public async Task Put(TransactionEditDto transaction)
         {
             var dbTransaction = _transactionRepo.GetById(transaction.Id);
+            if (dbTransaction == null)
+            {
+                throw new ArgumentNullException();
+            }
+            var temp = Convert.ToDecimal(transaction.Pets.Sum(x => x.Price));
+            var temp1 = transaction.PetFoodQty;
+            var temp2 = (transaction.PetFoodQty) * transaction.PetFoods.Sum(x => x.Price);
+
+            dbTransaction.PetPrice = temp;
+            dbTransaction.PetFoodPrice = temp2;
+            dbTransaction.TotalPrice = temp1 + temp2;
             dbTransaction.PetFoodQty = transaction.PetFoodQty;
             dbTransaction.CustomerId = transaction.CustomerId;
             dbTransaction.EmployeeId = transaction.EmployeeId;
             dbTransaction.PetId = transaction.PetId;
             dbTransaction.PetFoodId = transaction.PetFoodId;
             _transactionRepo.Update(transaction.Id, dbTransaction);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task Delete(int id)
+        {
+            _transactionRepo.Delete(id);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace PetShop.Blazor.Shared.DTO.Transaction {
         public int PetFoodQty { get; set; }
         public decimal PetFoodPrice { get; set; }
         public decimal TotalPrice { get; set; }
-        public string PetBreed { get; set; }
 
         // Relations
         public int CustomerId { get; set; }

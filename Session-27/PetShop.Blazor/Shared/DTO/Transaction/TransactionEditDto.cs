@@ -30,8 +30,6 @@ namespace PetShop.Blazor.Shared.DTO.Transaction
         public List<EmployeeDto> Employees{ get; set; } = new();
         public List<PetDto> Pets { get; set; } = new();
         public List<PetFoodDto> PetFoods { get; set; } = new();
-
-
     }
 
 }

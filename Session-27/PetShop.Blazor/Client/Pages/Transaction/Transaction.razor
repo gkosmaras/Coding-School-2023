@@ -30,10 +30,6 @@ else
                 <th>Pet Food Quantity</th>
                 <th>Pet Food Price</th>
                 <th>Total Price</th>
-                <th>Customer ID</th>
-                <th>Employee ID</th>
-                <th>Pet ID</th>
-                <th>Pet Food ID</th>
                 <th>Actions</th>
             </tr>
 
@@ -48,11 +44,6 @@ else
                     <td>@transaction.PetFoodQty</td>
                     <td>@transaction.PetFoodPrice</td>
                     <td>@transaction.TotalPrice</td>
-                    <td>@transaction.CustomerId</td>
-                    <td>@transaction.EmployeeId</td>
-                    <td>@transaction.PetId</td>
-                    <td>@transaction.PetFoodId</td>
-
                     <td>
                         <button class="btn btn-primary" @onclick="()=> EditItem(transaction)">Edit</button>
                         <button class="btn btn-danger" @onclick="()=> DeleteItem(transaction)">Delete</button>
