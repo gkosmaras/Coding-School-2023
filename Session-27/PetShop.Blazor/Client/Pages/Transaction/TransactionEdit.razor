@@ -19,32 +19,35 @@ else
             <input class="form-control" @bind="@Transaction.PetFoodQty" />
         </div>
     </div>
+
     <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Customer</label>
-            <select clas="form-control" @bind="@Transaction.CustomerId">
-                @foreach (var cus in Transaction.Customers)
+            <select class="form-select" @bind="Transaction.CustomerId">
+                @foreach (var customer in Transaction.Customers)
                 {
-                    <option value="@cus.Id">@cus.Name</option>
+                    <option value="@customer.Id">@customer.Name @customer.Surname</option>
                 }
             </select>
         </div>
     </div>
+
     <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Employee</label>
-            <select clas="form-control" @bind="@Transaction.EmployeeId">
-                @foreach (var ee in Transaction.Employees)
+            <select class="form-select" @bind="Transaction.EmployeeId">
+                @foreach (var employee in Transaction.Employees)
                 {
-                    <option value="@ee.Id">@ee.Name</option>
+                    <option value="@employee.Id">@employee.Name @employee.Surname</option>
                 }
             </select>
         </div>
     </div>
+
     <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Pet</label>
-            <select clas="form-control" @bind="@Transaction.PetId">
+            <select class="form-select" @bind="@Transaction.PetId">
                 @foreach (var pet in Transaction.Pets)
                 {
                     <option value="@pet.Id">@pet.Breed</option>
@@ -52,18 +55,22 @@ else
             </select>
         </div>
     </div>
+
+
     <div class="row mb-3">
         <div class="col-md-6">
-            <label class="form-label">Pet food</label>
-            <select clas="form-control" @bind="@Transaction.PetFoodId">
-                @foreach (var pFood in Transaction.PetFoods)
+            <label class="form-label">Pet Food</label>
+            <select clas="form-select" @bind="@Transaction.PetFoodId">
+                @foreach (var petFood in Transaction.PetFoods)
                 {
-                    <option value="@pFood.Id">@pFood.AnimalType</option>
+                    <option value="@petFood.Id">@petFood.AnimalType</option>
                 }
             </select>
         </div>
     </div>
-   
+
+
+
     <div class="row mb-3">
         <div class="row" style="margin-top:20px">
             <div class="col">
@@ -81,7 +88,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        if(Id == null)
+        if (Id == null)
         {
             Transaction = new();
             Transaction.Customers = await httpClient.GetFromJsonAsync<List<CustomerEditDto>>("customer");
@@ -100,7 +107,7 @@ else
             Transaction.PetFoods = await httpClient.GetFromJsonAsync<List<PetFoodEditDto>>("petfood");
         }
         loading = false;
-}
+    }
 
     private void OnCancel()
     {
