@@ -42,7 +42,7 @@ namespace PetShop.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.Pets.SingleOrDefault(pf => pf.Id == id);
+            var dbPetFood = context.PetFoods.SingleOrDefault(pf => pf.Id == id);
             if (dbPetFood == null) {
                 throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
             }

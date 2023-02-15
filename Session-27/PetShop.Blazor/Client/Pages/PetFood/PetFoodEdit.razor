@@ -1,0 +1,90 @@
+﻿@using PetShop.Models;
+@using PetShop.Models.Enums;
+@using PetShop.Blazor.Shared.DTO.PetFood;
+
+@page "/petfood/edit/{Id:int?}"
+
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h1 class="mb-3">Edit Pet Food</h1>
+
+@if (PetFood == null)
+{
+    <p>Loading ...</p>
+}
+else
+{
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Animal Type</label>
+            <select class="form-select" @bind="PetFood.AnimalType">
+                @foreach (var enumValue in Enum.GetValues<AnimalType>())
+                {
+                    <option value="@enumValue">@enumValue</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Price</label>
+            <input class="form-control" @bind="@PetFood.Price" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Cost</label>
+            <input class="form-control" @bind="@PetFood.Cost" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-success" @onclick="OnSave">Save</button>
+            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+    </div>
+}
+
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    PetFoodEditDto? PetFood { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id == null)
+        {
+            PetFood = new();
+        }
+        else
+        {
+            PetFood = await httpClient.GetFromJsonAsync<PetFoodEditDto>($"petfood/{Id}");
+        }
+    }
+
+    private void OnCancel()
+    {
+        navigationManager.NavigateTo("petfood");
+    }
+
+    private async Task OnSave()
+    {
+        HttpResponseMessage? response = null;
+        if (Id == null)
+        {
+            response = await httpClient.PostAsJsonAsync("petfood", PetFood);
+        }
+        else
+        {
+            response = await httpClient.PutAsJsonAsync("petfood", PetFood);
+        }
+
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("petfood");
+    }
+}

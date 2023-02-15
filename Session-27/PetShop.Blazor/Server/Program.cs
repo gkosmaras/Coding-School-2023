@@ -11,6 +11,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEntityRepo<Customer>, CustomerRepo>();
 builder.Services.AddScoped<IEntityRepo<Employee>, EmployeeRepo>();
 builder.Services.AddScoped<IEntityRepo<Pet>, PetRepo>();
+builder.Services.AddScoped<IEntityRepo<PetFood>, PetFoodRepo>();
 
 var app = builder.Build();
 
