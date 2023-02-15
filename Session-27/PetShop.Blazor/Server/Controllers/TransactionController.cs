@@ -38,7 +38,7 @@ namespace PetShop.Blazor.Server.Controllers
 
             var transactions = _transactionRepo.GetAll();
 
-            return response.Select(Transaction => new TransactionDto
+            return transactions.Select(Transaction => new TransactionDto
             {
                 Date = Transaction.Date,
                 PetPrice = Transaction.Pet.Price,
