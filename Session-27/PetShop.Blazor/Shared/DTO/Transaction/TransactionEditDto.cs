@@ -1,8 +1,12 @@
 ﻿using PetShop.Models;
+using PetShop.Blazor.Shared.DTO.Customer;
+using PetShop.Blazor.Shared.DTO.Employee;
+using PetShop.Blazor.Shared.DTO.Pet;
+using PetShop.Blazor.Shared.DTO.PetFood;
 
 namespace PetShop.Blazor.Shared.DTO.Transaction {
 
-    public class TransactionDto {
+    public class TransactionEditDto {
 
         public int Id { get; set; }
         public DateTime Date { get; set; }
@@ -16,7 +20,12 @@ namespace PetShop.Blazor.Shared.DTO.Transaction {
         public int EmployeeId { get; set; }
         public int PetId { get; set; }
         public int PetFoodId { get; set; }
-       
+
+        public List<CustomerDto> Customers { get; set; } = new();
+        public List<EmployeeDto> Employees { get; set; } = new();
+        public List<PetDto> Pets { get; set; } = new();
+        public List<PetFoodDto> PetFoods { get; set; } = new();
+
 
     }
 

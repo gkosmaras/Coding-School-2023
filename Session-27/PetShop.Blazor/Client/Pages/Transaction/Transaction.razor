@@ -27,12 +27,17 @@ else
                 <th>Pet Food Quantity</th>
                 <th>Pet Food Price</th>
                 <th>Total Price</th>
+                <th>Customer ID</th>
+                <th>Employee ID</th>
+                <th>Pet ID</th>
+                <th>Pet Food ID</th>
+                <th>Actions</th>
             </tr>
 
         </thead>
 
         <tbody>
-            @foreach (var transaction in transactionList)
+            @foreach (var transaction in transactions)
             {
                 <tr>
                     <td>@transaction.Date</td>
@@ -40,6 +45,10 @@ else
                     <td>@transaction.PetFoodQty</td>
                     <td>@transaction.PetFoodPrice</td>
                     <td>@transaction.TotalPrice</td>
+                    <td>@transaction.CustomerId</td>
+                    <td>@transaction.EmployeeId</td>
+                    <td>@transaction.PetId</td>
+                    <td>@transaction.PetFoodId</td>
 
                     <td>
                         <button class="btn btn-primary" @onclick="()=> EditItem(transaction)">Edit</button>
@@ -55,7 +64,7 @@ else
 }
 
 @code {
-    private List<TransactionDto> transactionList = new();
+    private List<TransactionDto> transactions = new();
 
     bool isLoading { get; set; } = true;
 
@@ -67,7 +76,7 @@ else
 
     private async Task LoadItemsFromServer()
     {
-        transactionList = await httpClient.GetFromJsonAsync<List<TransactionDto>>("transaction");
+        transactions = await httpClient.GetFromJsonAsync<List<TransactionDto>>("transaction");
     }
 
     private void CreateItem()

@@ -1,0 +1,34 @@
+﻿@using PetShop.Blazor.Shared.DTO.Transaction;
+
+@page "/transaction/edit/{Id:int?}"
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>Transaction Edit</h3>
+
+@if (isLoading)
+{
+    <p>Loading ...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <label class="form-label">Price</label>
+            <text class="form-control" @bind="@transaction.PetPrice" />
+        </div>
+    </div>
+   
+   
+
+  
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    bool isLoading = true;
+    TransactionEditDto transaction;
+
+}
+
+

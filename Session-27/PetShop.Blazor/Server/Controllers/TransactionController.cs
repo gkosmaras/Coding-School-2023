@@ -21,16 +21,20 @@ namespace PetShop.Blazor.Server.Controllers {
         [HttpGet]
         public async Task<IEnumerable<TransactionDto>> Get() {
 
-            var response = _transactionRepo.GetAll();
+            var transactions = _transactionRepo.GetAll();
 
-            return response.Select(Transaction => new TransactionDto {
-                Id = Transaction.Id,
-                Date = Transaction.Date,
-                PetPrice = Transaction.PetPrice,
-                PetFoodQty = Transaction.PetFoodQty,
-                PetFoodPrice = Transaction.PetFoodPrice,
-                TotalPrice = Transaction.TotalPrice,
-                
+            return transactions.Select(transaction => new TransactionDto {
+                Id = transaction.Id,
+                Date = transaction.Date,
+                PetPrice = transaction.PetPrice,
+                PetFoodQty = transaction.PetFoodQty,
+                PetFoodPrice = transaction.PetFoodPrice,
+                TotalPrice = transaction.TotalPrice,
+                // Relations
+                CustomerId = transaction.Customer.Id,
+                EmployeeId = transaction.Employee.Id,
+                PetId = transaction.Pet.Id,
+                PetFoodId = transaction.PetFood.Id   
             });
 
         }
