@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetShop.Blazor.Shared.DTO.Employee;
+using PetShop.Blazor.Shared.DTO.Transaction;
 using PetShop.EF.Repositories;
 using PetShop.Models;
+using System.Runtime.CompilerServices;
 
 namespace PetShop.Blazor.Server.Controllers
 {
@@ -10,9 +12,11 @@ namespace PetShop.Blazor.Server.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEntityRepo<Employee> _employeeRepo;
-        public EmployeeController(IEntityRepo<Employee> employeeRepo)
+        private readonly IEntityRepo<Transaction> _transactionRepo;
+        public EmployeeController(IEntityRepo<Employee> employeeRepo, IEntityRepo<Transaction> transactionRepo)
         {
             _employeeRepo = employeeRepo;
+            _transactionRepo = transactionRepo;
         }
 
         [HttpGet]
@@ -34,6 +38,7 @@ namespace PetShop.Blazor.Server.Controllers
         public async Task<EmployeeEditDto> GetById(int id)
         {
             var dbEmployee = _employeeRepo.GetById(id);
+            var dbTransactions = _transactionRepo.GetAll().Where(x => x.EmployeeId == id);
             if (dbEmployee == null)
             {
                 throw new ArgumentNullException();
@@ -45,9 +50,18 @@ namespace PetShop.Blazor.Server.Controllers
                 Surname = dbEmployee.Surname,
                 EmployeeType = dbEmployee.EmployeeType,
                 SalaryPerMonth = dbEmployee.SalaryPerMonth,
+                Transactions = dbTransactions.Select(ee => new TransactionDto
+                {
+                    Date = ee.Date,
+                    PetPrice = ee.PetPrice,
+                    PetFoodQty = ee.PetFoodQty,
+                    PetFoodPrice = ee.PetFoodPrice,
+                    TotalPrice = ee.TotalPrice,
+                }).ToList()
             };
             return result;
         }
+
         public async Task Post(EmployeeEditDto employee)
         {
             var dbEmployee = new Employee(employee.Name, employee.Surname, employee.EmployeeType, employee.SalaryPerMonth);

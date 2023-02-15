@@ -1,4 +1,5 @@
-﻿using PetShop.Blazor.Shared.DTO.Transaction;
+﻿using PetShop.Blazor.Shared.DTO.Customer;
+using PetShop.Blazor.Shared.DTO.Transaction;
 using PetShop.Models.Enums;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PetShop.Blazor.Shared.DTO.Employee
 {
-    public class EmployeeEditDto
+    public class EmployeeDetailDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

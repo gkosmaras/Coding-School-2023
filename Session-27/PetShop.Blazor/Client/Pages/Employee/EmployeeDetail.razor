@@ -1,0 +1,76 @@
+﻿@page "/employee/detail/{id:int?}"
+@using PetShop.Blazor.Shared.DTO.Employee;
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>EmployeeDetail</h3>
+
+@if (loading == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="row" mb-3>
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <label class="form-label">@Employee.Name</label>
+        </div>
+    </div>
+    <div class="row" mb-3>
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <label class="form-label">@Employee.Surname</label>
+        </div>
+    </div>
+    <div class="row" mb-3>
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <label class="form-label">@Employee.EmployeeType</label>
+        </div>
+    </div>
+    <div class="row" mb-3>
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <label class="form-label">@Employee.SalaryPerMonth</label>
+        </div>
+    </div>
+    <table class=" table table-striped table-hover">
+            <tr>
+                <th>Date</th>
+                <th>Pet price</th>
+                <th>Pet food quantity</th>
+                <th>Pet food price</th>
+                <th>Total price</th>
+            </tr>
+        <tbody>
+            @foreach (var trans in Employee.Transactions)
+            {
+                <tr>
+                    <td>@trans.Date</td>
+                    <td>@trans.PetPrice</td>
+                    <td>@trans.PetFoodQty</td>
+                    <td>@trans.PetFoodPrice</td>
+                    <td>@trans.TotalPrice</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button class="btn-danger" @onclick="OnCancel">Cancel</button>
+}
+
+@code {
+    bool loading { get; set; } = true;
+    [Parameter] public int? Id { get; set; }
+    EmployeeEditDto? Employee { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>($"employee/{Id}");
+        loading = false;
+    }
+    private void OnCancel()
+    {
+        navigationManager.NavigateTo("employee");
+    }
+}
