@@ -19,8 +19,16 @@
 
   <ItemGroup>
     <None Remove="PetShop.Blazor.Shared" />
+    <None Remove="Pages\Pet\" />
+    <None Remove="Pages\PetFood\" />
+    <None Remove="Pages\Transaction\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\PetShop.Blazor.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Pet\" />
+    <Folder Include="Pages\PetFood\" />
+    <Folder Include="Pages\Transaction\" />
   </ItemGroup>
 </Project>

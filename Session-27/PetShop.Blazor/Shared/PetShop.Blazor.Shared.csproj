@@ -13,4 +13,10 @@
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="DTO\Pet\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTO\Pet\" />
+  </ItemGroup>
 </Project>

@@ -1,13 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
+﻿using PetShop.Models;
+using Microsoft.EntityFrameworkCore;
 using PetShop.EF.Context;
-using PetShop.EF.Repositories;
-using PetShop.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PetShop.EF.Repositories {
 
@@ -15,13 +8,13 @@ namespace PetShop.EF.Repositories {
 
         public IList<Pet> GetAll() {
             using var context = new PetShopDbContext();
-            var dbPet = context.Pets.Include(p => p.Transactions).ToList();
+            var dbPet = context.Pets.ToList();
             return dbPet;
         }
 
         public Pet? GetById(int id) {
             using var context = new PetShopDbContext();
-            var dbPet = context.Pets.Where(p => p.Id == id).Include(p => p.Transactions).SingleOrDefault();
+            var dbPet = context.Pets.Include(p => p.Transactions).SingleOrDefault(p => p.Id == id);
             return dbPet;
         }
 
@@ -36,7 +29,7 @@ namespace PetShop.EF.Repositories {
 
         public void Update(int id, Pet pet) {
             using var context = new PetShopDbContext();
-            var dbPet = context.Pets.Where(p => p.Id == id).SingleOrDefault();
+            var dbPet = context.Pets.SingleOrDefault(p => p.Id == id);
             if (dbPet == null) {
                 throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
             }
@@ -50,15 +43,14 @@ namespace PetShop.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbPet = context.Pets.Where(p => p.Id == id).SingleOrDefault();
+            var dbPet = context.Pets.SingleOrDefault(p => p.Id == id);
             if (dbPet == null) {
                 throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
             }
             context.Remove(dbPet);
+            context.SaveChanges();
         }
 
     }
 
 }
-
-
