@@ -23,9 +23,9 @@ else
         <div class="col-md-6">
             <label class="form-label">Customer</label>
             <select clas="form-control" @bind="@Transaction.CustomerId">
-                @foreach (var cus in Transaction.Customers)
+                @foreach (var customer in Transaction.Customers)
                 {
-                    <option value="@cus.Id">@cus.Name</option>
+                    <option value="@customer.Id">@customer.Name</option>
                 }
             </select>
         </div>
@@ -34,9 +34,9 @@ else
         <div class="col-md-6">
             <label class="form-label">Employee</label>
             <select clas="form-control" @bind="@Transaction.EmployeeId">
-                @foreach (var ee in Transaction.Employees)
+                @foreach (var employee in Transaction.Employees)
                 {
-                    <option value="@ee.Id">@ee.Name</option>
+                    <option value="@employee.Id">@employee.Name @employee.Surname</option>
                 }
             </select>
         </div>
@@ -56,9 +56,9 @@ else
         <div class="col-md-6">
             <label class="form-label">Pet food</label>
             <select clas="form-control" @bind="@Transaction.PetFoodId">
-                @foreach (var pFood in Transaction.PetFoods)
+                @foreach (var petFood in Transaction.PetFoods)
                 {
-                    <option value="@pFood.Id">@pFood.AnimalType</option>
+                    <option value="@petFood.Id">@petFood.AnimalType</option>
                 }
             </select>
         </div>
