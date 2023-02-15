@@ -99,11 +99,11 @@ namespace PetShop.Blazor.Server.Controllers
         [HttpPost]
         public async Task Post(TransactionEditDto transaction)
         {
-            var temp = Convert.ToDecimal(transaction.Pets.Sum(x => x.Price));
-            var temp1 = transaction.PetFoodQty;
-            var temp2 = (transaction.PetFoodQty) * transaction.PetFoods.Sum(x => x.Price);
+            var pPrice = transaction.Pets.SingleOrDefault(x => x.Id == transaction.PetId).Price;
+            var fQnt = transaction.PetFoodQty;
+            var fPrice = (transaction.PetFoodQty) * transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price;
 
-            var trans = new Transaction(temp, temp1, temp2, temp1 + temp2);
+            var trans = new Transaction(pPrice, fQnt, fPrice, pPrice + fPrice);
             trans.CustomerId = transaction.CustomerId;
             trans.EmployeeId = transaction.EmployeeId;
             trans.PetId = transaction.PetId;
@@ -119,13 +119,12 @@ namespace PetShop.Blazor.Server.Controllers
             {
                 throw new ArgumentNullException();
             }
-            var temp = Convert.ToDecimal(transaction.Pets.Sum(x => x.Price));
-            var temp1 = transaction.PetFoodQty;
-            var temp2 = (transaction.PetFoodQty) * transaction.PetFoods.Sum(x => x.Price);
-
-            dbTransaction.PetPrice = temp;
-            dbTransaction.PetFoodPrice = temp2;
-            dbTransaction.TotalPrice = temp1 + temp2;
+            var pPrice = transaction.Pets.SingleOrDefault(x => x.Id == transaction.PetId).Price;
+            var fQnt = transaction.PetFoodQty;
+            var fPrice = (transaction.PetFoodQty) * transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price;
+            dbTransaction.PetPrice = pPrice;
+            dbTransaction.PetFoodPrice = fPrice;
+            dbTransaction.TotalPrice = pPrice + fPrice;
             dbTransaction.PetFoodQty = transaction.PetFoodQty;
             dbTransaction.CustomerId = transaction.CustomerId;
             dbTransaction.EmployeeId = transaction.EmployeeId;

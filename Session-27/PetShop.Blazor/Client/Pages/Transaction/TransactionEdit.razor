@@ -13,52 +13,52 @@
 }
 else
 {
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Quantity</label>
             <input class="form-control" @bind="@Transaction.PetFoodQty" />
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Customer</label>
-            <select clas="form-control" @bind="Transaction.CustomerId">
-                @foreach (var item in Transaction.Customers)
+            <select clas="form-control" @bind="@Transaction.CustomerId">
+                @foreach (var cus in Transaction.Customers)
                 {
-                    <option value="@item.Id">@item.Name</option>
+                    <option value="@cus.Id">@cus.Name</option>
                 }
             </select>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Employee</label>
-            <select clas="form-control" @bind="Transaction.EmployeeId">
-                @foreach (var item in Transaction.Employees)
+            <select clas="form-control" @bind="@Transaction.EmployeeId">
+                @foreach (var ee in Transaction.Employees)
                 {
-                    <option value="@item.Id">@item.Name</option>
+                    <option value="@ee.Id">@ee.Name</option>
                 }
             </select>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Pet</label>
-            <select clas="form-control" @bind="Transaction.PetId">
-                @foreach (var item in Transaction.Pets)
+            <select clas="form-control" @bind="@Transaction.PetId">
+                @foreach (var pet in Transaction.Pets)
                 {
-                    <option value="@item.Id">@item.Breed</option>
+                    <option value="@pet.Id">@pet.Breed</option>
                 }
             </select>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Pet food</label>
-            <select clas="form-control" @bind="Transaction.PetFoodId">
-                @foreach (var item in Transaction.PetFoods)
+            <select clas="form-control" @bind="@Transaction.PetFoodId">
+                @foreach (var pFood in Transaction.PetFoods)
                 {
-                    <option value="@item.Id">@item.AnimalType</option>
+                    <option value="@pFood.Id">@pFood.AnimalType</option>
                 }
             </select>
         </div>
