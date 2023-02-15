@@ -1,4 +1,6 @@
-﻿@page "/transaction/edit/{Id:int?}"
+﻿@using PetShop.Blazor.Shared.DTO.Transaction;
+
+@page "/transaction/edit/{Id:int?}"
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager;
 @using PetShop.Blazor.Shared.DTO.Pet;
@@ -63,7 +65,7 @@ else
             </select>
         </div>
     </div>
-
+   
     <div class="row mb-3">
         <div class="row" style="margin-top:20px">
             <div class="col">
@@ -94,7 +96,7 @@ else
             transaction = await httpClient.GetFromJsonAsync<TransactionEditDto>($"transaction/{Id}");
         }
         loading = false;
-    }
+}
 
     private void OnCancel()
     {

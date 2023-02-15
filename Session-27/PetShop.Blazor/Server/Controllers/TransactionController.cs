@@ -36,7 +36,7 @@ namespace PetShop.Blazor.Server.Controllers
         public async Task<IEnumerable<TransactionDto>> Get()
         {
 
-            var response = _transactionRepo.GetAll();
+            var transactions = _transactionRepo.GetAll();
 
             return response.Select(Transaction => new TransactionDto
             {

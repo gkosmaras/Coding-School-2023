@@ -1,4 +1,6 @@
-﻿namespace PetShop.Blazor.Shared.DTO.Transaction {
+﻿using PetShop.Models;
+
+namespace PetShop.Blazor.Shared.DTO.Transaction {
 
     public class TransactionDto {
 
@@ -9,6 +11,13 @@
         public decimal PetFoodPrice { get; set; }
         public decimal TotalPrice { get; set; }
         public string PetBreed { get; set; }
+
+        // Relations
+        public int CustomerId { get; set; }
+        public int EmployeeId { get; set; }
+        public int PetId { get; set; }
+        public int PetFoodId { get; set; }
+       
 
     }
 
