@@ -19,9 +19,10 @@ namespace PetShop.Blazor.Server.Controllers {
 
         [HttpGet]
         public async Task<IEnumerable<PetDto>> Get() {
-            var response = _petRepo.GetAll();
 
-            return response.Select(pet => new PetDto {
+            var dbPet = _petRepo.GetAll();
+
+            var result = dbPet.Select(pet => new PetDto {
                 Id = pet.Id,
                 Breed = pet.Breed,
                 AnimalType = pet.AnimalType,
@@ -29,6 +30,8 @@ namespace PetShop.Blazor.Server.Controllers {
                 Price = pet.Price,
                 Cost = pet.Cost
             });
+
+            return result;
 
         }
 
@@ -56,6 +59,7 @@ namespace PetShop.Blazor.Server.Controllers {
 
         [HttpPost]
         public async Task Post(PetEditDto pet) {
+
             var dbPet = new Pet(
                 pet.Breed,
                 pet.AnimalType,
@@ -63,7 +67,9 @@ namespace PetShop.Blazor.Server.Controllers {
                 pet.Price,
                 pet.Cost
                 );
+
             _petRepo.Add(dbPet);
+
         }
 
         [HttpPut]

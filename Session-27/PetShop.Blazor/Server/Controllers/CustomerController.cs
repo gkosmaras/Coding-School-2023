@@ -19,7 +19,9 @@ namespace PetShop.Blazor.Server.Controllers {
 
         [HttpGet]
         public async Task<IEnumerable<CustomerDto>> Get() {
+
             var dbCustomer = _customerRepo.GetAll();
+
             var result = dbCustomer.Select(cus => new CustomerDto {
                 Id = cus.Id,
                 Name = cus.Name,
@@ -27,15 +29,20 @@ namespace PetShop.Blazor.Server.Controllers {
                 Phone = cus.Phone,
                 Tin = cus.Tin
             });
+
             return result;
+
         }
 
         [HttpGet("{id}")]
         public async Task<CustomerEditDto> GetById(int id) {
+
             var dbCustomer = _customerRepo.GetById(id);
+
             if (dbCustomer == null) {
                 throw new ArgumentNullException();
             }
+
             var result = new CustomerEditDto {
                 Id = id,
                 Name = dbCustomer.Name,
@@ -43,30 +50,41 @@ namespace PetShop.Blazor.Server.Controllers {
                 Phone = dbCustomer.Phone,
                 Tin = dbCustomer.Tin
             };
+
             return result;
+
         }
 
+        [HttpPost]
         public async Task Post(CustomerEditDto customer) {
+
             var dbCustomer = new Customer(
                 customer.Name,
                 customer.Surname,
                 customer.Phone,
                 customer.Tin
                 );
+
             _customerRepo.Add(dbCustomer);
+
         }
 
         [HttpPut]
         public async Task Put(CustomerEditDto customer) {
+
             var dbCustomer = _customerRepo.GetById(customer.Id);
+
             if (dbCustomer == null) {
                 throw new ArgumentNullException();
             }
+
             dbCustomer.Name = customer.Name;
             dbCustomer.Surname = customer.Surname;
             dbCustomer.Phone = customer.Phone;
             dbCustomer.Tin = customer.Tin;
+
             _customerRepo.Update(customer.Id, dbCustomer);
+
         }
 
         [HttpDelete("{id}")]
