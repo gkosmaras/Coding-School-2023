@@ -8,6 +8,7 @@ using PetShop.Blazor.Shared.DTO.Customer;
 using PetShop.Blazor.Shared.DTO.Employee;
 using PetShop.Blazor.Shared.DTO.Pet;
 using PetShop.Blazor.Shared.DTO.PetFood;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace PetShop.Blazor.Server.Controllers
 {
@@ -38,16 +39,20 @@ namespace PetShop.Blazor.Server.Controllers
 
             var transactions = _transactionRepo.GetAll();
 
-            return transactions.Select(Transaction => new TransactionDto
+            var result = transactions.Select(Transaction => new TransactionDto
             {
+                Id = Transaction.Id,
                 Date = Transaction.Date,
                 PetPrice = Transaction.Pet.Price,
                 PetFoodQty = Transaction.PetFoodQty,
                 PetFoodPrice = Transaction.PetFood.Price,
                 TotalPrice = Transaction.TotalPrice,
-
+                CustomerId = Transaction.Customer.Id,
+                EmployeeId = Transaction.EmployeeId,
+                PetId = Transaction.PetId,
+                PetFoodId = Transaction.PetFoodId,
             });
-
+            return result;
         }
         [HttpGet("{id}")]
         public async Task <TransactionEditDto> GetById(int id)
@@ -66,23 +71,23 @@ namespace PetShop.Blazor.Server.Controllers
                 Date = DateTime.Now,
                 Id = dbTransaction.Id,
                 CustomerId = dbTransaction.CustomerId,
-                Customers = dbCustomer.Select(cus => new CustomerDto
+                Customers = dbCustomer.Select(cus => new CustomerEditDto
                 {
                     Id = cus.Id,
                     Name = cus.Name,
                 }).ToList(),
                 EmployeeId = dbTransaction.EmployeeId,
-                Employees = dbEmployee.Select(ee => new EmployeeDto
+                Employees = dbEmployee.Select(ee => new EmployeeEditDto
                 {
                     Id = ee.Id,
                     Name = ee.Name,
                 }).ToList(),
-                Pets = dbPet.Select(pet => new PetDto
+                Pets = dbPet.Select(pet => new PetEditDto
                 {
                     Id = pet.Id,
                     Breed = pet.Breed
                 }).ToList(),
-                PetFoods = dbPetFood.Select(petFood => new PetFoodDto
+                PetFoods = dbPetFood.Select(petFood => new PetFoodEditDto
                 {
                     Id = petFood.Id,
                     AnimalType = petFood.AnimalType,

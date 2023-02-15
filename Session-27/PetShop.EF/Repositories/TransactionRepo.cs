@@ -52,10 +52,10 @@ namespace PetShop.EF.Repositories {
             dbTransaction.PetFoodQty = transaction.PetFoodQty;
             dbTransaction.PetFoodPrice = transaction.PetFoodPrice;
             dbTransaction.TotalPrice = transaction.TotalPrice;
-            dbTransaction.Customer = transaction.Customer;
-            dbTransaction.Employee = transaction.Employee;
-            dbTransaction.Pet = transaction.Pet;
-            dbTransaction.PetFood = transaction.PetFood;
+            dbTransaction.CustomerId = transaction.CustomerId;
+            dbTransaction.EmployeeId = transaction.EmployeeId;
+            dbTransaction.PetId= transaction.PetId;
+            dbTransaction.PetFoodId = transaction.PetFoodId;
             context.SaveChanges();
         }
 
