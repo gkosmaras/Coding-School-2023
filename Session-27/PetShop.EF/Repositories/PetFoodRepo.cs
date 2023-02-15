@@ -1,11 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using PetShop.Models;
+using Microsoft.EntityFrameworkCore;
 using PetShop.EF.Context;
-using PetShop.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PetShop.Models.Enums;
 
 namespace PetShop.EF.Repositories {
 
@@ -13,13 +9,13 @@ namespace PetShop.EF.Repositories {
 
         public IList<PetFood> GetAll() {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.PetFoods.Include(pf => pf.Transactions).ToList();
+            var dbPetFood = context.PetFoods.ToList();
             return dbPetFood;
         }
 
         public PetFood? GetById(int id) {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.PetFoods.Where(pf => pf.Id == id).Include(pf => pf.Transactions).SingleOrDefault();
+            var dbPetFood = context.PetFoods.Include(p => p.Transactions).SingleOrDefault(pf => pf.Id == id);
             return dbPetFood;
         }
 
@@ -34,9 +30,9 @@ namespace PetShop.EF.Repositories {
 
         public void Update(int id, PetFood petFood) {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.PetFoods.Where(pFood => pFood.Id == id).SingleOrDefault();
+            var dbPetFood = context.PetFoods.SingleOrDefault(pf => pf.Id == id);
             if (dbPetFood == null) {
-                throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
+                throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
             }
             dbPetFood.AnimalType = petFood.AnimalType;
             dbPetFood.Price = petFood.Price;
@@ -46,13 +42,13 @@ namespace PetShop.EF.Repositories {
 
         public void Delete(int id) {
             using var context = new PetShopDbContext();
-            var dbPetFood = context.PetFoods.Where(pf => pf.Id == id).SingleOrDefault();
+            var dbPetFood = context.Pets.SingleOrDefault(pf => pf.Id == id);
             if (dbPetFood == null) {
-                throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
+                throw new KeyNotFoundException($"Giver ID '{id}' was not found in the database");
             }
             context.Remove(dbPetFood);
             context.SaveChanges();
-        }     
+        }
 
     }
 
