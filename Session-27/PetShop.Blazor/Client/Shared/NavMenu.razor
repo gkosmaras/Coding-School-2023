@@ -1,65 +1,35 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">PetShop.Blazor</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+﻿<div class="site-title">
+    <div class="wrapper">
+        <a href="">Pet Shop Retail System</a>
     </div>
 </div>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+<nav class="site-nav">
+    <div class="wrapper">
+        <div class="nav-item">
+            <NavLink href="customer">
+                <span class="oi oi-person" aria-hidden="true"></span> Customer
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+        <div class="nav-item">
+            <NavLink href="employee">
+                <span class="oi oi-person" aria-hidden="true"></span> Employee
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+        <div class="nav-item">
+            <NavLink href="pet">
+                <span class="oi oi-caret-right" aria-hidden="true"></span> Pet
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="customer">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Customer
+        <div class="nav-item">
+            <NavLink href="petfood">
+                <span class="oi oi-caret-right" aria-hidden="true"></span> Pet Food
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="employee">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Employee
+        <div class="nav-item">
+            <NavLink href="transaction">
+                <span class="oi oi-calculator" aria-hidden="true"></span> Transaction
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="pet">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Pet
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="petfood">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Pet Food
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="transaction">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Transaction
-            </NavLink>
-        </div>
-    </nav>
-</div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
-
+    </div>
+</nav>
