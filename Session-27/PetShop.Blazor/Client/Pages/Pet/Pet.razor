@@ -7,21 +7,16 @@
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
 
-@*<PageTitle>Pet List</PageTitle>*@
+<PageTitle>Pet List</PageTitle>
 
 <h1>Pet List</h1>
 
 @if (isLoading)
 {
-    @*<div id="app">
-        <div style="position:absolute; top:30vh; width:100%; text-align:center">
-            <h1>Pet list</h1>
-            <div style="display:flex; gap:10px; justify-content:center; align-items:center">
-                <div class="spinner-border" role="status"></div>
-                The page is loading...
-            </div>
-        </div>
-    </div>*@
+    <div>
+        <div class="spinner-border" role="status"></div>
+        The page is loading...
+    </div>
 }
 else
 {
