@@ -87,6 +87,7 @@ else
             Transaction.Customers = await httpClient.GetFromJsonAsync<List<CustomerEditDto>>("customer");
             Transaction.Employees = await httpClient.GetFromJsonAsync<List<EmployeeEditDto>>("employee");
             Transaction.Pets = await httpClient.GetFromJsonAsync<List<PetEditDto>>("pet");
+            Transaction.Pets = Transaction.Pets.Where(x => x.PetStatus != PetStatus.Unhealthy).ToList();
             Transaction.PetFoods = await httpClient.GetFromJsonAsync<List<PetFoodEditDto>>("petfood");
         }
         else
@@ -95,6 +96,7 @@ else
             Transaction.Customers = await httpClient.GetFromJsonAsync<List<CustomerEditDto>>("customer");
             Transaction.Employees = await httpClient.GetFromJsonAsync<List<EmployeeEditDto>>("employee");
             Transaction.Pets = await httpClient.GetFromJsonAsync<List<PetEditDto>>("pet");
+            Transaction.Pets = Transaction.Pets.Where(x => x.PetStatus != PetStatus.Unhealthy).ToList();
             Transaction.PetFoods = await httpClient.GetFromJsonAsync<List<PetFoodEditDto>>("petfood");
         }
         loading = false;
