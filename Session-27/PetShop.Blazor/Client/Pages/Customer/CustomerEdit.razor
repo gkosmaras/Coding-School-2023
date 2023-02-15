@@ -11,30 +11,41 @@
 }
 else
 {
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Name</label>
             <input class="form-control" @bind=@Customer!.Name type="text" />
         </div>
+    </div>
+
+    <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Surname</label>
             <input class="form-control" @bind=@Customer.Surname type="text" />
         </div>
+    </div>
+
+    <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Phone</label>
             <input class="form-control" @bind=@Customer.Phone type="number" />
         </div>
+    </div>
+ 
+    <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">TIN</label>
             <input class="form-control" @bind=@Customer.Tin type="text" />
         </div>
     </div>
-    <div class="row" style="margin-top:20px" >
-        <div class="col">
-            <button class="btn-success" @onclick="OnSave">Save</button>
-            <button class="btn-danger" @onclick="OnCancel">Cancel</button>
-        </div>
 
+    <div class="row mb-3">
+        <div class="row" style="margin-top:20px">
+            <div class="col">
+                <button class="btn-success" @onclick="OnSave">Save</button>
+                <button class="btn-danger" @onclick="OnCancel">Cancel</button>
+            </div>
+        </div>
     </div>
 }
 
