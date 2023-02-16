@@ -2,55 +2,61 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-
-<h3>CustomerEdit</h3>
-
-@if (Customer == null)
+@if (Id == null)
 {
-    <p>Loading...</p>
+    <PageTitle>New Customer - Pet Shop Retail System</PageTitle>
+    <h1 class="mb-5">New Customer</h1>
 }
 else
 {
-    <div class="row mb-3">
-        <div class="col-md-6">
+    <PageTitle>Edit Customer - Pet Shop Retail System</PageTitle>
+    <h1 class="mb-5">Edit Customer</h1>
+}
+
+
+@if (Customer == null)
+{
+    <Spinner />
+}
+else
+{
+
+    <div class="row">
+
+        <div class="col-md-6 mb-3">
             <label class="form-label">Name</label>
-            <input class="form-control" @bind=@Customer!.Name type="text" />
+            <input class="form-control" type="text" placeholder="Enter customer's name" @bind=@Customer.Name />
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Surname</label>
-            <input class="form-control" @bind=@Customer.Surname type="text" />
+            <input class="form-control" type="text" placeholder="Enter customer's surname" @bind=@Customer.Surname />
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Phone</label>
-            <input class="form-control" @bind=@Customer.Phone type="number" />
+            <input class="form-control" type="text" placeholder="Enter customer's phone" @bind=@Customer.Phone />
         </div>
-    </div>
- 
-    <div class="row mb-3">
-        <div class="col-md-6">
+
+        <div class="col-md-6 mb-3">
             <label class="form-label">TIN</label>
-            <input class="form-control" @bind=@Customer.Tin type="text" />
+            <input class="form-control" type="text" placeholder="Enter customer's TIN" @bind=@Customer.Tin />
         </div>
+
     </div>
 
-    <div class="row mb-3">
-        <div class="row" style="margin-top:20px">
-            <div class="col">
-                <button class="btn-success" @onclick="OnSave">Save</button>
-                <button class="btn-danger" @onclick="OnCancel">Cancel</button>
-            </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button class="btn btn-success" @onclick="OnSave">Save</button>
+            <button class="btn btn-warning" @onclick="OnCancel">Back</button>
         </div>
     </div>
 }
 
 @code {
+
     [Parameter] public int? Id { get; set; }
+
     CustomerEditDto? Customer { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -64,10 +70,12 @@ else
             Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>($"customer/{Id}");
         }
     }
+
     private void OnCancel()
     {
         navigationManager.NavigateTo("customer");
     }
+
     private async Task OnSave()
     {
         HttpResponseMessage? response = null;
@@ -82,4 +90,5 @@ else
         response.EnsureSuccessStatusCode();
         navigationManager.NavigateTo("customer");
     }
+
 }

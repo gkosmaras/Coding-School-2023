@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace PetShop.Blazor.Shared.DTO.Transaction
 {
@@ -16,6 +17,9 @@ namespace PetShop.Blazor.Shared.DTO.Transaction
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public decimal PetPrice { get; set; }
+
+
+        [Required]
         public int PetFoodQty { get; set; }
         public decimal PetFoodPrice { get; set; }
         public decimal TotalPrice { get; set; }

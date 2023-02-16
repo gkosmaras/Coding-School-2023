@@ -4,74 +4,96 @@
 @inject IJSRuntime jsRuntime
 
 
-<h3>Employee</h3>
+<PageTitle>Employees - Pet Shop Retail System</PageTitle>
 
 @if (loading)
 {
-    <div>
-        <div class="spinner-border" role="status"></div>
-        The page is loading...
-    </div>
+    <Spinner />
 }
 else
 {
-    <button class="btn btn-primary" @onclick="AddEmployee">Create</button>
-    <table class=" table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Type of Employee</th>
-                <th>Monthly Salary</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var ee in employee)
-            {
+
+    <h1 class="mb-5">Employees</h1>
+
+    <button class="btn btn-primary mb-5" @onclick="AddEmployee">Add new employee</button>
+
+    <div class="table-responsive">
+
+        <table class="table table-dark table-striped">
+
+            <thead>
+
                 <tr>
-                    <td>@ee.Name</td>
-                    <td>@ee.Surname</td>
-                    <td>@ee.EmployeeType</td>
-                    <td>@ee.SalaryPerMonth</td>
-                    <td>
-                        <button class="btn btn-primary" @onclick="() => EditEmployee(ee)">Edit</button>
-                        <button class="btn btn-danger" @onclick="() => DeleteEmployee(ee)">Delete</button>
-                        <button class="btn btn-danger" @onclick="() => DetailEmployee(ee)">Detail</button>
-                    </td>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Type of Employee</th>
+                    <th>Monthly Salary</th>
+                    <th>Action</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var employee in employees)
+                {
+                    <tr>
+                        <td>@employee.Name</td>
+                        <td>@employee.Surname</td>
+                        <td>@employee.EmployeeType</td>
+                        <td>@employee.SalaryPerMonth</td>
+                        <td>
+                            <button class="btn btn-warning" @onclick="() => EditEmployee(employee)">Edit</button>
+                            <button class="btn btn-danger" @onclick="() => DeleteEmployee(employee)">Delete</button>
+                            <button class="btn btn-secondary" @onclick="() => DetailEmployee(employee)">Detail</button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
 }
 @code {
-    private List<EmployeeDto> employee = new();
+
+    private List<EmployeeDto> employees = new();
+
     bool loading { get; set; } = true;
+
     protected override async Task OnInitializedAsync()
     {
-        if (employee == null)
+        if (employees == null)
         {
             throw new ArgumentNullException();
         }
         await LoadItemsFromServer();
+
         loading = false;
     }
+
     private async Task LoadItemsFromServer()
     {
-        employee = await httpClient.GetFromJsonAsync<List<EmployeeDto>>("employee");
+        employees = await httpClient.GetFromJsonAsync<List<EmployeeDto>>("employee");
     }
+
     private void AddEmployee()
     {
         navigationManager.NavigateTo("employee/edit");
     }
+
     private void EditEmployee(EmployeeDto employee)
     {
         navigationManager.NavigateTo($"employee/edit/{employee.Id}");
     }
+
     private void DetailEmployee(EmployeeDto employee)
     {
         navigationManager.NavigateTo($"employee/detail/{employee.Id}");
     }
+
     private async Task DeleteEmployee(EmployeeDto employee)
     {
         var confirm = await jsRuntime.InvokeAsync<bool>("confirm", "Confirm employee deletion?");
@@ -82,4 +104,5 @@ else
             await LoadItemsFromServer();
         }
     }
+
 }

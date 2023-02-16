@@ -7,62 +7,65 @@
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
 
-<h1>Transaction</h1>
+<PageTitle>Transactions - Pet Shop Retail System</PageTitle>
 
 @if (isLoading)
 {
-    <div>
-        <div class="spinner-border" role="status"></div>
-        The page is loading...
-    </div>
+    <Spinner />
 }
 else
 {
+    <h1 class="mb-5">Transactions</h1>
 
-    <button class="btn btn-primary" @onclick="CreateItem">Add new transaction</button>
+    <button class="btn btn-primary mb-5" @onclick="CreateItem">Add new transaction</button>
 
-    <table class="table">
+    <div class="table-responsive">
 
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Pet</th>
-                <th>Pet Price</th>
-                <th>Pet Food</th>
-                <th>Pet Food QTY</th>
-                <th>Pet Food Price</th>
-                <th>Total Price</th>
-                <th>Customer</th>
-                <th>Employee</th>
-                <th>Actions</th>
-            </tr>
+        <table class="table table-dark table-striped">
 
-        </thead>
+            <thead>
 
-        <tbody>
-            @foreach (var transaction in transactions)
-            {
                 <tr>
-                    <td>@transaction.Date</td>
-                    <td>@transaction.PetBreed</td>
-                    <td>@transaction.PetPrice</td>
-                    <td>@transaction.PetFood</td>
-                    <td>@transaction.PetFoodQty</td>
-                    <td>@transaction.PetFoodPrice</td>
-                    <td>@transaction.TotalPrice</td>
-                    <td>@transaction.CustomerName @transaction.CustomerSurname (@transaction.CustomerId)</td>
-                    <td>@transaction.EmployeeName @transaction.EmployeeSurname (@transaction.EmployeeId)</td>
-
-                    <td>
-                        <button class="btn btn-primary" @onclick="()=> EditItem(transaction)">Edit</button>
-                        <button class="btn btn-danger" @onclick="()=> DeleteItem(transaction)">Delete</button>
-                    </td>
+                    <th>Date</th>
+                    <th>Pet</th>
+                    <th>Pet Price</th>
+                    <th>Pet Food</th>
+                    <th>Pet Food QTY</th>
+                    <th>Pet Food Price</th>
+                    <th>Total Price</th>
+                    <th>Customer</th>
+                    <th>Employee</th>
+                    <th>Actions</th>
                 </tr>
 
-            }
-        </tbody>
+            </thead>
 
-    </table>
+            <tbody>
+
+                @foreach (var transaction in transactions)
+                {
+                    <tr>
+                        <td>@transaction.Date</td>
+                        <td>@transaction.PetBreed</td>
+                        <td>@transaction.PetPrice</td>
+                        <td>@transaction.PetFood</td>
+                        <td>@transaction.PetFoodQty</td>
+                        <td>@transaction.PetFoodPrice</td>
+                        <td>@transaction.TotalPrice</td>
+                        <td>@transaction.CustomerName @transaction.CustomerSurname (@transaction.CustomerId)</td>
+                        <td>@transaction.EmployeeName @transaction.EmployeeSurname (@transaction.EmployeeId)</td>
+                        <td>
+                            <button class="btn btn-warning" @onclick="()=> EditItem(transaction)">Edit</button>
+                            <button class="btn btn-danger" @onclick="()=> DeleteItem(transaction)">Delete</button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 }
 
