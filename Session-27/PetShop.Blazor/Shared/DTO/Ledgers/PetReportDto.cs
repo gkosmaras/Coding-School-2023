@@ -1,4 +1,5 @@
-﻿using PetShop.Models.Enums;
+﻿using PetShop.Blazor.Shared.DTO.Transaction;
+using PetShop.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,9 @@ namespace PetShop.Blazor.Shared.DTO.Ledgers
         public int Year { get; set; }
         public int Month { get; set; }
         public List<string> AnimalTypes { get; set; } = new();
-        public List<List<int>> TotalSold { get; set; } = new();
+        public int Bird { get; set; }
+        public int Mammal { get; set; }
+        public int Reptile { get; set; }
+        public int Fish { get; set; }
     }
 }

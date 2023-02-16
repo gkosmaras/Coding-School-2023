@@ -17,7 +17,8 @@ else
             <tr>
                 <th>Year</th>
                 <th>Month</th>
-                <th>Animal type/Total sold</th>
+                <th>Animal type</th>
+                <th>Total sold</th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +27,7 @@ else
                 <tr>
                     <td>@item.Year</td>
                     <td>@item.Month</td>
-                    <table>
+
                         <td>
                             <ul>
                                 @foreach (var animal in item.AnimalTypes)
@@ -37,13 +38,13 @@ else
                         </td>
                         <td>
                             <ul>
-                                @foreach (var sold in item.TotalSold)
-                                {
-                                    <li>@sold</li>
-                                }
+                                <li>@item.Bird</li>
+                                <li>@item.Mammal</li>
+                                <li>@item.Reptile</li>
+                                <li>@item.Fish</li>
                             </ul>
                         </td>
-                    </table>
+
                 </tr>
             }
         </tbody>

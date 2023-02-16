@@ -6,6 +6,7 @@ using PetShop.EF.Repositories;
 using PetShop.Models;
 using PetShop.Models.Enums;
 using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PetShop.Blazor.Server.Controllers
 {
@@ -36,19 +37,13 @@ namespace PetShop.Blazor.Server.Controllers
                 {
                     Year = ledge.First().Date.Year,
                     Month = ledge.First().Date.Month, //CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ledge.First().Date.Month),
-                    AnimalTypes = animalTypes
-                    
-
+                    AnimalTypes = animalTypes,
+                    Bird = ledge.Count(x => x.Pet.AnimalType == AnimalType.Bird),
+                    Mammal = ledge.Count(x => x.Pet.AnimalType == AnimalType.Mammal),
+                    Reptile = ledge.Count(x => x.Pet.AnimalType == AnimalType.Reptile),
+                    Fish= ledge.Count(x => x.Pet.AnimalType == AnimalType.Fish)
                 });
-            foreach (var date in result)
-            {
-                sold.Clear();
-                foreach (var animal in typesEnum)
-                {
-                    sold.Add(dbTransactions.Where(d => d.Date.Year == date.Year & d.Date.Month == date.Month).Count(x => x.Pet.AnimalType == animal));
-                }
-                date.TotalSold.Add(sold);
-            }
+
             return result;
         }
     }
