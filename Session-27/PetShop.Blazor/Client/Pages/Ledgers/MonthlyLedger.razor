@@ -3,8 +3,6 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-<h3>MonthlyLedger</h3>
-
 
 @if (loading)
 {
@@ -12,33 +10,50 @@
 }
 else
 {
-    <table class=" table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Year</th>
-                <th>Month</th>
-                <th>Income</th>
-                <th>Expenses</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in ledger)
-            {
+
+    <PageTitle>Pet Shop Monthly Ledger - Pet Shop Retail System</PageTitle>
+
+    <h1 class="mb-5">Pet Shop Monthly Ledger</h1>
+
+    <div class="table-responsive">
+
+        <table class="table table-dark table-striped">
+
+            <thead>
                 <tr>
-                    <td>@item.Year</td>
-                    <td>@item.Month</td>
-                    <td>@item.Income</td>
-                    <td>@item.Expenses</td>
-                    <td>@item.Total</td>
+                    <th>Year</th>
+                    <th>Month</th>
+                    <th>Income</th>
+                    <th>Expenses</th>
+                    <th>Total</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+                @foreach (var item in ledger)
+                {
+                    <tr>
+                        <td>@item.Year</td>
+                        <td>@item.Month</td>
+                        <td>@item.Income</td>
+                        <td>@item.Expenses</td>
+                        <td>@item.Total</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
 }
+
 @code {
+
     private List<MonthlyLedgerDto> ledger = new();
+
     bool loading { get; set; } = true;
+
     protected override async Task OnInitializedAsync()
     {
         if (ledger == null)
@@ -48,8 +63,10 @@ else
         await LoadItemsFromServer();
         loading = false;
     }
+
     private async Task LoadItemsFromServer()
     {
         ledger = await httpClient.GetFromJsonAsync<List<MonthlyLedgerDto>>("monthlyledger");
     }
+
 }
