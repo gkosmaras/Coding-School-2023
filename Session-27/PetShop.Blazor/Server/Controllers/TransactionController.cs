@@ -47,7 +47,7 @@ namespace PetShop.Blazor.Server.Controllers {
                 PetPrice = Transaction.Pet.Price,
                 PetFoodQty = Transaction.PetFoodQty,
                 PetFoodPrice = Transaction.PetFood.Price,
-                TotalPrice = Transaction.Pet.Price + (Transaction.PetFoodQty * Transaction.PetFood.Price),
+                TotalPrice = Transaction.TotalPrice,
                 CustomerId = Transaction.Customer.Id,
                 EmployeeId = Transaction.EmployeeId,
                 PetId = Transaction.PetId,
@@ -129,9 +129,9 @@ namespace PetShop.Blazor.Server.Controllers {
             {
                 --fQnt;
             }
-            decimal fPrice = (transaction.PetFoodQty) * transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price;
+            decimal fPrice = (fQnt) * transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price;
             decimal tPrice = (pPrice + fPrice);
-            var trans = new Transaction(pPrice, fQnt, fPrice, tPrice);
+            var trans = new Transaction(pPrice, transaction.PetFoodQty, fPrice, tPrice);
 
             trans.CustomerId = transaction.CustomerId;
             trans.EmployeeId = transaction.EmployeeId;
@@ -151,13 +151,7 @@ namespace PetShop.Blazor.Server.Controllers {
                 throw new ArgumentNullException();
             }
 
-            var fType = transaction.PetFoods.SingleOrDefault(foodType => foodType.Id == transaction.PetFoodId);
-            var pType = transaction.Pets.SingleOrDefault(petType => petType.Id == transaction.PetId);
             int fQnt = transaction.PetFoodQty;
-            if (fType.AnimalType == pType.AnimalType & fQnt > 0)
-            {
-                --fQnt;
-            }
             decimal pPrice = transaction.Pets.SingleOrDefault(x => x.Id == transaction.PetId).Price;
             decimal fPrice = (transaction.PetFoodQty) * transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price;
 

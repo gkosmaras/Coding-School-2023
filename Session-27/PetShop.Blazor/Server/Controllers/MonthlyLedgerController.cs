@@ -38,10 +38,14 @@ namespace PetShop.Blazor.Server.Controllers
                     Year = ledge.First().Date.Year,
                     Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ledge.First().Date.Month),
                     Income = ledge.Sum(x => x.TotalPrice),
-                    Expenses = wages + (ledge.Sum(x => x.PetFood.Cost * x.PetFoodQty)) + ledge.Sum(x => x.Pet.Cost),
-                    Total = dbTransactions.Sum(x => x.TotalPrice) - (wages + rent + (ledge.Sum(x => x.PetFood.Cost * x.PetFoodQty)) + ledge.Sum(x => x.Pet.Cost))
+                    Expenses = wages + GetExpenses(ledge),
+                    Total = ledge.Sum(x => x.TotalPrice) - (wages + rent + GetExpenses(ledge))
                 });
             return result;
+        }
+        public decimal GetExpenses(IGrouping<DateTime,Transaction> ledge)
+        {
+            return (ledge.Sum(x => x.PetFood.Cost * x.PetFoodQty)) + ledge.Sum(x => x.Pet.Cost);
         }
     }
 }
