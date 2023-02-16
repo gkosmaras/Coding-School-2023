@@ -36,7 +36,7 @@ namespace PetShop.Blazor.Server.Controllers
                 .Select(ledge => new PetReportDto
                 {
                     Year = ledge.First().Date.Year,
-                    Month = ledge.First().Date.Month, //CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ledge.First().Date.Month),
+                    Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ledge.First().Date.Month),
                     AnimalTypes = animalTypes,
                     Bird = ledge.Count(x => x.Pet.AnimalType == AnimalType.Bird),
                     Mammal = ledge.Count(x => x.Pet.AnimalType == AnimalType.Mammal),
