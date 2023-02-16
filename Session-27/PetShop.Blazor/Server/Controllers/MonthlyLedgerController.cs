@@ -25,14 +25,20 @@ namespace PetShop.Blazor.Server.Controllers
             {
                 date.Date = new DateTime(date.Date.Year, date.Date.Month, 1);
             }
-            List<MonthlyLedgerDto> result = dbTransactions
-                .GroupBy(d => d.Date)
-                .SelectMany(l => l.Select(
-                    ledge => new MonthlyLedgerDto
-                    {
-                        Date = ledge.Date,
-                        Income = l.Sum(x => x.TotalPrice)
-                    })).ToList();
+            /*            List<MonthlyLedgerDto> result = dbTransactions
+                            .GroupBy(d => d.Date)
+                            .SelectMany(l => l.Select(
+                                ledge => new MonthlyLedgerDto
+                                {
+                                    Date = ledge.Date,
+                                    Income = l.Sum(x => x.TotalPrice)
+                                })).ToList();*/
+            var result = dbTransactions.GroupBy(x => x.Date)
+                .Select(ledge => new MonthlyLedgerDto
+                {
+                    Date = ledge.First().Date,
+                    Income = ledge.Sum(x => x.TotalPrice)
+                });
             return result;
         }
     }
