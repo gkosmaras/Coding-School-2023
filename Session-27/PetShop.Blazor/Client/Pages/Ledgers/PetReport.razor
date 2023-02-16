@@ -3,25 +3,21 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-<h3>PetReport</h3>
+<h1 class="mb-5">Pet Report</h1>
 
 
 @if (loading)
 {
-    <div>
-        <div class="spinner-border" role="status"></div>
-        The page is loading...
-    </div>
+    <Spinner />
 }
 else
 {
-    <table class=" table table-striped table-hover">
+    <table class="table table-dark table-striped">
         <thead>
             <tr>
                 <th>Year</th>
                 <th>Month</th>
-                <th>Animal type</th>
-                <th>Total sold</th>
+                <th>Animal type/Total sold</th>
             </tr>
         </thead>
         <tbody>
@@ -31,12 +27,23 @@ else
                     <td>@item.Year</td>
                     <td>@item.Month</td>
                     <table>
-                        @foreach (var animal in item.AnimalTypes)
-                        {
-                            <td>@animal</td>
-                        }
+                        <td>
+                            <ul>
+                                @foreach (var animal in item.AnimalTypes)
+                                {
+                                    <li>@animal</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                @foreach (var sold in item.TotalSold)
+                                {
+                                    <li>@sold</li>
+                                }
+                            </ul>
+                        </td>
                     </table>
-                    <td>@item.TotalSold</td>
                 </tr>
             }
         </tbody>

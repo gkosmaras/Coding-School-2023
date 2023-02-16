@@ -10,8 +10,8 @@ namespace PetShop.Blazor.Shared.DTO.Ledgers
     public class PetReportDto
     {
         public int Year { get; set; }
-        public string Month { get; set; } = null!;
+        public int Month { get; set; }
         public List<string> AnimalTypes { get; set; } = new();
-        public int TotalSold { get; set; }
+        public List<List<int>> TotalSold { get; set; } = new();
     }
 }
