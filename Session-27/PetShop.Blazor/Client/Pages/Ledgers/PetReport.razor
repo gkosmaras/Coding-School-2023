@@ -1,9 +1,9 @@
-﻿@page "/monthlyLedger"
+﻿@page "/petreport"
 @using PetShop.Blazor.Shared.DTO.Ledgers;
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-<h3>MonthlyLedger</h3>
+<h3>PetReport</h3>
 
 
 @if (loading)
@@ -20,31 +20,35 @@ else
             <tr>
                 <th>Year</th>
                 <th>Month</th>
-                <th>Income</th>
-                <th>Expenses</th>
-                <th>Total</th>
+                <th>Animal type</th>
+                <th>Total sold</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in ledger)
+            @foreach (var item in report)
             {
                 <tr>
                     <td>@item.Year</td>
                     <td>@item.Month</td>
-                    <td>@item.Income</td>
-                    <td>@item.Expenses</td>
-                    <td>@item.Total</td>
+                    <table>
+                        @foreach (var animal in item.AnimalTypes)
+                        {
+                            <td>@animal</td>
+                        }
+                    </table>
+                    <td>@item.TotalSold</td>
                 </tr>
             }
         </tbody>
     </table>
 }
 @code {
-    private List<MonthlyLedgerDto> ledger = new();
+    private List<PetReportDto> report = new();
     bool loading { get; set; } = true;
+
     protected override async Task OnInitializedAsync()
     {
-        if (ledger == null)
+        if (report == null)
         {
             throw new ArgumentNullException();
         }
@@ -53,6 +57,6 @@ else
     }
     private async Task LoadItemsFromServer()
     {
-        ledger = await httpClient.GetFromJsonAsync<List<MonthlyLedgerDto>>("monthlyledger");
+        report = await httpClient.GetFromJsonAsync<List<PetReportDto>>("petreport");
     }
 }
