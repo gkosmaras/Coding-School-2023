@@ -5,35 +5,27 @@
 @using PetShop.Blazor.Shared.DTO.PetFood;
 @using PetShop.Blazor.Shared.DTO.Transaction;
 
-<h3>Transaction Edit</h3>
-
 @if (loading)
 {
     <Spinner />
 }
 else
 {
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label class="form-label">Quantity</label>
-            <input class="form-control" @bind="@Transaction.PetFoodQty" />
-        </div>
-    </div>
 
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label class="form-label">Customer</label>
-            <select class="form-select" @bind="Transaction.CustomerId">
-                @foreach (var customer in Transaction.Customers)
-                {
-                    <option value="@customer.Id">@customer.Name @customer.Surname</option>
-                }
-            </select>
-        </div>
-    </div>
+    @if (Id == null)
+    {
+        <PageTitle>New Transaction - Pet Shop Retail System</PageTitle>
+        <h1 class="mb-5">New Transaction</h1>
+    }
+    else
+    {
+        <PageTitle>Edit Transaction @Transaction.Id - Pet Shop Retail System</PageTitle>
+        <h1 class="mb-5">Edit Transaction {@Transaction.Id}</h1>
+    }
 
-    <div class="row mb-3">
-        <div class="col-md-6">
+    <div class="row">
+
+        <div class="col-md-6 mb-3">
             <label class="form-label">Employee</label>
             <select class="form-select" @bind="Transaction.EmployeeId">
                 @foreach (var employee in Transaction.Employees)
@@ -42,10 +34,18 @@ else
                 }
             </select>
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Customer</label>
+            <select class="form-select" @bind="Transaction.CustomerId">
+                @foreach (var customer in Transaction.Customers)
+                {
+                    <option value="@customer.Id">@customer.Name @customer.Surname</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
             <label class="form-label">Pet</label>
             <select class="form-select" @bind="@Transaction.PetId">
                 @foreach (var pet in Transaction.Pets)
@@ -54,11 +54,8 @@ else
                 }
             </select>
         </div>
-    </div>
 
-
-    <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Pet Food</label>
             <select class="form-select" @bind="@Transaction.PetFoodId">
                 @foreach (var petFood in Transaction.PetFoods)
@@ -67,21 +64,29 @@ else
                 }
             </select>
         </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Pet Food Quantity</label>
+            <input class="form-control" type="number" @bind="@Transaction.PetFoodQty" />
+        </div>
+
     </div>
 
-    <div class="row mb-3">
-        <div class="row" style="margin-top:20px">
-            <div class="col">
-                <button class="btn-success" @onclick="OnSave">Save</button>
-                <button class="btn-danger" @onclick="OnCancel">Cancel</button>
-            </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button class="btn btn-success" @onclick="OnSave">Save</button>
+            <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
         </div>
     </div>
+
 }
 
 @code {
+
     [Parameter] public int? Id { get; set; }
+
     bool loading = true;
+
     TransactionEditDto? Transaction;
 
     protected override async Task OnInitializedAsync()
@@ -111,6 +116,7 @@ else
     {
         navigationManager.NavigateTo("transaction");
     }
+
     private async Task OnSave()
     {
         HttpResponseMessage? response = null;
@@ -125,4 +131,5 @@ else
         response.EnsureSuccessStatusCode();
         navigationManager.NavigateTo("transaction");
     }
+
 }

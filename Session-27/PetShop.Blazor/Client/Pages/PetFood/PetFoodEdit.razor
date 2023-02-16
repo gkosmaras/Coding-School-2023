@@ -7,17 +7,26 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-<h1 class="mb-3">Edit Pet Food</h1>
-
 @if (PetFood == null)
 {
     <Spinner />
 }
 else
 {
+    @if (Id == null)
+    {
+        <PageTitle>New Pet Food - Pet Shop Retail System</PageTitle>
+        <h1 class="mb-5">New Pet Food</h1>
+    }
+    else
+    {
+        <PageTitle>Edit Pet Food - Pet Shop Retail System</PageTitle>
+        <h1 class="mb-5">Edit Pet Food</h1>
+    }
 
-    <div class="row mb-3">
-        <div class="col-md-6">
+    <div class="row">
+
+        <div class="col-md-6 mb-3">
             <label class="form-label">Animal Type</label>
             <select class="form-select" @bind="PetFood.AnimalType">
                 @foreach (var enumValue in Enum.GetValues<AnimalType>())
@@ -26,33 +35,32 @@ else
                 }
             </select>
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Price</label>
             <input class="form-control" @bind="@PetFood.Price" />
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Cost</label>
             <input class="form-control" @bind="@PetFood.Cost" />
         </div>
+
     </div>
 
     <div class="row">
-        <div class="col">
+        <div class="col-md-6">
             <button class="btn btn-success" @onclick="OnSave">Save</button>
-            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+            <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
         </div>
     </div>
 }
 
 
 @code {
+
     [Parameter] public int? Id { get; set; }
+
     PetFoodEditDto? PetFood { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -87,4 +95,5 @@ else
         response.EnsureSuccessStatusCode();
         navigationManager.NavigateTo("petfood");
     }
+
 }

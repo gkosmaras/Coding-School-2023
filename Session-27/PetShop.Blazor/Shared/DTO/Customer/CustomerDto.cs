@@ -11,7 +11,7 @@ namespace PetShop.Blazor.Shared.DTO.Customer
         public int Id { get; set; } 
         public string Name { get; set; } = null!;
         public string Surname { get; set; } = null!;
-        public int Phone { get; set; }
+        public int Phone { get; set; } 
         public string Tin { get; set; } = null!;
     }
 }

@@ -7,14 +7,14 @@
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
 
-<PageTitle>Transactions - Pet Shop Retail System</PageTitle>
-
 @if (isLoading)
 {
     <Spinner />
 }
 else
 {
+    <PageTitle>Transactions - Pet Shop Retail System</PageTitle>
+
     <h1 class="mb-5">Transactions</h1>
 
     <button class="btn btn-primary mb-5" @onclick="CreateItem">Add new transaction</button>

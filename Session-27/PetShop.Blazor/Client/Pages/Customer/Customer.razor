@@ -3,15 +3,15 @@
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
 
-<PageTitle>Customers - Pet Shop Retail System</PageTitle>
-<h1 class="mb-5">Customers</h1>
-
 @if (loading)
 {
     <Spinner />
 }
 else
 {
+
+    <PageTitle>Customers - Pet Shop Retail System</PageTitle>
+    <h1 class="mb-5">Customers</h1>
 
     <button class="btn btn-primary mb-5" @onclick="AddCustomer">Add new customer</button>
 

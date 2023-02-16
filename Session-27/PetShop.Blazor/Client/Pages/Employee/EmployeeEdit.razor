@@ -2,59 +2,64 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-
-<h3>CustomerEdit</h3>
-
 @if (Employee == null)
 {
     <Spinner />
 }
 else
 {
-    <div class="row" mb-3>
-        <div class="col-md-6">
+    @if (Id == null)
+    {
+        <PageTitle>New Employee - Pet Shop Retail System</PageTitle>
+        <h1 class="mb-5">New Employee</h1>
+    }
+    else
+    {
+        <PageTitle>Edit Employee - Pet Shop Retail System</PageTitle>
+        <h1 class="mb-5">Edit Employee</h1>
+    }
+
+    <div class="row">
+
+        <div class="col-md-6 mb-3">
             <label class="form-label">Name</label>
-            <input class="form-control" @bind=@Employee!.Name type="text" />
+            <input class="form-control" type="text" placeholder="Enter employee's name" @bind=@Employee.Name />
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Surname</label>
-            <input class="form-control" @bind=@Employee.Surname type="text" />
+            <input class="form-control" type="text" placeholder="Enter employee's surname" @bind=@Employee.Surname />
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <label class="form-label">Type of employee</label>
-            <select class="form-control" @bind="Employee.EmployeeType">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Type of Employee</label>
+            <select class="form-select" placeholder="Enter employee's name" @bind="Employee.EmployeeType">
                 @foreach (var enumValue in Enum.GetValues<EmployeeType>())
                 {
                     <option value="@enumValue">@enumValue</option>
                 }
             </select>
         </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Monthly Salary</label>
+            <input class="form-control" type="number" placeholder="Enter employee's salary" @bind=@Employee.SalaryPerMonth />
+        </div>
+
     </div>
 
     <div class="row">
         <div class="col-md-6">
-            <label class="form-label">Monthly Salary</label>
-            <input class="form-control" @bind=@Employee.SalaryPerMonth type="number" />
+            <button class="btn btn-success" @onclick="OnSave">Save</button>
+            <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
         </div>
-    </div>
-
-    <div class="row" style="margin-top:20px" >
-        <div class="col">
-            <button class="btn-success" @onclick="OnSave">Save</button>
-            <button class="btn-danger" @onclick="OnCancel">Cancel</button>
-        </div>
-
     </div>
 }
 
 @code {
+
     [Parameter] public int? Id { get; set; }
+
     EmployeeEditDto? Employee { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -68,10 +73,12 @@ else
             Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>($"employee/{Id}");
         }
     }
+
     private void OnCancel()
     {
         navigationManager.NavigateTo("employee");
     }
+
     private async Task OnSave()
     {
         HttpResponseMessage? response = null;
@@ -86,4 +93,5 @@ else
         response.EnsureSuccessStatusCode();
         navigationManager.NavigateTo("employee");
     }
+
 }

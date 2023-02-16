@@ -3,9 +3,6 @@
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
 
-
-<PageTitle>Employees - Pet Shop Retail System</PageTitle>
-
 @if (loading)
 {
     <Spinner />
@@ -13,6 +10,7 @@
 else
 {
 
+    <PageTitle>Employees - Pet Shop Retail System</PageTitle>
     <h1 class="mb-5">Employees</h1>
 
     <button class="btn btn-primary mb-5" @onclick="AddEmployee">Add new employee</button>
@@ -45,7 +43,7 @@ else
                         <td>
                             <button class="btn btn-warning" @onclick="() => EditEmployee(employee)">Edit</button>
                             <button class="btn btn-danger" @onclick="() => DeleteEmployee(employee)">Delete</button>
-                            <button class="btn btn-secondary" @onclick="() => DetailEmployee(employee)">Detail</button>
+                            <button class="btn btn-secondary" @onclick="() => DetailEmployee(employee)">Details</button>
                         </td>
                     </tr>
                 }
@@ -55,7 +53,6 @@ else
         </table>
 
     </div>
-
 }
 @code {
 

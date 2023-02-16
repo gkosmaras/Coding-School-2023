@@ -2,24 +2,23 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-@if (Id == null)
-{
-    <PageTitle>New Customer - Pet Shop Retail System</PageTitle>
-    <h1 class="mb-5">New Customer</h1>
-}
-else
-{
-    <PageTitle>Edit Customer - Pet Shop Retail System</PageTitle>
-    <h1 class="mb-5">Edit Customer</h1>
-}
-
-
 @if (Customer == null)
 {
     <Spinner />
 }
 else
 {
+
+    @if (Id == null)
+    {
+        <PageTitle>New Customer - Pet Shop Retail System</PageTitle>
+        <h1 class="mb-5">New Customer</h1>
+    }
+    else
+    {
+        <PageTitle>Edit Customer - Pet Shop Retail System</PageTitle>
+        <h1 class="mb-5">Edit Customer</h1>
+    }
 
     <div class="row">
 
@@ -48,7 +47,7 @@ else
     <div class="row">
         <div class="col-md-6">
             <button class="btn btn-success" @onclick="OnSave">Save</button>
-            <button class="btn btn-warning" @onclick="OnCancel">Back</button>
+            <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
         </div>
     </div>
 }
