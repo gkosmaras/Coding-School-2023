@@ -144,11 +144,10 @@ namespace PetShop.Blazor.Server.Controllers {
             }
 
             var pPrice = transaction.Pets.SingleOrDefault(x => x.Id == transaction.PetId).Price;
-            var fQnt = transaction.PetFoodQty;
             var fPrice = (transaction.PetFoodQty) * transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price;
 
             dbTransaction.PetPrice = pPrice;
-            dbTransaction.PetFoodPrice = fPrice;
+            dbTransaction.PetFoodPrice = transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price; ;
             dbTransaction.TotalPrice = pPrice + fPrice;
             dbTransaction.PetFoodQty = transaction.PetFoodQty;
             dbTransaction.CustomerId = transaction.CustomerId;
