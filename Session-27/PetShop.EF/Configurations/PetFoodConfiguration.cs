@@ -17,8 +17,8 @@ namespace PetShop.EF.Configurations {
 
             // Properties
             builder.Property(t => t.AnimalType).IsRequired();
-            builder.Property(t => t.Price).HasPrecision(4, 2).IsRequired();
-            builder.Property(t => t.Cost).HasPrecision(4, 2).IsRequired();
+            builder.Property(t => t.Price).HasPrecision(9, 2).IsRequired();
+            builder.Property(t => t.Cost).HasPrecision(9, 2).IsRequired();
 
         }
 
