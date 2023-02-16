@@ -25,11 +25,15 @@ else
 
         <thead>
             <tr>
-                <th>Transaction Date</th>
+                <th>Date</th>
+                <th>Pet</th>
                 <th>Pet Price</th>
-                <th>Pet Food Quantity</th>
+                <th>Pet Food</th>
+                <th>Pet Food QTY</th>
                 <th>Pet Food Price</th>
                 <th>Total Price</th>
+                <th>Customer</th>
+                <th>Employee</th>
                 <th>Actions</th>
             </tr>
 
@@ -40,10 +44,15 @@ else
             {
                 <tr>
                     <td>@transaction.Date</td>
+                    <td>@transaction.PetBreed</td>
                     <td>@transaction.PetPrice</td>
+                    <td>@transaction.PetFood</td>
                     <td>@transaction.PetFoodQty</td>
                     <td>@transaction.PetFoodPrice</td>
                     <td>@transaction.TotalPrice</td>
+                    <td>@transaction.CustomerName @transaction.CustomerSurname (@transaction.CustomerId)</td>
+                    <td>@transaction.EmployeeName @transaction.EmployeeSurname (@transaction.EmployeeId)</td>
+
                     <td>
                         <button class="btn btn-primary" @onclick="()=> EditItem(transaction)">Edit</button>
                         <button class="btn btn-danger" @onclick="()=> DeleteItem(transaction)">Delete</button>
