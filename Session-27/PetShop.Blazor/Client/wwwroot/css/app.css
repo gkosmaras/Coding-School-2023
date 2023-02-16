@@ -59,36 +59,52 @@ h1:focus {
     margin-top: 25vh;
 }
 
-.site-header .site-title {
-    background: #070808;
-}
-
-    .site-header .site-title .wrapper {
-        max-width: 1440px;
+.site-title .wrapper {
+        max-width: 1600px;
         margin: 0 auto;
         padding: 1.5rem 20px;
     }
 
-    .site-header .site-title a {
+.site-title a {
         color: rgb(248, 249, 250);
         text-decoration: none;
     }
 
-.site-header .site-nav .wrapper {
-    max-width: 1440px;
+
+.site-nav .wrapper {
+    max-width: 1600px;
     margin: 0 auto;
     padding: 1.5rem 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-gap: 1rem;
 }
 
-.site-header .site-nav .oi {
+    .site-nav .wrapper > div a {
+        width: 100%;
+    }
+
+    .site-nav .wrapper > div:nth-child(5) {
+        grid-column: span 2;
+    }
+
+    .site-nav .wrapper > div:nth-child(6) {
+        grid-column: span 2;
+    }
+
+    .site-nav .wrapper > div:nth-child(7) {
+        grid-column: span 4;
+    }
+
+
+
+
+.site-nav .oi {
     margin-right: 0.5rem;
 }
 
 .site-main .wrapper {
-    max-width: 1440px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 3rem 20px 4.5rem;
 }

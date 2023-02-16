@@ -35,6 +35,10 @@ else
             </select>
         </div>
 
+    </div>
+
+    <div class="row">
+
         <div class="col-md-6 mb-3">
             <label class="form-label">Customer</label>
             <select class="form-select" @bind="Transaction.CustomerId">
@@ -45,93 +49,99 @@ else
             </select>
         </div>
 
+    </div>
+
+    <div class="row">
+
         <div class="col-md-6 mb-3">
             <label class="form-label">Pet</label>
             <select class="form-select" @bind="@Transaction.PetId">
                 @foreach (var pet in Transaction.Pets)
                 {
-                    <option value="@pet.Id">@pet.Breed</option>
+                    <option value="@pet.Id">@pet.Breed (Price: @pet.Price)</option>
                 }
             </select>
         </div>
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Pet Food</label>
-            <select class="form-select" @bind="@Transaction.PetFoodId">
-                @foreach (var petFood in Transaction.PetFoods)
-                {
-                    <option value="@petFood.Id">@petFood.AnimalType</option>
-                }
-            </select>
-        </div>
-
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Pet Food Quantity</label>
-            <input class="form-control" type="number" @bind="@Transaction.PetFoodQty" />
-        </div>
-
-        <h1>@Transaction.TotalPrice</h1>
-
     </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <button class="btn btn-success" @onclick="OnSave">Save</button>
-            <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Pet Food</label>
+                <select class="form-select" @bind="@Transaction.PetFoodId">
+                    @foreach (var petFood in Transaction.PetFoods)
+                    {
+                        <option value="@petFood.Id">@petFood.AnimalType (Price: @petFood.Price)</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Pet Food Quantity</label>
+                <input class="form-control" type="number" @bind="@Transaction.PetFoodQty" />
+            </div>
+
         </div>
-    </div>
 
-}
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-success" @onclick="OnSave">Save</button>
+                <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
+            </div>
+        </div>
 
-@code {
+        }
 
-    [Parameter] public int? Id { get; set; }
+        @code {
 
-    bool loading = true;
+            [Parameter] public int? Id { get; set; }
 
-    TransactionEditDto? Transaction;
+            bool loading = true;
+
+            TransactionEditDto? Transaction;
 
     protected override async Task OnInitializedAsync()
-    {
-        if (Id == null)
         {
-            Transaction = new();
-            Transaction.Customers = await httpClient.GetFromJsonAsync<List<CustomerEditDto>>("customer");
-            Transaction.Employees = await httpClient.GetFromJsonAsync<List<EmployeeEditDto>>("employee");
-            Transaction.Pets = await httpClient.GetFromJsonAsync<List<PetEditDto>>("pet");
-            Transaction.Pets = Transaction.Pets.Where(x => x.PetStatus != PetStatus.Unhealthy).ToList();
-            Transaction.PetFoods = await httpClient.GetFromJsonAsync<List<PetFoodEditDto>>("petfood");
+            if (Id == null)
+            {
+                Transaction = new();
+                Transaction.Customers = await httpClient.GetFromJsonAsync<List<CustomerEditDto>>("customer");
+                Transaction.Employees = await httpClient.GetFromJsonAsync<List<EmployeeEditDto>>("employee");
+                Transaction.Pets = await httpClient.GetFromJsonAsync<List<PetEditDto>>("pet");
+                Transaction.Pets = Transaction.Pets.Where(x => x.PetStatus != PetStatus.Unhealthy).ToList();
+                Transaction.PetFoods = await httpClient.GetFromJsonAsync<List<PetFoodEditDto>>("petfood");
+            }
+            else
+            {
+                Transaction = await httpClient.GetFromJsonAsync<TransactionEditDto>($"transaction/{Id}");
+                Transaction.Customers = await httpClient.GetFromJsonAsync<List<CustomerEditDto>>("customer");
+                Transaction.Employees = await httpClient.GetFromJsonAsync<List<EmployeeEditDto>>("employee");
+                Transaction.Pets = await httpClient.GetFromJsonAsync<List<PetEditDto>>("pet");
+                Transaction.Pets = Transaction.Pets.Where(x => x.PetStatus != PetStatus.Unhealthy).ToList();
+                Transaction.PetFoods = await httpClient.GetFromJsonAsync<List<PetFoodEditDto>>("petfood");
+            }
+            loading = false;
         }
-        else
-        {
-            Transaction = await httpClient.GetFromJsonAsync<TransactionEditDto>($"transaction/{Id}");
-            Transaction.Customers = await httpClient.GetFromJsonAsync<List<CustomerEditDto>>("customer");
-            Transaction.Employees = await httpClient.GetFromJsonAsync<List<EmployeeEditDto>>("employee");
-            Transaction.Pets = await httpClient.GetFromJsonAsync<List<PetEditDto>>("pet");
-            Transaction.Pets = Transaction.Pets.Where(x => x.PetStatus != PetStatus.Unhealthy).ToList();
-            Transaction.PetFoods = await httpClient.GetFromJsonAsync<List<PetFoodEditDto>>("petfood");
-        }
-        loading = false;
-    }
 
-    private void OnCancel()
-    {
-        navigationManager.NavigateTo("transaction");
-    }
-
-    private async Task OnSave()
-    {
-        HttpResponseMessage? response = null;
-        if (Id == null)
+        private void OnCancel()
         {
-            response = await httpClient.PostAsJsonAsync("transaction", Transaction);
+            navigationManager.NavigateTo("transaction");
         }
-        else
-        {
-            response = await httpClient.PutAsJsonAsync("transaction", Transaction);
-        }
-        response.EnsureSuccessStatusCode();
-        navigationManager.NavigateTo("transaction");
-    }
 
-}
+        private async Task OnSave()
+        {
+            HttpResponseMessage? response = null;
+            if (Id == null)
+            {
+                response = await httpClient.PostAsJsonAsync("transaction", Transaction);
+            }
+            else
+            {
+                response = await httpClient.PutAsJsonAsync("transaction", Transaction);
+            }
+            response.EnsureSuccessStatusCode();
+            navigationManager.NavigateTo("transaction");
+        }
+
+        }

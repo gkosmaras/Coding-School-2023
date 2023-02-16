@@ -30,16 +30,17 @@ else
             </thead>
 
             <tbody>
-                @foreach (var cus in customer)
+                @foreach (var customer in customers)
                 {
                     <tr>
-                        <td>@cus.Name</td>
-                        <td>@cus.Surname</td>
-                        <td>@cus.Phone</td>
-                        <td>@cus.Tin</td>
+                        <td>@customer.Name</td>
+                        <td>@customer.Surname</td>
+                        <td>@customer.Phone</td>
+                        <td>@customer.Tin</td>
                         <td>
-                            <button class="btn btn-warning" @onclick="() => EditCustomer(cus)">Edit</button>
-                            <button class="btn btn-danger" @onclick="() => DeleteCustomer(cus)">Delete</button>
+                            <button class="btn btn-warning" @onclick="() => EditCustomer(customer)">Edit</button>
+                            <button class="btn btn-danger" @onclick="() => DeleteCustomer(customer)">Delete</button>
+                            <button class="btn btn-secondary" @onclick="() => DetailCustomer(customer)">Details</button>
                         </td>
                     </tr>
                 }
@@ -53,13 +54,13 @@ else
 
 @code {
 
-    private List<CustomerDto> customer = new();
+    private List<CustomerDto> customers = new();
 
     bool loading { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
-        if (customer == null)
+        if (customers == null)
         {
             throw new ArgumentNullException();
         }
@@ -69,7 +70,7 @@ else
 
     private async Task LoadItemsFromServer()
     {
-        customer = await httpClient.GetFromJsonAsync<List<CustomerDto>>("customer");
+        customers = await httpClient.GetFromJsonAsync<List<CustomerDto>>("customer");
     }
 
     private void AddCustomer()
@@ -80,6 +81,11 @@ else
     private void EditCustomer(CustomerDto customer)
     {
         navigationManager.NavigateTo($"customer/edit/{customer.Id}");
+    }
+
+    private void DetailCustomer(CustomerDto customer)
+    {
+        navigationManager.NavigateTo($"customer/detail/{customer.Id}");
     }
 
     private async Task DeleteCustomer(CustomerDto customer)

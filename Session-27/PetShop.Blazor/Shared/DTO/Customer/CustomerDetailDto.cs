@@ -1,14 +1,14 @@
-﻿using System;
+﻿using PetShop.Blazor.Shared.DTO.Transaction;
+using PetShop.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PetShop.Blazor.Shared.DTO.Transaction;
 
-namespace PetShop.Blazor.Shared.DTO.Customer
-{
-    public class CustomerEditDto
-    {
+namespace PetShop.Blazor.Shared.DTO.Customer {
+
+    public class CustomerDetailDto {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string Surname { get; set; } = null!;
@@ -16,4 +16,5 @@ namespace PetShop.Blazor.Shared.DTO.Customer
         public string Tin { get; set; } = null!;
         public List<TransactionDto> Transactions { get; set; } = new();
     }
+
 }

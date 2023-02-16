@@ -3,55 +3,59 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-<h1 class="mb-5">Pet Report</h1>
-
-
 @if (loading)
 {
     <Spinner />
 }
 else
 {
+
+    <PageTitle>Pet Report - Pet Shop Retail System</PageTitle>
+    <h1 class="mb-5">Pet Report</h1>
+
     <table class="table table-dark table-striped">
+
         <thead>
             <tr>
                 <th>Year</th>
                 <th>Month</th>
-                <th>Animal type</th>
-                <th>Total sold</th>
+                <th>Animal</th>
+                <th>Total Sold</th>
             </tr>
         </thead>
+
         <tbody>
             @foreach (var item in report)
             {
                 <tr>
                     <td>@item.Year</td>
                     <td>@item.Month</td>
-
-                        <td>
-                            <ul>
-                                @foreach (var animal in item.AnimalTypes)
-                                {
-                                    <li>@animal</li>
-                                }
-                            </ul>
-                        </td>
-                        <td>
-                            <ul>
-                                <li>@item.Bird</li>
-                                <li>@item.Mammal</li>
-                                <li>@item.Reptile</li>
-                                <li>@item.Fish</li>
-                            </ul>
-                        </td>
-
+                    <td>
+                        <ul class="list-unstyled">
+                            @foreach (var animal in item.AnimalTypes)
+                            {
+                                <li>@animal</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li>@item.Bird</li>
+                            <li>@item.Mammal</li>
+                            <li>@item.Reptile</li>
+                            <li>@item.Fish</li>
+                        </ul>
+                    </td>
                 </tr>
             }
         </tbody>
+
     </table>
 }
 @code {
+
     private List<PetReportDto> report = new();
+
     bool loading { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
@@ -63,6 +67,7 @@ else
         await LoadItemsFromServer();
         loading = false;
     }
+
     private async Task LoadItemsFromServer()
     {
         report = await httpClient.GetFromJsonAsync<List<PetReportDto>>("petreport");

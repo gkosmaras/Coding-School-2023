@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Blazor.Shared.DTO.Customer;
+using PetShop.Blazor.Shared.DTO.Transaction;
 using PetShop.EF.Repositories;
 using PetShop.Models;
 
@@ -12,9 +13,11 @@ namespace PetShop.Blazor.Server.Controllers {
     public class CustomerController : ControllerBase {
 
         private readonly IEntityRepo<Customer> _customerRepo;
+        private readonly IEntityRepo<Transaction> _transactionRepo;
 
-        public CustomerController(IEntityRepo<Customer> customerRepo) {
+        public CustomerController(IEntityRepo<Customer> customerRepo, IEntityRepo<Transaction> transactionRepo) {
             _customerRepo = customerRepo;
+            _transactionRepo = transactionRepo;
         }
 
         [HttpGet]
@@ -38,6 +41,7 @@ namespace PetShop.Blazor.Server.Controllers {
         public async Task<CustomerEditDto> GetById(int id) {
 
             var dbCustomer = _customerRepo.GetById(id);
+            var dbTransactions = _transactionRepo.GetAll().Where(x => x.CustomerId == id);
 
             if (dbCustomer == null) {
                 throw new ArgumentNullException();
@@ -48,7 +52,11 @@ namespace PetShop.Blazor.Server.Controllers {
                 Name = dbCustomer.Name,
                 Surname = dbCustomer.Surname,
                 Phone = dbCustomer.Phone,
-                Tin = dbCustomer.Tin
+                Tin = dbCustomer.Tin,
+                 Transactions = dbTransactions.Select(customerTrans => new TransactionDto {
+                     Date = customerTrans.Date,
+                     TotalPrice = customerTrans.TotalPrice
+                 }).ToList()
             };
 
             return result;

@@ -1,0 +1,70 @@
+﻿@page "/customer/detail/{id:int?}"
+
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+@if (loading)
+{
+    <Spinner />
+}
+else
+{
+    <PageTitle>Employee @Customer.Name @Customer.Surname - Pet Shop Retail System</PageTitle>
+
+    <h1 class="mb-5">Details for customer: @Customer.Name @Customer.Surname</h1>
+
+    <div class="row mb-5">
+        <div><strong>Customer phone:</strong> @Customer.Phone</div>
+        <div><strong>Customer TIN:</strong> @Customer.Tin</div>
+    </div>
+
+    <h2 class="mb-3">Transactions</h2>
+
+    <div class="table-responsive">
+
+        <table class="table table-dark table-striped">
+
+            <thead>
+                <tr>
+                    <th>Transaction Date</th>
+                    <th>Transaction Total Price</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var transaction in Customer.Transactions)
+                {
+                    <tr>
+                        <td>@transaction.Date</td>
+                        <td>@transaction.TotalPrice</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <button class="btn btn-secondary" @onclick="OnCancel">Back</button>
+}
+
+@code {
+
+    bool loading { get; set; } = true;
+
+    [Parameter] public int? Id { get; set; }
+
+    CustomerEditDto? Customer { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>($"customer/{Id}");
+        loading = false;
+    }
+
+    private void OnCancel()
+    {
+        navigationManager.NavigateTo("customer");
+    }
+
+}

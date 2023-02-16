@@ -85,6 +85,8 @@ namespace PetShop.Blazor.Server.Controllers {
                 Date = DateTime.Now,
                 Id = dbTransaction.Id,
                 PetFoodQty = dbTransaction.PetFoodQty,
+                PetFoodPrice = dbTransaction.PetFoodPrice,
+                PetPrice = dbTransaction.PetPrice,
 
                 CustomerId = dbTransaction.CustomerId,
                 Customers = dbCustomer.Select(customer => new CustomerEditDto {
