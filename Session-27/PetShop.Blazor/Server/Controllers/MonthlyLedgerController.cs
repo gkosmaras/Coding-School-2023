@@ -37,7 +37,7 @@ namespace PetShop.Blazor.Server.Controllers
                 {
                     Year = ledge.First().Date.Year,
                     Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ledge.First().Date.Month),
-                    Income = dbTransactions.Sum(x => x.TotalPrice),
+                    Income = ledge.Sum(x => x.TotalPrice),
                     Expenses = wages + (ledge.Sum(x => x.PetFood.Cost * x.PetFoodQty)) + ledge.Sum(x => x.Pet.Cost),
                     Total = dbTransactions.Sum(x => x.TotalPrice) - (wages + rent + (ledge.Sum(x => x.PetFood.Cost * x.PetFoodQty)) + ledge.Sum(x => x.Pet.Cost))
                 });
