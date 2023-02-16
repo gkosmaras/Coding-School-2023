@@ -47,7 +47,7 @@ namespace PetShop.Blazor.Server.Controllers {
                 PetPrice = Transaction.Pet.Price,
                 PetFoodQty = Transaction.PetFoodQty,
                 PetFoodPrice = Transaction.PetFood.Price,
-                TotalPrice = Transaction.TotalPrice,
+                TotalPrice = Transaction.Pet.Price + (Transaction.PetFoodQty * Transaction.PetFood.Price),
                 CustomerId = Transaction.Customer.Id,
                 EmployeeId = Transaction.EmployeeId,
                 PetId = Transaction.PetId,
@@ -122,8 +122,8 @@ namespace PetShop.Blazor.Server.Controllers {
             var pPrice = transaction.Pets.SingleOrDefault(x => x.Id == transaction.PetId).Price;
             var fQnt = transaction.PetFoodQty;
             var fPrice = (transaction.PetFoodQty) * transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price;
-
-            var trans = new Transaction(pPrice, fQnt, fPrice, pPrice + fPrice);
+            var tPrice = (pPrice + fPrice);
+            var trans = new Transaction(pPrice, fQnt, fPrice, tPrice);
 
             trans.CustomerId = transaction.CustomerId;
             trans.EmployeeId = transaction.EmployeeId;
