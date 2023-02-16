@@ -121,10 +121,16 @@ namespace PetShop.Blazor.Server.Controllers {
         [HttpPost]
         public async Task Post(TransactionEditDto transaction) {
 
-            var pPrice = transaction.Pets.SingleOrDefault(x => x.Id == transaction.PetId).Price;
-            var fQnt = transaction.PetFoodQty;
-            var fPrice = (transaction.PetFoodQty) * transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price;
-            var tPrice = (pPrice + fPrice);
+            var fType = transaction.PetFoods.SingleOrDefault(foodType => foodType.Id == transaction.PetFoodId);
+            var pType = transaction.Pets.SingleOrDefault(petType => petType.Id == transaction.PetId);
+            decimal pPrice = transaction.Pets.SingleOrDefault(x => x.Id == transaction.PetId).Price;
+            int fQnt = transaction.PetFoodQty;
+            if (fType.AnimalType == pType.AnimalType & fQnt > 0)
+            {
+                --fQnt;
+            }
+            decimal fPrice = (transaction.PetFoodQty) * transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price;
+            decimal tPrice = (pPrice + fPrice);
             var trans = new Transaction(pPrice, fQnt, fPrice, tPrice);
 
             trans.CustomerId = transaction.CustomerId;
@@ -145,13 +151,20 @@ namespace PetShop.Blazor.Server.Controllers {
                 throw new ArgumentNullException();
             }
 
-            var pPrice = transaction.Pets.SingleOrDefault(x => x.Id == transaction.PetId).Price;
-            var fPrice = (transaction.PetFoodQty) * transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price;
+            var fType = transaction.PetFoods.SingleOrDefault(foodType => foodType.Id == transaction.PetFoodId);
+            var pType = transaction.Pets.SingleOrDefault(petType => petType.Id == transaction.PetId);
+            int fQnt = transaction.PetFoodQty;
+            if (fType.AnimalType == pType.AnimalType & fQnt > 0)
+            {
+                --fQnt;
+            }
+            decimal pPrice = transaction.Pets.SingleOrDefault(x => x.Id == transaction.PetId).Price;
+            decimal fPrice = (transaction.PetFoodQty) * transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price;
 
             dbTransaction.PetPrice = pPrice;
             dbTransaction.PetFoodPrice = transaction.PetFoods.SingleOrDefault(x => x.Id == transaction.PetFoodId).Price; ;
             dbTransaction.TotalPrice = pPrice + fPrice;
-            dbTransaction.PetFoodQty = transaction.PetFoodQty;
+            dbTransaction.PetFoodQty = fQnt;
             dbTransaction.CustomerId = transaction.CustomerId;
             dbTransaction.EmployeeId = transaction.EmployeeId;
             dbTransaction.PetId = transaction.PetId;
