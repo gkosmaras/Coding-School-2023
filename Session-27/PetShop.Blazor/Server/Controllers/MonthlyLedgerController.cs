@@ -30,7 +30,8 @@ namespace PetShop.Blazor.Server.Controllers
             {
                 date.Date = new DateTime(date.Date.Year, date.Date.Month, 1);
             }
-            var wages = dbEmployee.Sum(x => x.SalaryPerMonth);
+            decimal wages = dbEmployee.Sum(x => x.SalaryPerMonth);
+            decimal rent = 2000;
             var result = dbTransactions.GroupBy(x => x.Date)
                 .Select(ledge => new MonthlyLedgerDto
                 {
@@ -38,7 +39,7 @@ namespace PetShop.Blazor.Server.Controllers
                     Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ledge.First().Date.Month),
                     Income = dbTransactions.Sum(x => x.TotalPrice),
                     Expenses = wages + (ledge.Sum(x => x.PetFood.Cost * x.PetFoodQty)) + ledge.Sum(x => x.Pet.Cost),
-                    Total = dbTransactions.Sum(x => x.TotalPrice) - (wages + (ledge.Sum(x => x.PetFood.Cost * x.PetFoodQty)) + ledge.Sum(x => x.Pet.Cost))
+                    Total = dbTransactions.Sum(x => x.TotalPrice) - (wages + rent + (ledge.Sum(x => x.PetFood.Cost * x.PetFoodQty)) + ledge.Sum(x => x.Pet.Cost))
                 });
             return result;
         }
