@@ -7,56 +7,59 @@
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
 
-<PageTitle>Pet Food</PageTitle>
-
-<h1>Pet Food</h1>
+<PageTitle>Pet Food - Pet Shop Retail System</PageTitle>
 
 @if (isLoading)
 {
-    <div>
-        <div class="spinner-border" role="status"></div>
-        The page is loading...
-    </div>
+    <Spinner />
 }
 else
 {
 
-    <button class="btn btn-primary" @onclick="CreateItem">Create</button>
+    <h1 class="mb-5">Pet Food</h1>
 
-    <table class="table table-striped table-hover">
+    <button class="btn btn-primary mb-5" @onclick="CreateItem">Add new pet food</button>
 
-        <thead>
-            <tr>
-                <th>Animal Type</th>
-                <th>Price</th>
-                <th>Cost</th>
-                <th>Actions</th>
-            </tr>
+    <div class="table-responsive">
 
-        </thead>
+        <table class="table table-dark table-striped">
 
-        <tbody>
-            @foreach (var item in petFoodList)
-            {
+            <thead>
+
                 <tr>
-                    <td>@item.AnimalType</td>
-                    <td>@item.Price</td>
-                    <td>@item.Cost</td>
-                    <td>
-                        <button class="btn btn-primary" @onclick="()=> EditItem(item)">Edit</button>
-                        <button class="btn btn-danger" @onclick="()=> DeleteItem(item)">Delete</button>
-                    </td>
+                    <th>Animal Type</th>
+                    <th>Price</th>
+                    <th>Cost</th>
+                    <th>Actions</th>
                 </tr>
 
-            }
-        </tbody>
+            </thead>
 
-    </table>
+            <tbody>
+
+                @foreach (var petFood in petFoods)
+                {
+                    <tr>
+                        <td>@petFood.AnimalType</td>
+                        <td>@petFood.Price</td>
+                        <td>@petFood.Cost</td>
+                        <td>
+                            <button class="btn btn-warning" @onclick="()=> EditItem(petFood)">Edit</button>
+                            <button class="btn btn-danger" @onclick="()=> DeleteItem(petFood)">Delete</button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 }
 
 @code {
-    private List<PetFoodDto> petFoodList = new();
+    private List<PetFoodDto> petFoods = new();
 
     bool isLoading { get; set; } = true;
 
@@ -68,7 +71,7 @@ else
 
     private async Task LoadItemsFromServer()
     {
-        petFoodList = await httpClient.GetFromJsonAsync<List<PetFoodDto>>("petfood");
+        petFoods = await httpClient.GetFromJsonAsync<List<PetFoodDto>>("petfood");
     }
 
     private void CreateItem()
