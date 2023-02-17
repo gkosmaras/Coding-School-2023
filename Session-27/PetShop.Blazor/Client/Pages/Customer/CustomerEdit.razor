@@ -27,12 +27,12 @@ else
 
             <div class="col-md-6 mb-3">
                 <label class="form-label">Name</label>
-                <InputText class="form-control" type="text" placeholder="Enter customer's name" @bind-Value=@Customer.Name required/>
+                <InputText class="form-control" type="text" placeholder="Enter customer's name" @bind-Value=@Customer.Name />
             </div>
 
             <div class="col-md-6 mb-3">
                 <label class="form-label">Surname</label>
-                <InputText class="form-control" type="text" placeholder="Enter customer's surname" @bind-Value=@Customer.Surname required />
+                <InputText class="form-control" type="text" placeholder="Enter customer's surname" @bind-Value=@Customer.Surname />
             </div>
 
             <div class="col-md-6 mb-3">
@@ -42,7 +42,7 @@ else
 
             <div class="col-md-6 mb-3">
                 <label class="form-label">TIN</label>
-                <InputText class="form-control" type="text" placeholder="Enter customer's TIN" @bind-Value=@Customer.Tin required/>
+                <InputText class="form-control" type="text" placeholder="Enter customer's TIN" @bind-Value=@Customer.Tin />
             </div>
         </div>
 
@@ -54,17 +54,6 @@ else
         </div>
     </EditForm>
 
-    <style>
-        input:required:valid {
-            border-color: green;
-            border-width: 3px;
-        }
-
-            input:required:invalid {
-                border-color: #c00000;
-            border-width: 5px;
-            }
-    </style>
 }
 
 @code {

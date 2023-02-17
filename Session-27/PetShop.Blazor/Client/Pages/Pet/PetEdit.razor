@@ -31,12 +31,12 @@ else
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label">Breed</label>
-                <InputText class="form-control" type="text" placeholder="Enter customer's name" @bind-Value=@Pet.Breed required />
+                <InputText class="form-control" type="text" placeholder="Enter the pet's breed" @bind-Value=@Pet.Breed />
             </div>
 
             <div class="col-md-6 mb-3">
                 <label class="form-label">Type of Pet</label>
-                    <InputSelect class="form-select" placeholder="Enter the pet's type'" @bind-Value="Pet.AnimalType">
+                    <InputSelect class="form-select" placeholder="Enter the pet's type" @bind-Value="Pet.AnimalType">
                     @foreach (var enumValue in Enum.GetValues<AnimalType>())
                     {
                         <option value="@enumValue">@enumValue</option>
@@ -46,7 +46,7 @@ else
 
             <div class="col-md-6 mb-3">
                 <label class="form-label">Health Status</label>
-                <InputSelect class="form-select" placeholder="Enter the pet's health status'" @bind-Value="Pet.PetStatus">
+                <InputSelect class="form-select" @bind-Value="Pet.PetStatus">
                     @foreach (var enumValue in Enum.GetValues<PetStatus>())
                     {
                         <option value="@enumValue">@enumValue</option>
@@ -73,17 +73,6 @@ else
         </div>
     </EditForm>
 
-    <style>
-        input:required:valid {
-            border-color: green;
-            border-width: 3px;
-        }
-
-            input:required:invalid {
-                border-color: #c00000;
-            border-width: 5px;
-            }
-    </style>
 }
 
 
