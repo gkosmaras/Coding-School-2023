@@ -20,36 +20,39 @@ else
         <h1 class="mb-5">Edit Customer</h1>
     }
 
-    <div class="row">
+    <EditForm Model="Customer" OnValidSubmit="OnSave">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="row">
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Name</label>
-            <input class="form-control" type="text" placeholder="Enter customer's name" @bind=@Customer.Name required/>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Name</label>
+                <InputText class="form-control" type="text" placeholder="Enter customer's name" @bind-Value=@Customer.Name required/>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Surname</label>
+                <InputText class="form-control" type="text" placeholder="Enter customer's surname" @bind-Value=@Customer.Surname required />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Phone</label>
+                <InputNumber class="form-control" type="number" placeholder="Enter customer's phone number" @bind-Value=@Customer.Phone />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">TIN</label>
+                <InputText class="form-control" type="text" placeholder="Enter customer's TIN" @bind-Value=@Customer.Tin required/>
+            </div>
         </div>
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Surname</label>
-            <input class="form-control" type="text" placeholder="Enter customer's surname" @bind=@Customer.Surname required />
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-success" type="submit">Save</button>
+                <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
+            </div>
         </div>
-
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Phone</label>
-            <input class="form-control" type="text" placeholder="Enter customer's phone" @bind=@Customer.Phone />
-        </div>
-
-        <div class="col-md-6 mb-3">
-            <label class="form-label">TIN</label>
-            <input class="form-control" type="text" placeholder="Enter customer's TIN" @bind=@Customer.Tin required />
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <button class="btn btn-success" @onclick="OnSave">Save</button>
-            <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
-        </div>
-    </div>
+    </EditForm>
 
     <style>
         input:required:valid {

@@ -21,41 +21,41 @@ else
     <EditForm Model="Employee" OnValidSubmit="OnSave">
         <DataAnnotationsValidator />
         <ValidationSummary />
-    <div class="row">
+        <div class="row">
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Name</label>
-                <InputText class="form-control" type="text" placeholder="Enter employee's name" @bind-Value=@Employee.Name />
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Name</label>
+                    <InputText class="form-control" type="text" placeholder="Enter employee's name" @bind-Value=@Employee.Name required/>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Surname</label>
+                <InputText class="form-control" type="text" placeholder="Enter employee's surname" @bind-Value=@Employee.Surname required />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Type of Employee</label>
+                    <InputSelect class="form-select" placeholder="Enter employee's name" @bind-Value="Employee.EmployeeType">
+                    @foreach (var enumValue in Enum.GetValues<EmployeeType>())
+                    {
+                        <option value="@enumValue">@enumValue</option>
+                    }
+                    </InputSelect>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Monthly Salary</label>
+                <InputNumber class="form-control" type="number" placeholder="Enter employee's salary" @bind-Value=@Employee.SalaryPerMonth />
+            </div>
+
         </div>
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Surname</label>
-                <InputText class="form-control" type="text" placeholder="Enter employee's surname" @bind-Value=@Employee.Surname />
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-success" type="submit">Save</button>
+                <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
+            </div>
         </div>
-
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Type of Employee</label>
-                <InputSelect class="form-select" placeholder="Enter employee's name" @bind-Value="Employee.EmployeeType">
-                @foreach (var enumValue in Enum.GetValues<EmployeeType>())
-                {
-                    <option value="@enumValue">@enumValue</option>
-                }
-                </InputSelect>
-        </div>
-
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Monthly Salary</label>
-            <InputNumber class="form-control" type="number" placeholder="Enter employee's salary" @bind-Value=@Employee.SalaryPerMonth />
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <button class="btn btn-success" type="submit">Save</button>
-            <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
-        </div>
-    </div>
     </EditForm>
 
     <style>
