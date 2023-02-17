@@ -40,6 +40,7 @@ namespace PetShop.EF.Repositories {
         public void Update(int id, Employee employee) {
             using var context = new PetShopDbContext();
             var dbEmployee = context.Employees
+                .Include(employee => employee.Transactions)
                 .Where(ee => ee.Id == id)
                 .SingleOrDefault();
             if (dbEmployee == null) {

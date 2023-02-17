@@ -18,42 +18,45 @@ else
         <PageTitle>Edit Employee - Pet Shop Retail System</PageTitle>
         <h1 class="mb-5">Edit Employee</h1>
     }
-
+    <EditForm Model="Employee" OnValidSubmit="OnSave">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
     <div class="row">
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Name</label>
-            <input class="form-control" type="text" placeholder="Enter employee's name" @bind=@Employee.Name required/>
+                <InputText class="form-control" type="text" placeholder="Enter employee's name" @bind-Value=@Employee.Name />
         </div>
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Surname</label>
-            <input class="form-control" type="text" placeholder="Enter employee's surname" @bind=@Employee.Surname required/>
+                <InputText class="form-control" type="text" placeholder="Enter employee's surname" @bind-Value=@Employee.Surname />
         </div>
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Type of Employee</label>
-            <select class="form-select" placeholder="Enter employee's name" @bind="Employee.EmployeeType">
+                <InputSelect class="form-select" placeholder="Enter employee's name" @bind-Value="Employee.EmployeeType">
                 @foreach (var enumValue in Enum.GetValues<EmployeeType>())
                 {
                     <option value="@enumValue">@enumValue</option>
                 }
-            </select>
+                </InputSelect>
         </div>
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Monthly Salary</label>
-            <input class="form-control" type="number" placeholder="Enter employee's salary" @bind=@Employee.SalaryPerMonth />
+            <InputNumber class="form-control" type="number" placeholder="Enter employee's salary" @bind-Value=@Employee.SalaryPerMonth />
         </div>
 
     </div>
 
     <div class="row">
         <div class="col-md-6">
-            <button class="btn btn-success" @onclick="OnSave">Save</button>
+            <button class="btn btn-success" type="submit">Save</button>
             <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
         </div>
     </div>
+    </EditForm>
 
     <style>
         input:required:valid {

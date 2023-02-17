@@ -41,6 +41,7 @@ namespace PetShop.EF.Repositories {
             using var context = new PetShopDbContext();
             var dbCustomer = context.Customers
                 .Where(cus => cus.Id == id)
+                .Include(cus => cus.Transactions)
                 .SingleOrDefault();
             if (dbCustomer is null) {
                 throw new KeyNotFoundException($"Given ID '{id}' was not found in the database");
