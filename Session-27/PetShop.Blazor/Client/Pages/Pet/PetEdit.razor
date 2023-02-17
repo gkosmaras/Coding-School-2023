@@ -29,7 +29,7 @@ else
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Pet Breed</label>
-            <input class="form-control" placeholder="Enter pets's breed" @bind="@Pet.Breed" />
+            <input class="form-control" placeholder="Enter pets's breed" @bind="@Pet.Breed" required />
         </div>
 
         <div class="col-md-6 mb-3">
@@ -54,12 +54,12 @@ else
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Pet Price</label>
-            <input class="form-control" @bind="@Pet.Price" />
+            <input class="form-control" @bind="@Pet.Price" required />
         </div>
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Pet Cost</label>
-            <input class="form-control" @bind="@Pet.Cost" />
+            <input class="form-control" @bind="@Pet.Cost" required />
         </div>
 
     </div>
@@ -70,6 +70,18 @@ else
             <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
         </div>
     </div>
+
+    <style>
+        input:required:valid {
+            border-color: green;
+            border-width: 3px;
+        }
+
+            input:required:invalid {
+                border-color: #c00000;
+            border-width: 5px;
+            }
+    </style>
 }
 
 

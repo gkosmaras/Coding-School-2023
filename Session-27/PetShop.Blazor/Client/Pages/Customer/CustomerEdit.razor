@@ -24,12 +24,12 @@ else
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Name</label>
-            <input class="form-control" type="text" placeholder="Enter customer's name" @bind=@Customer.Name />
+            <input class="form-control" type="text" placeholder="Enter customer's name" @bind=@Customer.Name required/>
         </div>
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Surname</label>
-            <input class="form-control" type="text" placeholder="Enter customer's surname" @bind=@Customer.Surname />
+            <input class="form-control" type="text" placeholder="Enter customer's surname" @bind=@Customer.Surname required />
         </div>
 
         <div class="col-md-6 mb-3">
@@ -39,7 +39,7 @@ else
 
         <div class="col-md-6 mb-3">
             <label class="form-label">TIN</label>
-            <input class="form-control" type="text" placeholder="Enter customer's TIN" @bind=@Customer.Tin />
+            <input class="form-control" type="text" placeholder="Enter customer's TIN" @bind=@Customer.Tin required />
         </div>
 
     </div>
@@ -50,6 +50,18 @@ else
             <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
         </div>
     </div>
+
+    <style>
+        input:required:valid {
+            border-color: green;
+            border-width: 3px;
+        }
+
+            input:required:invalid {
+                border-color: #c00000;
+            border-width: 5px;
+            }
+    </style>
 }
 
 @code {

@@ -23,12 +23,12 @@ else
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Name</label>
-            <input class="form-control" type="text" placeholder="Enter employee's name" @bind=@Employee.Name />
+            <input class="form-control" type="text" placeholder="Enter employee's name" @bind=@Employee.Name required/>
         </div>
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Surname</label>
-            <input class="form-control" type="text" placeholder="Enter employee's surname" @bind=@Employee.Surname />
+            <input class="form-control" type="text" placeholder="Enter employee's surname" @bind=@Employee.Surname required/>
         </div>
 
         <div class="col-md-6 mb-3">
@@ -54,6 +54,18 @@ else
             <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
         </div>
     </div>
+
+    <style>
+        input:required:valid {
+            border-color: green;
+            border-width: 3px;
+        }
+
+            input:required:invalid {
+                border-color: #c00000;
+            border-width: 5px;
+            }
+    </style>
 }
 
 @code {
