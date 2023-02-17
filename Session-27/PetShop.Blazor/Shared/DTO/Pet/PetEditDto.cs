@@ -14,7 +14,11 @@ namespace PetShop.Blazor.Shared.DTO.Pet {
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Please enter the pet's health status")]
         public PetStatus PetStatus { get; set; }
+        [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Price can not be negative")]
         public decimal Price { get; set; }
+        [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Cost can not be negative")]
         public decimal Cost { get; set; }
 
     }

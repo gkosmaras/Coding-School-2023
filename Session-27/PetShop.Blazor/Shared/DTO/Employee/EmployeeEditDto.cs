@@ -19,6 +19,8 @@ namespace PetShop.Blazor.Shared.DTO.Employee
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Type of employee is required")]
         public EmployeeType EmployeeType { get; set; }
+        [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Salary can not be negative")]
         public int SalaryPerMonth { get; set; }
         public List<TransactionDto> Transactions { get; set; } = new();
     }

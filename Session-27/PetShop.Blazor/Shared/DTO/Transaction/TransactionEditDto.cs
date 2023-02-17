@@ -20,6 +20,7 @@ namespace PetShop.Blazor.Shared.DTO.Transaction
 
 
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Quantity can not be negative")]
         public int PetFoodQty { get; set; }
         public decimal PetFoodPrice { get; set; }
         public decimal TotalPrice { get; set; }
