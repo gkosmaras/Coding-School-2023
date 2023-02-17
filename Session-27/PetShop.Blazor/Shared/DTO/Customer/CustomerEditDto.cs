@@ -11,12 +11,14 @@ namespace PetShop.Blazor.Shared.DTO.Customer
     public class CustomerEditDto
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Name of customer is required")]
         public string Name { get; set; } = null!;
-        [Required]
+        [Required(ErrorMessage = "Surname of customer is required")]
         public string Surname { get; set; } = null!;
-        public int Phone { get; set; }
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Phone number of customer is required")]
+        public int Phone { get; set; }
+        [Required(ErrorMessage = "TIN of customer is required")]
         public string Tin { get; set; } = null!;
         public List<TransactionDto> Transactions { get; set; } = new();
     }

@@ -17,7 +17,7 @@ namespace PetShop.Blazor.Shared.DTO.Employee
         [Required(ErrorMessage = "Surname is required")]
         public string Surname { get; set; } = null!;
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Position of employee is required")]
+        [Range(1, int.MaxValue, ErrorMessage = "Type of employee is required")]
         public EmployeeType EmployeeType { get; set; }
         public int SalaryPerMonth { get; set; }
         public List<TransactionDto> Transactions { get; set; } = new();
