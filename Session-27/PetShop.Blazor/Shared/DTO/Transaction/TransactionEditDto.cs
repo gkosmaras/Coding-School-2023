@@ -25,8 +25,14 @@ namespace PetShop.Blazor.Shared.DTO.Transaction
         public decimal TotalPrice { get; set; }
 
         // Relations
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a customer")]
         public int CustomerId { get; set; }
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter an employee")]
         public int EmployeeId { get; set; }
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a pet")]
         public int PetId { get; set; }
         public int PetFoodId { get; set; }
 

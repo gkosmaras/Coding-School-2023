@@ -23,74 +23,75 @@ else
         <h1 class="mb-5">Edit Transaction {@Transaction.Id}</h1>
     }
 
-    <div class="row">
+     <EditForm Model="Transaction" OnValidSubmit="OnSave">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Employee</label>
-            <select class="form-select" @bind="Transaction.EmployeeId">
-                @foreach (var employee in Transaction.Employees)
-                {
-                    <option value="@employee.Id">@employee.Name @employee.Surname</option>
-                }
-            </select>
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Employee</label>
+                <InputSelect class="form-select" placeholder="Enter an employee" @bind-Value="Transaction.EmployeeId">
+                    @foreach (var employee in Transaction.Employees)
+                    {
+                        <option value="@employee.Id">@employee.Name @employee.Surname</option>
+                    }
+                </InputSelect>
+            </div>
         </div>
 
-    </div>
 
     <div class="row">
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Customer</label>
-            <select class="form-select" @bind="Transaction.CustomerId">
+            <InputSelect class="form-select" placeholder="Enter a customer" @bind-Value="Transaction.CustomerId">
                 @foreach (var customer in Transaction.Customers)
                 {
                     <option value="@customer.Id">@customer.Name @customer.Surname</option>
                 }
-            </select>
+            </InputSelect>
         </div>
-
     </div>
 
     <div class="row">
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Pet</label>
-            <select class="form-select" @bind="@Transaction.PetId">
+            <InputSelect class="form-select" placeholder="Enter a pet" @bind-Value="Transaction.PetId">
                 @foreach (var pet in Transaction.Pets)
                 {
                     <option value="@pet.Id">@pet.Breed (Price: @pet.Price)</option>
                 }
-            </select>
+            </InputSelect>
         </div>
-
     </div>
 
         <div class="row">
 
             <div class="col-md-6 mb-3">
                 <label class="form-label">Pet Food</label>
-                <select class="form-select" @bind="@Transaction.PetFoodId">
+                <InputSelect class="form-select" placeholder="Enter a pet food" @bind-Value="Transaction.PetFoodId">
                     @foreach (var petFood in Transaction.PetFoods)
                     {
                         <option value="@petFood.Id">@petFood.AnimalType (Price: @petFood.Price)</option>
                     }
-                </select>
+                </InputSelect>
             </div>
 
-            <div class="col-md-3 mb-3">
+            <div class="col-md-6 mb-3">
                 <label class="form-label">Pet Food Quantity</label>
-                <input class="form-control" type="number" @bind="@Transaction.PetFoodQty" />
+                <InputNumber class="form-control" type="number" placeholder="Enter the pet food quantity" @bind-Value=@Transaction.PetFoodQty />
             </div>
-
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <button class="btn btn-success" @onclick="OnSave">Save</button>
+                <button class="btn btn-success" type="submit">Save</button>
                 <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
             </div>
         </div>
-
+    </EditForm>
         }
 
         @code {
