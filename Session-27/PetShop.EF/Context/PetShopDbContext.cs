@@ -24,7 +24,7 @@ namespace PetShop.EF.Context {
 
         }
 
-        /* George Kosmaras DB Connection. */
+        /* George Kosmaras DB Connection. 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 
@@ -41,9 +41,9 @@ namespace PetShop.EF.Context {
 
             base.OnConfiguring(optionsBuilder);
 
-        }
+        } */
 
-        /* Ioannis Koukotzilas DB Connection 
+        /* Ioannis Koukotzilas DB Connection */
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 
@@ -61,7 +61,7 @@ namespace PetShop.EF.Context {
 
             base.OnConfiguring(optionsBuilder);
 
-        }*/
+        }
 
     }
 
