@@ -32,7 +32,7 @@ else
             <div class="col-md-6 mb-3">
                 <label class="form-label">Animal Type</label>
                 <InputSelect class="form-select" placeholder="Enter a type of animal" @bind-Value="PetFood.AnimalType">
-                    @foreach (var enumValue in Enum.GetValues<EmployeeType>())
+                    @foreach (var enumValue in Enum.GetValues<AnimalType>())
                     {
                         <option value="@enumValue">@enumValue</option>
                     }
