@@ -21,7 +21,7 @@ namespace FuelStation.EF.Repositories
             return dbCustomer;
         }
 
-        public Customer? GetById(Guid id)
+        public Customer? GetById(int id)
         {
             using var context = new FuelStationDbContext();
             var dbCustomer = context.Customers
@@ -32,7 +32,7 @@ namespace FuelStation.EF.Repositories
 
         public void Add(Customer customer)
         {
-            if (customer.ID != Guid.Empty)
+            if (customer.ID != 0)
             {
                 throw new ArgumentException("Given entity should not have an ID set", nameof(customer));
             }
@@ -41,7 +41,7 @@ namespace FuelStation.EF.Repositories
             context.SaveChanges();
         }
 
-        public void Update(Guid id, Customer customer)
+        public void Update(int id, Customer customer)
         {
             using var context = new FuelStationDbContext();
             var dbCustomer = context.Customers
@@ -56,7 +56,7 @@ namespace FuelStation.EF.Repositories
             context.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             using var context = new FuelStationDbContext();
             var dbCustomer = context.Customers

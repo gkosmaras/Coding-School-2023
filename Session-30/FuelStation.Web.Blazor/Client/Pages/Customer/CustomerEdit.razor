@@ -1,0 +1,93 @@
+﻿@page "/customer/edit/{Id:int?}"
+@using FuelStation.Web.Blazor.Shared.DTO;
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+@if (Customer == null)
+{
+    <Spinner />
+}
+else
+{
+
+    @if (Id == null)
+    {
+        <PageTitle>New Customer - Pet Shop Retail System</PageTitle>
+        <h1 class="mb-5">New Customer</h1>
+    }
+    else
+    {
+        <PageTitle>Edit Customer - Pet Shop Retail System</PageTitle>
+        <h1 class="mb-5">Edit Customer</h1>
+    }
+
+    <EditForm Model="Customer" OnValidSubmit="OnSave">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Name</label>
+                <InputText class="form-control" type="text" placeholder="Enter customer's name" @bind-Value=@Customer.Name />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Surname</label>
+                <InputText class="form-control" type="text" placeholder="Enter customer's surname" @bind-Value=@Customer.Surname />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">CArd Number</label>
+                <InputText class="form-control" type="text" placeholder="Enter customer's card number" @bind-Value=@Customer.CardNumber />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-success" type="submit">Save</button>
+                <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
+            </div>
+        </div>
+    </EditForm>
+
+}
+
+@code {
+
+    [Parameter] public int? Id { get; set; }
+
+    CustomerEditDto? Customer { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id == null)
+        {
+            Customer = new();
+        }
+        else
+        {
+            Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>($"customer/{Id}");
+        }
+    }
+
+    private void OnCancel()
+    {
+        navigationManager.NavigateTo("customer");
+    }
+
+    private async Task OnSave()
+    {
+        HttpResponseMessage? response = null;
+        if (Id == null)
+        {
+            response = await httpClient.PostAsJsonAsync("customer", Customer);
+        }
+        else
+        {
+            response = await httpClient.PutAsJsonAsync("customer", Customer);
+        }
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("customer");
+    }
+
+}

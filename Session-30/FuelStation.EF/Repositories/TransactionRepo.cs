@@ -25,7 +25,7 @@ namespace FuelStation.EF.Repositories
             return dbTrans;
         }
 
-        public Transaction? GetById(Guid id)
+        public Transaction? GetById(int id)
         {
             using var context = new FuelStationDbContext();
             var dbTrans = context.Transactions
@@ -38,7 +38,7 @@ namespace FuelStation.EF.Repositories
 
         public void Add(Transaction transaction)
         {
-            if (transaction.ID != Guid.Empty)
+            if (transaction.ID != 0)
             {
                 throw new ArgumentException("Given entity should not have an ID set", nameof(transaction));
             }
@@ -47,7 +47,7 @@ namespace FuelStation.EF.Repositories
             context.SaveChanges();
         }
 
-        public void Update(Guid id, Transaction transaction)
+        public void Update(int id, Transaction transaction)
         {
             using var context = new FuelStationDbContext();
             var dbTrans = context.Transactions.
@@ -64,7 +64,7 @@ namespace FuelStation.EF.Repositories
             context.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             using var context = new FuelStationDbContext();
             var dbTrans = context.Transactions

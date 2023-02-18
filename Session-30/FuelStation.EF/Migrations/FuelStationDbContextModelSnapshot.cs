@@ -24,15 +24,16 @@ namespace FuelStation.EF.Migrations
 
             modelBuilder.Entity("FuelStation.Model.Item", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("Code")
-                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Cost")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Cost")
                         .HasPrecision(9, 2)
                         .HasColumnType("decimal(9,2)");
 
@@ -44,7 +45,7 @@ namespace FuelStation.EF.Migrations
                     b.Property<int>("ItemType")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasPrecision(9, 2)
                         .HasColumnType("decimal(9,2)");
 
@@ -55,9 +56,11 @@ namespace FuelStation.EF.Migrations
 
             modelBuilder.Entity("FuelStation.Model.People.Customer", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("CardNumber")
                         .IsRequired()
@@ -81,9 +84,11 @@ namespace FuelStation.EF.Migrations
 
             modelBuilder.Entity("FuelStation.Model.People.Employee", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<int>("EmployeeType")
                         .HasColumnType("int");
@@ -99,8 +104,7 @@ namespace FuelStation.EF.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal?>("SalaryPerMonth")
-                        .IsRequired()
+                    b.Property<decimal>("SalaryPerMonth")
                         .HasPrecision(9, 2)
                         .HasColumnType("decimal(9,2)");
 
@@ -116,23 +120,25 @@ namespace FuelStation.EF.Migrations
 
             modelBuilder.Entity("FuelStation.Model.Transactions.Transaction", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("CustomerID")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("EmployeeID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("EmployeeID")
+                        .HasColumnType("int");
 
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("TotalValue")
+                    b.Property<decimal>("TotalValue")
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
@@ -147,43 +153,40 @@ namespace FuelStation.EF.Migrations
 
             modelBuilder.Entity("FuelStation.Model.Transactions.TransactionLine", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal?>("DiscountPercent")
-                        .IsRequired()
-                        .HasPrecision(9, 2)
-                        .HasColumnType("decimal(9,2)");
-
-                    b.Property<decimal?>("DiscountValue")
-                        .IsRequired()
-                        .HasPrecision(9, 2)
-                        .HasColumnType("decimal(9,2)");
-
-                    b.Property<Guid>("ItemID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal?>("ItemPrice")
-                        .IsRequired()
-                        .HasPrecision(9, 2)
-                        .HasColumnType("decimal(9,2)");
-
-                    b.Property<decimal?>("NetValue")
-                        .IsRequired()
-                        .HasPrecision(9, 2)
-                        .HasColumnType("decimal(9,2)");
-
-                    b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("TotalValue")
-                        .IsRequired()
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<decimal>("DiscountPercent")
                         .HasPrecision(9, 2)
                         .HasColumnType("decimal(9,2)");
 
-                    b.Property<Guid>("TransactionID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<decimal>("DiscountValue")
+                        .HasPrecision(9, 2)
+                        .HasColumnType("decimal(9,2)");
+
+                    b.Property<int>("ItemID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ItemPrice")
+                        .HasPrecision(9, 2)
+                        .HasColumnType("decimal(9,2)");
+
+                    b.Property<decimal>("NetValue")
+                        .HasPrecision(9, 2)
+                        .HasColumnType("decimal(9,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalValue")
+                        .HasPrecision(9, 2)
+                        .HasColumnType("decimal(9,2)");
+
+                    b.Property<int>("TransactionID")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 

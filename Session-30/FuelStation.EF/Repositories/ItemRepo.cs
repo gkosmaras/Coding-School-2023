@@ -22,7 +22,7 @@ namespace FuelStation.EF.Repositories
             return dbItem;
         }
 
-        public Item? GetById(Guid id)
+        public Item? GetById(int id)
         {
             using var context = new FuelStationDbContext();
             var dbItem = context.Items
@@ -33,7 +33,7 @@ namespace FuelStation.EF.Repositories
 
         public void Add(Item item)
         {
-            if (item.ID != Guid.Empty)
+            if (item.ID != 0)
             {
                 throw new ArgumentException("Given entity should not have an ID set", nameof(item));
             }
@@ -42,7 +42,7 @@ namespace FuelStation.EF.Repositories
             context.SaveChanges();
         }
 
-        public void Update(Guid id, Item item)
+        public void Update(int id, Item item)
         {
             using var context = new FuelStationDbContext();
             var dbItem = context.Items
@@ -59,7 +59,7 @@ namespace FuelStation.EF.Repositories
             dbItem.Cost = item.Cost;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             using var context = new FuelStationDbContext();
             var dbItem = context.Items

@@ -8,6 +8,6 @@ namespace FuelStation.Model
 {
     public class BaseEntity
     {
-        public Guid ID { get; set; }
+        public int ID { get; set; }
     }
 }
