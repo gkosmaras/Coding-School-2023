@@ -1,4 +1,5 @@
 ﻿using FuelStation.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FuelStation.Configurations
+namespace FuelStation.EF.Configurations
 {
     public class ItemConfiguration : IEntityTypeConfiguration<Item>
     {

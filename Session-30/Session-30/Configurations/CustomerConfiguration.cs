@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FuelStation.EF.Configuration
+namespace FuelStation.EF.Configurations
 {
     public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
