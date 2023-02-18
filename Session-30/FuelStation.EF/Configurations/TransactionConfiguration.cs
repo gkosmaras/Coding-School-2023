@@ -14,6 +14,7 @@ namespace FuelStation.EF.Configurations
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {
             builder.HasKey(trans => trans.ID);
+            builder.Property(trans => trans.ID).ValueGeneratedOnAdd();
 
             builder.Property(trans => trans.Date);
             builder.Property(trans => trans.EmployeeID);

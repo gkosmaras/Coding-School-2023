@@ -35,7 +35,7 @@ namespace FuelStation.EF.Context
 
             optionsBuilder.UseSqlServer(
                 "Data Source=(localdb)\\MSSQLLocalDB;" +
-                "Initial Catalog=PetShop;" +
+                "Initial Catalog=FuelStationDB;" +
                 "Integrated Security=True;" +
                 "Connect Timeout=30;" +
                 "Encrypt=False;" +

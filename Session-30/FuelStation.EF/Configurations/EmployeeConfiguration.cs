@@ -14,6 +14,7 @@ namespace FuelStation.EF.Configurations
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.HasKey(ee => ee.ID);
+            builder.Property(ee => ee.ID).ValueGeneratedOnAdd();
 
             builder.Property(ee => ee.Name).HasMaxLength(50).IsRequired();
             builder.Property(ee => ee.Surname).HasMaxLength(50).IsRequired();
