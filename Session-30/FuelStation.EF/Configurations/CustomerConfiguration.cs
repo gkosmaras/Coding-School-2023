@@ -11,7 +11,7 @@ namespace FuelStation.EF.Configurations
 {
     public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
-        public void Configure(EntityTypeBuilder<Customer>builder)
+        public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder.HasKey(cus => cus.ID);
 

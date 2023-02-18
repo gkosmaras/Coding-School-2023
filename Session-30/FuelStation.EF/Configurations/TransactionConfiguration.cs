@@ -18,7 +18,7 @@ namespace FuelStation.EF.Configurations
             builder.Property(trans => trans.Date);
             builder.Property(trans => trans.EmployeeID);
             builder.Property(trans => trans.CustomerID);
-            builder.Property(trans => trans.TotalValue).HasPrecision(10,2);
+            builder.Property(trans => trans.TotalValue).HasPrecision(10, 2);
             builder.Property(trans => trans.PaymentMethod);
 
             builder.HasOne(trans => trans.Employee)

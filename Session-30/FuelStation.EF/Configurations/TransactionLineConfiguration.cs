@@ -19,7 +19,7 @@ namespace FuelStation.EF.Configurations
             builder.Property(transLine => transLine.TransactionID);
             builder.Property(transLine => transLine.ItemID);
             builder.Property(transLine => transLine.Quantity);
-            builder.Property(transLine => transLine.ItemPrice).HasPrecision(9,2).IsRequired();
+            builder.Property(transLine => transLine.ItemPrice).HasPrecision(9, 2).IsRequired();
             builder.Property(transLine => transLine.NetValue).HasPrecision(9, 2).IsRequired();
             builder.Property(transLine => transLine.DiscountPercent).IsRequired();
             builder.Property(transLine => transLine.DiscountValue).HasPrecision(9, 2).IsRequired();
