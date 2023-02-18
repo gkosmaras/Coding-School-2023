@@ -8,6 +8,6 @@ namespace FuelStation.Model.People
 {
     public class Customer : Person
     {
-        public string CardNumber { get; set; } = null!;
+        public string CardNumber { get; set; }
     }
 }

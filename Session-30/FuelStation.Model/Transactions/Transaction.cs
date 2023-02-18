@@ -13,9 +13,9 @@ namespace FuelStation.Model.Transactions
         public DateTime Date = DateTime.Now;
         public Guid EmployeeID { get; set; }
         public Guid CustomerID { get; set; }
-        public decimal? TotalValue { get; set; }
+        public decimal TotalValue { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
-        public List<TransactionLine>? TransactionLines { get; set; }
+        public List<TransactionLine> TransactionLines { get; set; }
 
         public Employee? Employee { get; set; }
         public Customer? Customer { get; set; }

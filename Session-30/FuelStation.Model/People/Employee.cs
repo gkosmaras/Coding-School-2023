@@ -11,7 +11,7 @@ namespace FuelStation.Model.People
     {
         public DateTime HireDateStart = DateTime.Now;
         public DateTime HireDateEnd {get;set;}
-        public decimal? SalaryPerMonth { get;set;}
+        public decimal SalaryPerMonth { get;set;}
         public EmployeeType EmployeeType { get;set;}
     }
 }
