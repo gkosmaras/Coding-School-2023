@@ -57,6 +57,7 @@ namespace FuelStation.EF.Repositories
             dbItem.ItemType = item.ItemType;
             dbItem.Price = item.Price;
             dbItem.Cost = item.Cost;
+            context.SaveChanges();
         }
 
         public void Delete(int id)
