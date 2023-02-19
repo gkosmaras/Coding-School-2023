@@ -14,7 +14,7 @@ else
     <PageTitle>Customers - Fuel Station System</PageTitle>
     <h1 class="mb-5">Customers</h1>
 
-    <button class="btn btn-primary mb-5" @onclick="AddCustomer">Add new customer</button>
+    <button class="btn btn-primary mb-5" @onclick="AddEntity">Add new customer</button>
 
     <div class="table-responsive">
 
@@ -37,9 +37,9 @@ else
                         <td>@customer.Surname</td>
                         <td>@customer.CardNumber</td>
                         <td>
-                            <button class="btn btn-warning" @onclick="() => EditCustomer(customer)">Edit</button>
-                            <button class="btn btn-danger" @onclick="() => DeleteCustomer(customer)">Delete</button>
-                            <button class="btn btn-secondary" @onclick="() => DetailCustomer(customer)">Details</button>
+                            <button class="btn btn-warning" @onclick="() => EditEntity(customer)">Edit</button>
+                            <button class="btn btn-danger" @onclick="() => DeleteEntity(customer)">Delete</button>
+                            <button class="btn btn-secondary" @onclick="() => DetailEntity(customer)">Details</button>
                         </td>
                     </tr>
                 }
@@ -72,22 +72,22 @@ else
         customers = await httpClient.GetFromJsonAsync<List<CustomerEditDto>>("customer");
     }
 
-    private void AddCustomer()
+    private void AddEntity()
     {
         navigationManager.NavigateTo("customer/edit");
     }
 
-    private void EditCustomer(CustomerEditDto customer)
+    private void EditEntity(CustomerEditDto customer)
     {
         navigationManager.NavigateTo($"customer/edit/{customer.ID}");
     }
 
-    private void DetailCustomer(CustomerEditDto customer)
+    private void DetailEntity(CustomerEditDto customer)
     {
         navigationManager.NavigateTo($"customer/detail/{customer.ID}");
     }
 
-    private async Task DeleteCustomer(CustomerEditDto customer)
+    private async Task DeleteEntity(CustomerEditDto customer)
     {
         var confirm = await jsRuntime.InvokeAsync<bool>("confirm", "Confirm customer deletion?");
         if (confirm)

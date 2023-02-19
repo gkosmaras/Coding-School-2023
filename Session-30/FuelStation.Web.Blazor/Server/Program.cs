@@ -1,4 +1,5 @@
 using FuelStation.EF.Repositories;
+using FuelStation.Model;
 using FuelStation.Model.People;
 using Microsoft.AspNetCore.ResponseCompression;
 
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEntityRepo<Customer>, CustomerRepo>();
+builder.Services.AddScoped<IEntityRepo<Employee>, EmployeeRepo>();
+builder.Services.AddScoped<IEntityRepo<Item>, ItemRepo>();
 
 var app = builder.Build();
 

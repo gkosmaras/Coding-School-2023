@@ -93,9 +93,9 @@ namespace FuelStation.Web.Blazor.Server.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(int ID)
+        public async Task Delete(int id)
         {
-            _customerRepo.Delete(ID);
+            _customerRepo.Delete(id);
         }
 
         #region Methods

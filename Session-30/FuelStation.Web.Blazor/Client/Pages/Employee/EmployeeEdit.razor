@@ -1,0 +1,109 @@
+﻿@page "/employee/edit/{Id:int?}"
+@using FuelStation.Model.Enums;
+@using FuelStation.Web.Blazor.Shared.DTO;
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+@if (Employee == null)
+{
+    <Spinner />
+}
+else
+{
+
+    @if (Id == null)
+    {
+        <PageTitle>New Employee - Fuel Station Retail System</PageTitle>
+        <h1 class="mb-5">New Employee</h1>
+    }
+    else
+    {
+        <PageTitle>Edit Employee - Fue Station Retail System</PageTitle>
+        <h1 class="mb-5">Edit Employee</h1>
+    }
+
+    <EditForm Model="Employee" OnValidSubmit="OnSave">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Name</label>
+                <InputText class="form-control" type="text" @bind-Value=@Employee.Name />
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Surname</label>
+                <InputText class="form-control" type="text" @bind-Value=@Employee.Surname/>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Employement End Date</label>
+                <InputDate class="form-control" @bind-Value=@Employee.HireDateEnd @bind-Value:format="dd/MM/yyyy" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Monthly Salary</label>
+                <InputNumber class="form-control" type="number" @bind-Value=@Employee.SalaryPerMonth/>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Employee Type</label>
+                <InputSelect class="form-select" @bind-Value=@Employee.EmployeeType>
+                    @foreach(var enumValue in Enum.GetValues<EmployeeType>())
+                    {
+                        <option value="@enumValue">@enumValue</option>
+                    }
+                </InputSelect>
+            </div> 
+
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-success" type="submit">Save</button>
+                    <button class="btn btn-warning" @onclick="OnCancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+@code {
+
+    [Parameter] public int? Id { get; set; }
+
+    EmployeeEditDto? Employee { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id == null)
+        {
+            Employee = new();
+        }
+        else
+        {
+            Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>($"employee/{Id}");
+        }
+    }
+
+    private void OnCancel()
+    {
+        navigationManager.NavigateTo("employee");
+    }
+
+    private async Task OnSave()
+    {
+        HttpResponseMessage? response = null;
+        if (Id == null)
+        {
+            response = await httpClient.PostAsJsonAsync("employee", Employee);
+        }
+        else
+        {
+            response = await httpClient.PutAsJsonAsync("employee", Employee);
+        }
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("employee");
+    }
+
+}

@@ -12,12 +12,12 @@ else
 
     @if (Id == null)
     {
-        <PageTitle>New Customer - Pet Shop Retail System</PageTitle>
+        <PageTitle>New Customer - Fuel Station Retail System</PageTitle>
         <h1 class="mb-5">New Customer</h1>
     }
     else
     {
-        <PageTitle>Edit Customer - Pet Shop Retail System</PageTitle>
+        <PageTitle>Edit Customer - Fuel Station Retail System</PageTitle>
         <h1 class="mb-5">Edit Customer</h1>
     }
 
@@ -28,12 +28,12 @@ else
 
             <div class="col-md-6 mb-3">
                 <label class="form-label">Name</label>
-                <InputText class="form-control" type="text" placeholder="Enter customer's name" @bind-Value=@Customer.Name />
+                <InputText class="form-control" type="text" @bind-Value=@Customer.Name />
             </div>
 
             <div class="col-md-6 mb-3">
                 <label class="form-label">Surname</label>
-                <InputText class="form-control" type="text" placeholder="Enter customer's surname" @bind-Value=@Customer.Surname />
+                <InputText class="form-control" type="text" @bind-Value=@Customer.Surname />
             </div>
 
         </div>
