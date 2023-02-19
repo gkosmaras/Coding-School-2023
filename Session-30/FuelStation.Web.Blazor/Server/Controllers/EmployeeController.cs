@@ -1,8 +1,11 @@
 ﻿using FuelStation.EF.Repositories;
 using FuelStation.Model.People;
 using FuelStation.Web.Blazor.Shared.DTO;
+using FuelStation.Web.Blazor.Shared.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 
 namespace FuelStation.Web.Blazor.Server.Controllers
 {
@@ -12,10 +15,13 @@ namespace FuelStation.Web.Blazor.Server.Controllers
     {
 
         private readonly IEntityRepo<Employee> _employeeRepo;
+        private readonly IValidator _validator;
+        public string errorMessage = string.Empty;
 
-        public EmployeeController(IEntityRepo<Employee> employeeRepo)
+        public EmployeeController(IEntityRepo<Employee> employeeRepo, IValidator validator)
         {
             _employeeRepo = employeeRepo;
+            _validator = validator;
         }
 
         [HttpGet]
@@ -61,9 +67,9 @@ namespace FuelStation.Web.Blazor.Server.Controllers
         }
 
         [HttpPost]
-        public async Task Post(EmployeeEditDto employee)
+        public async Task<ActionResult> Post(EmployeeEditDto employee)
         {
-            Employee dbEmployee = new()
+            Employee newEmployee = new()
             {
                 Name = employee.Name,
                 Surname = employee.Surname,
@@ -72,32 +78,78 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                 SalaryPerMonth = employee.SalaryPerMonth,
                 EmployeeType = employee.EmployeeType,
             };
-            _employeeRepo.Add(dbEmployee);
+
+            var dbEmployee = _employeeRepo.GetAll().ToList();
+            if (_validator.ValidateAddEmployee(newEmployee.EmployeeType, dbEmployee, out errorMessage))
+            {
+                try
+                {
+                    await Task.Run(() => { _employeeRepo.Add(newEmployee); });
+                }
+                catch (DbException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                return Ok();
+            }
+            return BadRequest(errorMessage);
+
         }
 
         [HttpPut]
-        public async Task Put(EmployeeEditDto employee)
+        public async Task<ActionResult> Put(EmployeeEditDto employee)
         {
-
             var dbEmployee = _employeeRepo.GetById(employee.ID);
 
             if (dbEmployee == null)
             {
                 throw new ArgumentNullException();
             }
-            dbEmployee.Name = employee.Name;
-            dbEmployee.Surname = employee.Surname;
-            dbEmployee.HireDateEnd = employee.HireDateEnd;
-            dbEmployee.SalaryPerMonth = employee.SalaryPerMonth;
-            dbEmployee.EmployeeType = employee.EmployeeType;
 
-            _employeeRepo.Update(employee.ID, dbEmployee);
+            if (_validator.ValidateUpdateEmployee(employee.EmployeeType, dbEmployee, _employeeRepo.GetAll().ToList(), out errorMessage))
+            {
+                dbEmployee.Name = employee.Name;
+                dbEmployee.Surname = employee.Surname;
+                dbEmployee.HireDateEnd = employee.HireDateEnd;
+                dbEmployee.SalaryPerMonth = employee.SalaryPerMonth;
+                dbEmployee.EmployeeType = employee.EmployeeType;
+                try
+                {
+                    _employeeRepo.Update(employee.ID, dbEmployee);
+                }
+                catch (DbUpdateException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(errorMessage);
+            }
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            _employeeRepo.Delete(id);
+            var employees = _employeeRepo.GetAll().ToList();
+            if (_validator.ValidateDeleteEmployee(employees.Where(ee => ee.ID == id).Single().EmployeeType, employees, out errorMessage))
+            {
+                try
+                {
+                    await Task.Run(() => { _employeeRepo.Delete(id); });
+                }
+                catch (DbUpdateException)
+                {
+                    return BadRequest($"Could not delete this employee because it has transactions");
+                }
+                catch (KeyNotFoundException)
+                {
+                    return BadRequest($"Employee not found");
+                }
+                return Ok();
+            }
+            return BadRequest(errorMessage);
         }
     }
 }

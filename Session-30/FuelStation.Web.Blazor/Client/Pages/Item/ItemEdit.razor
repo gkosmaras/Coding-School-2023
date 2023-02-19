@@ -3,6 +3,7 @@
 @using FuelStation.Web.Blazor.Shared.DTO;
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
+@inject IJSRuntime jsRuntime
 
 @if (Item == null)
 {
@@ -101,8 +102,15 @@ else
         {
             response = await httpClient.PutAsJsonAsync("item", Item);
         }
-        response.EnsureSuccessStatusCode();
-        navigationManager.NavigateTo("item");
+        if (response.IsSuccessStatusCode)
+        {
+            navigationManager.NavigateTo("item");
+        }
+        else
+        {
+            var error = await response.Content.ReadAsStringAsync();
+            await jsRuntime.InvokeVoidAsync("alert", error);
+        }
     }
 
 }
