@@ -10,20 +10,24 @@ namespace FuelStation.Web.Blazor.Shared.DTO
 {
     public class EmployeeEditDto
     { 
-        string maxDate = DateTime.MaxValue.ToString();
-        string now = DateTime.Now.ToString();
         public int ID { get; set; }
+
         [Required(ErrorMessage = "Name of employee is required")]
         public string Name { get; set; } = null!;
+
         [Required(ErrorMessage = "Surname of employee is required")]
         public string Surname { get; set; } = null!;
+
         public DateTime HireDateStart { get; set; }
-        [Required(ErrorMessage ="Empoyeement end date is required")]
+
+        [Required(ErrorMessage ="Employment end date is required")]
         [WithinBounds]
         public DateTime? HireDateEnd { get; set; }
+
         [Required(ErrorMessage = "Salary of employee is required")]
         [Range(0, int.MaxValue, ErrorMessage = "Salary can not be negative")]
         public decimal SalaryPerMonth { get; set; }
+
         [Range(1, int.MaxValue, ErrorMessage = "Type of employee is required")]
         public EmployeeType EmployeeType { get; set; }
     }
@@ -39,7 +43,7 @@ namespace FuelStation.Web.Blazor.Shared.DTO
             }
             else
             {
-                return new ValidationResult("End of employeement can not be before the start!");
+                return new ValidationResult("End of employment can not be before the start!");
             }
         }
     }
