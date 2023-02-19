@@ -4,6 +4,7 @@ using FuelStation.Model.Transactions;
 using FuelStation.Web.Blazor.Shared.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.CodeDom.Compiler;
 
 namespace FuelStation.Web.Blazor.Server.Controllers
 {
@@ -68,7 +69,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
             {
                 Name = customer.Name,
                 Surname = customer.Surname,
-                CardNumber = customer.CardNumber
+                CardNumber = GetCardNumber()
             };
             _customerRepo.Add(dbCustomer);
         }
@@ -86,7 +87,6 @@ namespace FuelStation.Web.Blazor.Server.Controllers
 
             dbCustomer.Name = customer.Name;
             dbCustomer.Surname = customer.Surname;
-            dbCustomer.CardNumber = customer.CardNumber;
 
             _customerRepo.Update(customer.ID, dbCustomer);
 
@@ -97,6 +97,28 @@ namespace FuelStation.Web.Blazor.Server.Controllers
         {
             _customerRepo.Delete(ID);
         }
+
+        #region Methods
+        public string GetCardNumber()
+        {
+            Random generator = new Random();
+        Generate:
+            string cn = generator.Next(0, 10000000).ToString("D7");
+            cn = string.Concat("A-", cn);
+            if (CheckCardUniqueness(cn))
+            {
+                goto Generate;
+            }
+            return cn;
+        }
+
+        public bool CheckCardUniqueness(string cn)
+        {
+            var dbCustomer = _customerRepo.GetAll().Select(cus => cus.CardNumber);
+            bool result = dbCustomer.Contains(cn);
+            return result;
+        }
+        #endregion
 
     }
 

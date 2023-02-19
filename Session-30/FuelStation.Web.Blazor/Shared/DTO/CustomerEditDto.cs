@@ -14,7 +14,6 @@ namespace FuelStation.Web.Blazor.Shared.DTO
         public string Name { get; set; } = null!;
         [Required(ErrorMessage = "Surname of customer is required")]
         public string Surname { get; set; } = null!;
-        [Required(ErrorMessage = "Card number of customer is required")]
-        public string CardNumber { get; set; } = null!;
+        public string CardNumber { get; set; } = "";
     }
 }
