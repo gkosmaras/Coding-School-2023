@@ -1,4 +1,5 @@
-﻿using FuelStation.Model;
+﻿using FuelStation.EF.Context;
+using FuelStation.Model;
 using FuelStation.Model.Enums;
 using FuelStation.Model.People;
 using System;
@@ -17,6 +18,7 @@ namespace FuelStation.Web.Blazor.Shared.Validators
     }
     public class Validator : IValidator
     {
+        private FuelStationDbContext context = new FuelStationDbContext();
         public readonly MinMax ManagersLimits;
         public readonly MinMax CashiersLimits;
         public readonly MinMax StaffLimits;
@@ -107,12 +109,11 @@ namespace FuelStation.Web.Blazor.Shared.Validators
             return result;
         }
 
-        public bool ValidateAddItem(int code, List<Item> items, out String errorMessage)
+        public bool ValidateAddItem(int code, out String errorMessage)
         {
             errorMessage = "Success";
             bool result = true;
-            var codes = items.Select(it => it.Code);
-
+            var codes = context.Items.Select(it => it.Code);
             if (codes.Contains(code))
             {
                 result = false;
@@ -121,7 +122,7 @@ namespace FuelStation.Web.Blazor.Shared.Validators
             return result;
         }
 
-        public bool ValidateUpdateItem(int code, Item dbItem, List<Item> items, out string errorMessage)
+        public bool ValidateUpdateItem(int code, Item dbItem, out string errorMessage)
         {
             errorMessage = "Success";
             bool result = true;
@@ -131,12 +132,53 @@ namespace FuelStation.Web.Blazor.Shared.Validators
             }
             else if(code != dbItem.Code)
             {
-                var codes = items.Select(it => it.Code);
+                var codes = context.Items.Select(it => it.Code);
                 if (codes.Contains(code))
                 {
                     result = false;
                     errorMessage = $"Item code '{code}' already exists!";
                 }
+            }
+            return result;
+        }
+
+        public bool StringCheck(string name, string surname)
+        {
+            return String.IsNullOrWhiteSpace(name) || String.IsNullOrWhiteSpace(surname);
+        }
+        public string GetCardNumber()
+        {
+            Random generator = new Random();
+        Generate:
+            string cn = generator.Next(0, 10000000).ToString("D7");
+            cn = string.Concat("A-", cn);
+            if (CheckCardUniqueness(cn))
+            {
+                goto Generate;
+            }
+            return cn;
+        }
+
+        public bool CheckCardUniqueness(string cn)
+        {
+            var dbCustomer = context.Customers.Select(cus => cus.CardNumber);
+            bool result = dbCustomer.Contains(cn);
+            return result;
+        }
+
+        public bool DecCheck(decimal price, decimal cost)
+        {
+            return price < 0 || cost < 0;
+        }
+
+        public bool ValidateCode(int code, int id)
+        {
+            bool result = true;
+            var ids = context.Items.Select(it => it.ID);
+            var codes = context.Items.Select(it => it.Code);
+            if (codes.Count(cd => cd == code) >= 1)
+            {
+                result = false;
             }
             return result;
 

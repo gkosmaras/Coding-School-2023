@@ -77,7 +77,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
             };
 
             var dbItem = _itemRepo.GetAll().ToList();
-            if (_validator.ValidateAddItem(newItem.Code, dbItem, out errorMessage))
+            if (_validator.ValidateAddItem(newItem.Code, out errorMessage))
             {
                 try
                 {
@@ -102,7 +102,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                 throw new ArgumentNullException();
             }
 
-            if (_validator.ValidateUpdateItem(item.Code, dbItem, _itemRepo.GetAll().ToList(), out errorMessage))
+            if (_validator.ValidateUpdateItem(item.Code, dbItem, out errorMessage))
             {
                 dbItem.Code = item.Code;
                 dbItem.Description = item.Description;

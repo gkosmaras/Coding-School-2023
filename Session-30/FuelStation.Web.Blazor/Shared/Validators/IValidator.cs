@@ -14,7 +14,7 @@ namespace FuelStation.Web.Blazor.Shared.Validators
         bool ValidateAddEmployee(EmployeeType type, List<Employee> employees, out string errorMessage);
         bool ValidateDeleteEmployee(EmployeeType type, List<Employee> employees, out string errorMessage);
         bool ValidateUpdateEmployee(EmployeeType type, Employee dbEmployee, List<Employee> employees, out string errorMessage);
-        bool ValidateAddItem(int code, List<Item> items, out string errorMessage);
-        bool ValidateUpdateItem(int code, Item dbItem, List<Item> items, out string errorMessage);
+        bool ValidateAddItem(int code, out string errorMessage);
+        bool ValidateUpdateItem(int code, Item dbItem, out string errorMessage);
     }
 }

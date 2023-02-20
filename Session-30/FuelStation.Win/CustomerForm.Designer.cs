@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             this.bsCustomer = new System.Windows.Forms.BindingSource(this.components);
             this.grvCustomer = new System.Windows.Forms.DataGridView();
+            this.clmName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDelete = new System.Windows.Forms.Button();
             this.lblName = new System.Windows.Forms.Label();
             this.lblSurname = new System.Windows.Forms.Label();
@@ -38,6 +42,7 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtSurname = new System.Windows.Forms.TextBox();
             this.btnEdit = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bsCustomer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomer)).BeginInit();
             this.SuspendLayout();
@@ -45,11 +50,40 @@
             // grvCustomer
             // 
             this.grvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grvCustomer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmName,
+            this.clmID,
+            this.clmSurname,
+            this.clmCardNumber});
             this.grvCustomer.Location = new System.Drawing.Point(22, 12);
             this.grvCustomer.Name = "grvCustomer";
             this.grvCustomer.RowTemplate.Height = 25;
             this.grvCustomer.Size = new System.Drawing.Size(483, 180);
             this.grvCustomer.TabIndex = 0;
+            // 
+            // clmName
+            // 
+            this.clmName.DataPropertyName = "Name";
+            this.clmName.HeaderText = "Name";
+            this.clmName.Name = "clmName";
+            // 
+            // clmID
+            // 
+            this.clmID.DataPropertyName = "ID";
+            this.clmID.HeaderText = "ID";
+            this.clmID.Name = "clmID";
+            // 
+            // clmSurname
+            // 
+            this.clmSurname.DataPropertyName = "Surname";
+            this.clmSurname.HeaderText = "Surname";
+            this.clmSurname.Name = "clmSurname";
+            // 
+            // clmCardNumber
+            // 
+            this.clmCardNumber.DataPropertyName = "CardNumber";
+            this.clmCardNumber.HeaderText = "Card Number";
+            this.clmCardNumber.Name = "clmCardNumber";
             // 
             // btnDelete
             // 
@@ -113,11 +147,22 @@
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(542, 110);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(148, 43);
+            this.btnRefresh.TabIndex = 14;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.CustomerForm_Load);
+            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.txtSurname);
             this.Controls.Add(this.txtName);
@@ -147,5 +192,10 @@
         private TextBox txtName;
         private TextBox txtSurname;
         private Button btnEdit;
+        private DataGridViewTextBoxColumn clmName;
+        private DataGridViewTextBoxColumn clmID;
+        private DataGridViewTextBoxColumn clmSurname;
+        private DataGridViewTextBoxColumn clmCardNumber;
+        private Button btnRefresh;
     }
 }

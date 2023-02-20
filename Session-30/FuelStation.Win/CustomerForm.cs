@@ -2,6 +2,7 @@
 using FuelStation.EF.Repositories;
 using FuelStation.Model.People;
 using FuelStation.Web.Blazor.Shared;
+using FuelStation.Web.Blazor.Shared.Validators;
 using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
@@ -19,15 +20,15 @@ namespace FuelStation.Win
     public partial class CustomerForm : Form
     {
         private FuelStationDbContext context = new FuelStationDbContext();
-        BindingSource bindingSource = new BindingSource();
+        private Validator validator = new Validator();
         public CustomerForm()
         {
             InitializeComponent();
         }
         private void CustomerForm_Load(object sender, EventArgs e)
         {
-            PopulateCustomers();
             SetControlProperties();
+            PopulateCustomers();
         }
 
         private void PopulateCustomers()
@@ -39,19 +40,18 @@ namespace FuelStation.Win
         {
             grvCustomer.AutoGenerateColumns = false;
             grvCustomer.DataSource = bsCustomer;
-            grvCustomer.Columns["ID"].Visible = false;
-
+            grvCustomer.Columns["clmID"].Visible = false;
         }
 
         #region Buttons' Control
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DialogResult dResult = MessageBox.Show("Proceed with customer deletion?", "Warning", MessageBoxButtons.YesNo);
+            DialogResult dResult = MessageBox.Show("Proceed with customer deletion?", "Error", MessageBoxButtons.YesNo);
             if (dResult == DialogResult.Yes)
             {
-                int id = (int)grvCustomer.CurrentRow.Cells[3].Value;
-                var temp = context.Customers.SingleOrDefault(cus => cus.ID == id);
-                context.Remove(temp);
+                int id = (int)grvCustomer.CurrentRow.Cells["clmID"].Value;
+                var customerDelete = context.Customers.SingleOrDefault(cus => cus.ID == id);
+                context.Remove(customerDelete);
                 context.SaveChanges();
                 PopulateCustomers();
             }
@@ -61,20 +61,18 @@ namespace FuelStation.Win
             }
         }
 
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            CardGenerator card = new CardGenerator();
-            if (StringCheck(txtName.Text, txtSurname.Text))
+            if (validator.StringCheck(txtName.Text, txtSurname.Text))
             {
-                MessageBox.Show("Names can not be null", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Names can not be null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             Customer customer = new Customer
             {
                 Name = txtName.Text,
                 Surname = txtSurname.Text,
-                CardNumber = card.GetCardNumber()
+                CardNumber = validator.GetCardNumber()
             };
             txtName.Text = "";
             txtSurname.Text = "";
@@ -86,18 +84,14 @@ namespace FuelStation.Win
         private void btnEdit_Click(object sender, EventArgs e)
         {
             Customer customer = (Customer)bsCustomer.Current;
-            if (StringCheck(customer.Name, customer.Surname))
+            if (validator.StringCheck(customer.Name, customer.Surname))
             {
-                MessageBox.Show("Customer's name & surname can not be deleted", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Customer's name & surname can not be empty", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             context.SaveChanges();
             PopulateCustomers();
         }
         #endregion
-        private bool StringCheck(string name, string surname)
-        {
-            return (String.IsNullOrWhiteSpace(name) || String.IsNullOrWhiteSpace(surname));
-        }
     }
 }

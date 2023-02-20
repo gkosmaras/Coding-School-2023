@@ -9,7 +9,6 @@ namespace FuelStation.Model.People
 {
     public class Customer : Person
     {
-        [DisplayName("Card Number")]
         public string CardNumber { get; set; }
     }
 }

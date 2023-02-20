@@ -3,6 +3,7 @@ using FuelStation.Model.People;
 using FuelStation.Model.Transactions;
 using FuelStation.Web.Blazor.Shared;
 using FuelStation.Web.Blazor.Shared.DTO;
+using FuelStation.Web.Blazor.Shared.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.CodeDom.Compiler;
@@ -15,6 +16,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
     {
 
         private readonly IEntityRepo<Customer> _customerRepo;
+        private Validator validator = new Validator();
 
         public CustomerController(IEntityRepo<Customer> customerRepo)
         {
@@ -65,12 +67,11 @@ namespace FuelStation.Web.Blazor.Server.Controllers
         [HttpPost]
         public async Task Post(CustomerEditDto customer)
         {
-            CardGenerator card = new CardGenerator();
             Customer dbCustomer = new()
             {
                 Name = customer.Name,
                 Surname = customer.Surname,
-                CardNumber = card.GetCardNumber(),
+                CardNumber = validator.GetCardNumber(),
             };
             _customerRepo.Add(dbCustomer);
         }
