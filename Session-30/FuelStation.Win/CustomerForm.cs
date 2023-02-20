@@ -37,15 +37,28 @@ namespace FuelStation.Win
         }
         private void SetControlProperties()
         {
-            grvCustomer.DataSource = bsCustomer;
             grvCustomer.AutoGenerateColumns = false;
+            grvCustomer.DataSource = bsCustomer;
+            grvCustomer.Columns["ID"].Visible = false;
+
         }
 
         #region Buttons' Control
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            bsCustomer.RemoveCurrent();
-            PopulateCustomers();
+            DialogResult dResult = MessageBox.Show("Proceed with customer deletion?", "Warning", MessageBoxButtons.YesNo);
+            if (dResult == DialogResult.Yes)
+            {
+                int id = (int)grvCustomer.CurrentRow.Cells[3].Value;
+                var temp = context.Customers.SingleOrDefault(cus => cus.ID == id);
+                context.Remove(temp);
+                context.SaveChanges();
+                PopulateCustomers();
+            }
+            else
+            {
+                return;
+            }
         }
 
 
@@ -72,8 +85,8 @@ namespace FuelStation.Win
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            Customer remp = (Customer)bsCustomer.Current;
-            if (StringCheck(remp.Name, remp.Surname))
+            Customer customer = (Customer)bsCustomer.Current;
+            if (StringCheck(customer.Name, customer.Surname))
             {
                 MessageBox.Show("Customer's name & surname can not be deleted", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

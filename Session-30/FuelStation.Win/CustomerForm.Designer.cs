@@ -29,52 +29,27 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.grvCustomer = new System.Windows.Forms.DataGridView();
-            this.clmName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmCardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.bsCustomer = new System.Windows.Forms.BindingSource(this.components);
+            this.grvCustomer = new System.Windows.Forms.DataGridView();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.lblName = new System.Windows.Forms.Label();
             this.lblSurname = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtSurname = new System.Windows.Forms.TextBox();
             this.btnEdit = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.grvCustomer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCustomer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvCustomer)).BeginInit();
             this.SuspendLayout();
             // 
             // grvCustomer
             // 
             this.grvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grvCustomer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmName,
-            this.clmSurname,
-            this.clmCardNumber});
             this.grvCustomer.Location = new System.Drawing.Point(22, 12);
             this.grvCustomer.Name = "grvCustomer";
             this.grvCustomer.RowTemplate.Height = 25;
             this.grvCustomer.Size = new System.Drawing.Size(483, 180);
             this.grvCustomer.TabIndex = 0;
-            // 
-            // clmName
-            // 
-            this.clmName.DataPropertyName = "Name";
-            this.clmName.HeaderText = "Name";
-            this.clmName.Name = "clmName";
-            // 
-            // clmSurname
-            // 
-            this.clmSurname.DataPropertyName = "Surname";
-            this.clmSurname.HeaderText = "Surname";
-            this.clmSurname.Name = "clmSurname";
-            // 
-            // clmCardNumber
-            // 
-            this.clmCardNumber.DataPropertyName = "CardNumber";
-            this.clmCardNumber.HeaderText = "Card Number";
-            this.clmCardNumber.Name = "clmCardNumber";
             // 
             // btnDelete
             // 
@@ -154,8 +129,8 @@
             this.Name = "CustomerForm";
             this.Text = "CustomerForm";
             this.Load += new System.EventHandler(this.CustomerForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.grvCustomer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCustomer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grvCustomer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -165,9 +140,6 @@
 
         private DataGridView grvCustomer;
         private Button btnDelete;
-        private DataGridViewTextBoxColumn clmName;
-        private DataGridViewTextBoxColumn clmSurname;
-        private DataGridViewTextBoxColumn clmCardNumber;
         private BindingSource bsCustomer;
         private Label lblName;
         private Label lblSurname;
