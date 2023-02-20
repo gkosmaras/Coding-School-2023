@@ -1,6 +1,7 @@
 ﻿using FuelStation.EF.Repositories;
 using FuelStation.Model.People;
 using FuelStation.Model.Transactions;
+using FuelStation.Web.Blazor.Shared;
 using FuelStation.Web.Blazor.Shared.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -64,12 +65,12 @@ namespace FuelStation.Web.Blazor.Server.Controllers
         [HttpPost]
         public async Task Post(CustomerEditDto customer)
         {
-
+            CardGenerator card = new CardGenerator();
             Customer dbCustomer = new()
             {
                 Name = customer.Name,
                 Surname = customer.Surname,
-                CardNumber = GetCardNumber()
+                CardNumber = card.GetCardNumber(),
             };
             _customerRepo.Add(dbCustomer);
         }
@@ -98,27 +99,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
             _customerRepo.Delete(id);
         }
 
-        #region Methods
-        public string GetCardNumber()
-        {
-            Random generator = new Random();
-        Generate:
-            string cn = generator.Next(0, 10000000).ToString("D7");
-            cn = string.Concat("A-", cn);
-            if (CheckCardUniqueness(cn))
-            {
-                goto Generate;
-            }
-            return cn;
-        }
 
-        public bool CheckCardUniqueness(string cn)
-        {
-            var dbCustomer = _customerRepo.GetAll().Select(cus => cus.CardNumber);
-            bool result = dbCustomer.Contains(cn);
-            return result;
-        }
-        #endregion
 
     }
 

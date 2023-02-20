@@ -131,25 +131,5 @@ namespace FuelStation.Web.Blazor.Server.Controllers
             _itemRepo.Delete(id);
         }
 
-        #region Methods
-        public int GetCode(int code)
-        {
-            var dbItem = _itemRepo.GetAll().Select(it => it.Code);
-        Check:
-            if (CheckCodeUniqueness(code))
-            {
-                code = dbItem.Max() + 1;
-                goto Check;
-            }
-        return code;
-        }
-
-        public bool CheckCodeUniqueness(int code)
-        {
-            var dbItem = _itemRepo.GetAll().Select(it => it.Code);
-            bool result = dbItem.Contains(code);
-            return result;
-        }
-        #endregion
     }
 }

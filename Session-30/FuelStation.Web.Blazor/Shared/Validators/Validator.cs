@@ -98,8 +98,6 @@ namespace FuelStation.Web.Blazor.Shared.Validators
             bool result = true;
             errorMessage = "Success";
             var managers = employees.Where(ee => ee.EmployeeType == EmployeeType.Manager);
-            var cashiers = employees.Where(ee => ee.EmployeeType == EmployeeType.Cashier);
-            var staff = employees.Where(ee => ee.EmployeeType == EmployeeType.Staff);
 
             if (type == EmployeeType.Manager && managers.Count() <= ManagersLimits.Min)
             {
