@@ -2,6 +2,7 @@
 using FuelStation.EF.Repositories;
 using FuelStation.Model.People;
 using FuelStation.Web.Blazor.Shared;
+using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,40 +19,72 @@ namespace FuelStation.Win
     public partial class CustomerForm : Form
     {
         private FuelStationDbContext context = new FuelStationDbContext();
+        BindingSource bindingSource = new BindingSource();
         public CustomerForm()
         {
             InitializeComponent();
         }
         private void CustomerForm_Load(object sender, EventArgs e)
         {
-            grvCustomer.DataSource = context.Customers.ToList();
+            PopulateCustomers();
+            SetControlProperties();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void PopulateCustomers()
         {
-            LoadOptions();
-            grvCustomer.DataSource = null;
-            grvCustomer.DataSource = context.Customers.ToList();
+            bsCustomer.DataSource = context.Customers.ToList();
+            grvCustomer.DataSource = bsCustomer;
+        }
+        private void SetControlProperties()
+        {
+            grvCustomer.DataSource = bsCustomer;
+            grvCustomer.AutoGenerateColumns = false;
         }
 
-        private void LoadOptions()
+        #region Buttons' Control
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            bsCustomer.RemoveCurrent();
+            PopulateCustomers();
+        }
+
+
+        private void btnAdd_Click(object sender, EventArgs e)
         {
             CardGenerator card = new CardGenerator();
-            context.Customers.Add(new Customer
+            if (StringCheck(txtName.Text, txtSurname.Text))
+            {
+                MessageBox.Show("Names can not be null", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            Customer customer = new Customer
             {
                 Name = txtName.Text,
                 Surname = txtSurname.Text,
                 CardNumber = card.GetCardNumber()
-            });
+            };
             txtName.Text = "";
             txtSurname.Text = "";
+            context.Customers.Add(customer);
             context.SaveChanges();
+            PopulateCustomers();
         }
 
-        private void grvCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void btnEdit_Click(object sender, EventArgs e)
         {
-            string id = grvCustomer.Rows[e.RowIndex].Cells[0].Value.ToString();
-            MessageBox.Show(id);
+            Customer remp = (Customer)bsCustomer.Current;
+            if (StringCheck(remp.Name, remp.Surname))
+            {
+                MessageBox.Show("Customer's name & surname can not be deleted", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            context.SaveChanges();
+            PopulateCustomers();
+        }
+        #endregion
+        private bool StringCheck(string name, string surname)
+        {
+            return (String.IsNullOrWhiteSpace(name) || String.IsNullOrWhiteSpace(surname));
         }
     }
 }

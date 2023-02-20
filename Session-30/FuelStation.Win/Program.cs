@@ -12,6 +12,7 @@ namespace FuelStation.Win
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new CustomerForm());
+            
         }
     }
 }
