@@ -38,12 +38,10 @@ namespace FuelStation.Win
         }
         private async void SetControlProperties()
         {
-
             var dbItems = await itHandler.PopulateDataGridView();
             cmbItem.DataSource = new BindingSource(dbItems, null);
             cmbItem.DisplayMember = "Description";
             cmbItem.ValueMember = "ID";
-            // cmbItem.SelectedValue.ToString() = Item.ID
             grvTransLine.Columns["clmID"].Visible = false;
         }
 
@@ -59,10 +57,10 @@ namespace FuelStation.Win
                 ItemID = itemId,
                 Quantity = Int32.Parse(textBox3.Text),
                 ItemPrice = itemPrice,
-                NetValue = Int32.Parse(textBox3.Text) * itemPrice,
-                DiscountPercent = 0,//decimal.Parse(textBox6.Text),
-                DiscountValue = 0,//decimal.Parse(textBox7.Text),
-                TotalValue = 0//decimal.Parse(textBox8.Text),
+                NetValue = (Int32.Parse(textBox3.Text) * itemPrice),
+                DiscountPercent = 0.2m,//decimal.Parse(textBox6.Text),
+                DiscountValue = 0.3m,//decimal.Parse(textBox7.Text),
+                TotalValue = 0.3m//decimal.Parse(textBox8.Text),
 
             };
             textBox1.Text = "";

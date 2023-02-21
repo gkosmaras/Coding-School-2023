@@ -65,6 +65,7 @@
             this.btnTransactions.TabIndex = 2;
             this.btnTransactions.Text = "To Transactions";
             this.btnTransactions.UseVisualStyleBackColor = true;
+            this.btnTransactions.Click += new System.EventHandler(this.btnTransactions_Click);
             // 
             // btnMangerLg
             // 

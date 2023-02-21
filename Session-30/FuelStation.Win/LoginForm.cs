@@ -57,6 +57,11 @@ namespace FuelStation.Win
             ItemForm itemForm = new ItemForm();
             itemForm.ShowDialog();
         }
+        private void btnTransactions_Click(object sender, EventArgs e)
+        {
+            TransactionLineForm transLineForm = new TransactionLineForm();
+            transLineForm.ShowDialog();
+        }
         private void HideLogins()
         {
             btnMangerLg.Visible = false;

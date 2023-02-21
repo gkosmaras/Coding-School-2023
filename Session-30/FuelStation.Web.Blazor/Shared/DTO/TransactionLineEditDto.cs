@@ -19,7 +19,5 @@ namespace FuelStation.Web.Blazor.Shared.DTO
         public decimal DiscountPercent { get; set; }
         public decimal DiscountValue { get; set; }
         public decimal TotalValue { get; set; }
-        public Item Item { get; set; }
-        public Transaction Transaction { get; set; }
     }
 }
