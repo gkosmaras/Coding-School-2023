@@ -50,6 +50,7 @@
             this.nudCost = new System.Windows.Forms.NumericUpDown();
             this.nudCode = new System.Windows.Forms.NumericUpDown();
             this.btnSave = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
@@ -122,7 +123,7 @@
             // 
             this.btnEdit.Location = new System.Drawing.Point(560, 278);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(182, 45);
+            this.btnEdit.Size = new System.Drawing.Size(173, 45);
             this.btnEdit.TabIndex = 2;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -211,7 +212,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(359, 203);
+            this.btnSave.Location = new System.Drawing.Point(560, 157);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(173, 50);
             this.btnSave.TabIndex = 17;
@@ -219,11 +220,22 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(560, 337);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(173, 45);
+            this.btnRefresh.TabIndex = 18;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.ItemForm_Load);
+            // 
             // ItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.nudCode);
             this.Controls.Add(this.nudCost);
@@ -274,5 +286,6 @@
         private NumericUpDown nudCost;
         private NumericUpDown nudCode;
         private Button btnSave;
+        private Button btnRefresh;
     }
 }

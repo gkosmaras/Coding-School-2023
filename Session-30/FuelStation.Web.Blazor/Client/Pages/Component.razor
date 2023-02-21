@@ -1,0 +1,40 @@
+﻿@page "/transactionline"
+@using FuelStation.Web.Blazor.Shared.DTO;
+@inject HttpClient httpClient
+
+<tbody>
+    @foreach (var item in items)
+    {
+        <tr>
+            <td>@item.TransactionID</td>
+            <td>@item.ItemID</td>
+            <td>@item.Quantity</td>
+            <td>@item.ItemPrice</td>
+            <td>@item.NetValue</td>
+            <td>@item.DiscountPercent</td>
+            <td>@item.DiscountValue</td>
+            <td>@item.TotalValue</td>
+        </tr>
+    }
+</tbody>
+
+@code {
+    private List<TransactionLineEditDto> items = new();
+
+    bool loading { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (items == null)
+        {
+            throw new ArgumentNullException();
+        }
+        await LoadItemsFromServer();
+        loading = false;
+    }
+
+    private async Task LoadItemsFromServer()
+    {
+        items = await httpClient.GetFromJsonAsync<List<TransactionLineEditDto>>("transactionline");
+    }
+}

@@ -76,7 +76,6 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                 Cost = item.Cost,
             };
 
-            var dbItem = _itemRepo.GetAll().ToList();
             if (_validator.ValidateAddItem(newItem.Code, out errorMessage))
             {
                 try

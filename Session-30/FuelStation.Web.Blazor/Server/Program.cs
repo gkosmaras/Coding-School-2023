@@ -1,6 +1,7 @@
 using FuelStation.EF.Repositories;
 using FuelStation.Model;
 using FuelStation.Model.People;
+using FuelStation.Model.Transactions;
 using FuelStation.Web.Blazor.Shared.Validators;
 using Microsoft.AspNetCore.ResponseCompression;
 
@@ -13,6 +14,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEntityRepo<Customer>, CustomerRepo>();
 builder.Services.AddScoped<IEntityRepo<Employee>, EmployeeRepo>();
 builder.Services.AddScoped<IEntityRepo<Item>, ItemRepo>();
+builder.Services.AddScoped<IEntityRepo<TransactionLine>, TransactionLineRepo>();
+builder.Services.AddScoped<IEntityRepo<Transaction>, TransactionRepo>();
 builder.Services.AddScoped<IValidator, Validator>();
 
 var app = builder.Build();
