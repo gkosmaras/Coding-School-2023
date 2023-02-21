@@ -1,28 +1,6 @@
-﻿using FuelStation.EF.Context;
-using FuelStation.EF.Repositories;
-using FuelStation.Model.People;
-using FuelStation.Web.Blazor.Client.Pages.Customer;
-using FuelStation.Web.Blazor.Shared;
-using FuelStation.Web.Blazor.Shared.DTO;
+﻿using FuelStation.Web.Blazor.Shared.DTO;
 using FuelStation.Web.Blazor.Shared.Validators;
 using FuelStation.Win.Handler;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Bson;
-using Syncfusion.Blazor.Schedule.Internal;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
-using Customer = FuelStation.Model.People.Customer;
-using Validator = FuelStation.Web.Blazor.Shared.Validators.Validator;
 
 namespace FuelStation.Win
 {
@@ -33,17 +11,22 @@ namespace FuelStation.Win
         public CustomerForm()
         {
             InitializeComponent();
-
         }
         private void CustomerForm_Load(object sender, EventArgs e)
         {
-            this.PopulateGrid();
+            PopulateGrid();
         }
 
         private async Task PopulateGrid()
         {
             grvCustomer.Columns["clmID"].Visible = false;
             grvCustomer.Columns["clmCardNumber"].ReadOnly = true;
+            bsCustomer.DataSource = await handler.PopulateDataGridView();
+            grvCustomer.DataSource = bsCustomer;
+        }
+
+        private async Task bsCustomer_ListChange(object sender, EventArgs e)
+        {
             bsCustomer.DataSource = await handler.PopulateDataGridView();
             grvCustomer.DataSource = bsCustomer;
         }

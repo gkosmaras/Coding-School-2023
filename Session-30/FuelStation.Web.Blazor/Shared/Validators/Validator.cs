@@ -171,14 +171,20 @@ namespace FuelStation.Web.Blazor.Shared.Validators
             return price < 0 || cost < 0;
         }
 
-        public bool ValidateCode(int code, int id)
+        public bool ValidateCode(int code, int oldCode)
         {
             bool result = true;
-            var ids = context.Items.Select(it => it.ID);
-            var codes = context.Items.Select(it => it.Code);
-            if (codes.Count(cd => cd == code) >= 1)
+            if (oldCode == null)
             {
                 result = false;
+            }
+            else if (code != oldCode)
+            {
+                var codes = context.Items.Select(it => it.Code);
+                if (codes.Contains(code))
+                {
+                    result = false;
+                }
             }
             return result;
 

@@ -1,4 +1,5 @@
 ﻿using FuelStation.Web.Blazor.Shared.DTO;
+using FuelStation.Web.Blazor.Shared.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace FuelStation.Win.Handler
 {
     public class ItemHandler
     {
+        private Validator validator = new Validator();
         public async Task<IEnumerable<ItemEditDto>> PopulateDataGridView()
         {
             HttpClient httpClient = new HttpClient();
@@ -32,9 +34,16 @@ namespace FuelStation.Win.Handler
 
         public async Task EditItem(ItemEditDto item)
         {
+            string errorMessage = "Success";
             HttpClient httpClient = new HttpClient();
-            var response = await httpClient.PutAsJsonAsync($"https://localhost:7209/item", item);
-            if (!response.IsSuccessStatusCode)
+            var responseOriginal= await httpClient.GetAsync($"https://localhost:7209/item/{item.ID}");
+            var data = await responseOriginal.Content.ReadAsAsync<ItemEditDto>();
+            if (validator.ValidateCode(item.Code, data.Code))
+            {
+                var response = await httpClient.PutAsJsonAsync("https://localhost:7209/item", item);
+            }
+            //var response = await httpClient.PutAsJsonAsync("https://localhost:7209/item", item);
+            else
             {
                 MessageBox.Show("FailureEdit", "Error", MessageBoxButtons.OK);
             }
