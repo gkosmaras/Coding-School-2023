@@ -41,13 +41,8 @@
             this.clmTotalValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsTransLine = new System.Windows.Forms.BindingSource(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.cmbItem = new System.Windows.Forms.ComboBox();
             this.btnSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransLine)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransLine)).BeginInit();
@@ -133,13 +128,6 @@
             this.textBox1.Size = new System.Drawing.Size(58, 23);
             this.textBox1.TabIndex = 1;
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(52, 285);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(58, 23);
-            this.textBox2.TabIndex = 2;
-            // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(52, 314);
@@ -147,47 +135,20 @@
             this.textBox3.Size = new System.Drawing.Size(58, 23);
             this.textBox3.TabIndex = 3;
             // 
-            // textBox4
+            // cmbItem
             // 
-            this.textBox4.Location = new System.Drawing.Point(52, 343);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(58, 23);
-            this.textBox4.TabIndex = 4;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(127, 343);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(58, 23);
-            this.textBox5.TabIndex = 8;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(127, 314);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(58, 23);
-            this.textBox6.TabIndex = 7;
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(127, 285);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(58, 23);
-            this.textBox7.TabIndex = 6;
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(127, 256);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(58, 23);
-            this.textBox8.TabIndex = 5;
+            this.cmbItem.FormattingEnabled = true;
+            this.cmbItem.Location = new System.Drawing.Point(221, 262);
+            this.cmbItem.Name = "cmbItem";
+            this.cmbItem.Size = new System.Drawing.Size(76, 23);
+            this.cmbItem.TabIndex = 10;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(334, 290);
+            this.btnSave.Location = new System.Drawing.Point(494, 294);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(232, 50);
-            this.btnSave.TabIndex = 9;
+            this.btnSave.Size = new System.Drawing.Size(147, 42);
+            this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -198,13 +159,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1053, 450);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.cmbItem);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.grvTransLine);
             this.Name = "TransactionLineForm";
@@ -231,13 +187,8 @@
         private DataGridViewTextBoxColumn clmDisValue;
         private DataGridViewTextBoxColumn clmTotalValue;
         private TextBox textBox1;
-        private TextBox textBox2;
         private TextBox textBox3;
-        private TextBox textBox4;
-        private TextBox textBox5;
-        private TextBox textBox6;
-        private TextBox textBox7;
-        private TextBox textBox8;
+        private ComboBox cmbItem;
         private Button btnSave;
     }
 }

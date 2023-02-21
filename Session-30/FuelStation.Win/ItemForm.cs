@@ -119,6 +119,11 @@ namespace FuelStation.Win
                 return;
             }
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
         #endregion
     }
 }

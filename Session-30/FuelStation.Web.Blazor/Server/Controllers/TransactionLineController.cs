@@ -1,4 +1,5 @@
 ﻿using FuelStation.EF.Repositories;
+using FuelStation.Model;
 using FuelStation.Model.Transactions;
 using FuelStation.Web.Blazor.Shared.DTO;
 using Microsoft.AspNetCore.Http;
@@ -11,10 +12,14 @@ namespace FuelStation.Web.Blazor.Server.Controllers
     public class TransactionLineController : ControllerBase
     {
         private readonly IEntityRepo<TransactionLine> _transLineRepo;
+        private readonly IEntityRepo<Item> _itemRepo;
+        private readonly IEntityRepo<Transaction> _transactionRepo;
 
-        public TransactionLineController(IEntityRepo<TransactionLine> transLineRepo)
+        public TransactionLineController(IEntityRepo<TransactionLine> transLineRepo, IEntityRepo<Item> itemRepo, IEntityRepo<Transaction> transactionRepo)
         {
             _transLineRepo = transLineRepo;
+            _itemRepo = itemRepo;
+            _transactionRepo = transactionRepo;
         }
 
         [HttpGet]
@@ -32,6 +37,8 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                 DiscountPercent = tLine.DiscountPercent,
                 DiscountValue = tLine.DiscountValue,
                 TotalValue = tLine.TotalValue,
+/*                Transaction = _transactionRepo.GetById(tLine.TransactionID),
+                Item = _itemRepo.GetById(tLine.ItemID)*/
             });
             return result;
         }
@@ -57,6 +64,8 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                 DiscountPercent = dbTransLine.DiscountPercent,
                 DiscountValue = dbTransLine.DiscountValue,
                 TotalValue = dbTransLine.TotalValue,
+/*                Transaction = _transactionRepo.GetById(dbTransLine.TransactionID),
+                Item = _itemRepo.GetById(dbTransLine.ItemID)*/
             };
             return result;
         }
@@ -74,9 +83,11 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                 DiscountPercent = transLine.DiscountPercent,
                 DiscountValue = transLine.DiscountValue,
                 TotalValue = transLine.TotalValue,
+/*                Transaction = _transactionRepo.GetById(transLine.TransactionID),
+                Item = _itemRepo.GetById(transLine.ItemID)*/
             };
 
-            await Task.Run(() => { _transLineRepo.Add(newTransLine); });
+            _transLineRepo.Add(newTransLine);
         }
 
         [HttpPut]

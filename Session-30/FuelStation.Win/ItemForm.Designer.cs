@@ -51,6 +51,7 @@
             this.nudCode = new System.Windows.Forms.NumericUpDown();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
@@ -230,11 +231,22 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.ItemForm_Load);
             // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(15, 412);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(80, 26);
+            this.btnBack.TabIndex = 19;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // ItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.nudCode);
@@ -287,5 +299,6 @@
         private NumericUpDown nudCode;
         private Button btnSave;
         private Button btnRefresh;
+        private Button btnBack;
     }
 }
