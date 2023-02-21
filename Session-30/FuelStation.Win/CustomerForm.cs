@@ -1,74 +1,62 @@
 ﻿using FuelStation.EF.Context;
 using FuelStation.EF.Repositories;
 using FuelStation.Model.People;
+using FuelStation.Web.Blazor.Client.Pages.Customer;
 using FuelStation.Web.Blazor.Shared;
+using FuelStation.Web.Blazor.Shared.DTO;
 using FuelStation.Web.Blazor.Shared.Validators;
+using FuelStation.Win.Handler;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
+using Syncfusion.Blazor.Schedule.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Customer = FuelStation.Model.People.Customer;
+using Validator = FuelStation.Web.Blazor.Shared.Validators.Validator;
 
 namespace FuelStation.Win
 {
     public partial class CustomerForm : Form
     {
-        private FuelStationDbContext context = new FuelStationDbContext();
         private Validator validator = new Validator();
+        private CustomerHandler handler = new CustomerHandler();
         public CustomerForm()
         {
             InitializeComponent();
+
         }
         private void CustomerForm_Load(object sender, EventArgs e)
         {
-            SetControlProperties();
-            PopulateCustomers();
+            this.PopulateGrid();
         }
 
-        private void PopulateCustomers()
+        private async Task PopulateGrid()
         {
-            bsCustomer.DataSource = context.Customers.ToList();
-            grvCustomer.DataSource = bsCustomer;
-        }
-        private void SetControlProperties()
-        {
-            grvCustomer.AutoGenerateColumns = false;
-            grvCustomer.DataSource = bsCustomer;
             grvCustomer.Columns["clmID"].Visible = false;
+            grvCustomer.Columns["clmCardNumber"].ReadOnly = true;
+            bsCustomer.DataSource = await handler.PopulateDataGridView();
+            grvCustomer.DataSource = bsCustomer;
         }
 
-        #region Buttons' Control
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            DialogResult dResult = MessageBox.Show("Proceed with customer deletion?", "Error", MessageBoxButtons.YesNo);
-            if (dResult == DialogResult.Yes)
-            {
-                int id = (int)grvCustomer.CurrentRow.Cells["clmID"].Value;
-                var customerDelete = context.Customers.SingleOrDefault(cus => cus.ID == id);
-                context.Remove(customerDelete);
-                context.SaveChanges();
-                PopulateCustomers();
-            }
-            else
-            {
-                return;
-            }
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
+        #region Buttons
+        private void btnSave_Click(object sender, EventArgs e)
         {
             if (validator.StringCheck(txtName.Text, txtSurname.Text))
             {
                 MessageBox.Show("Names can not be null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            Customer customer = new Customer
+            CustomerEditDto customer = new CustomerEditDto
             {
                 Name = txtName.Text,
                 Surname = txtSurname.Text,
@@ -76,21 +64,35 @@ namespace FuelStation.Win
             };
             txtName.Text = "";
             txtSurname.Text = "";
-            context.Customers.Add(customer);
-            context.SaveChanges();
-            PopulateCustomers();
+            bsCustomer.Add(customer);
+            handler.AddCustomer(customer);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            Customer customer = (Customer)bsCustomer.Current;
+            CustomerEditDto customer = (CustomerEditDto)bsCustomer.Current;
             if (validator.StringCheck(customer.Name, customer.Surname))
             {
                 MessageBox.Show("Customer's name & surname can not be empty", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            context.SaveChanges();
-            PopulateCustomers();
+            handler.EditCustomer(customer);
+            bsCustomer.ResetCurrentItem();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dResult = MessageBox.Show("Proceed with customer deletion?", "Error", MessageBoxButtons.YesNo);
+            if (dResult == DialogResult.Yes)
+            {
+                int id = (int)grvCustomer.CurrentRow.Cells["clmID"].Value;
+                handler.DeleteCustomer(id);
+                bsCustomer.RemoveCurrent();
+            }
+            else
+            {
+                return;
+            }
         }
         #endregion
     }
