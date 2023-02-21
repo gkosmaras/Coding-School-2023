@@ -25,30 +25,14 @@ namespace FuelStation.Win
             grvCustomer.DataSource = bsCustomer;
         }
 
-        private async Task bsCustomer_ListChange(object sender, EventArgs e)
-        {
-            bsCustomer.DataSource = await handler.PopulateDataGridView();
-            grvCustomer.DataSource = bsCustomer;
-        }
-
         #region Buttons
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnCreate_Click(object sender, EventArgs e)
         {
-            if (validator.StringCheck(txtName.Text, txtSurname.Text))
-            {
-                MessageBox.Show("Names can not be null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            CustomerEditDto customer = new CustomerEditDto
-            {
-                Name = txtName.Text,
-                Surname = txtSurname.Text,
-                CardNumber = validator.GetCardNumber()
-            };
-            txtName.Text = "";
-            txtSurname.Text = "";
-            bsCustomer.Add(customer);
-            handler.AddCustomer(customer);
+            CreateCustomerForm newCustomer = new CreateCustomerForm();
+            newCustomer.FormClosing += new FormClosingEventHandler(this.CreateCustomer_FormClosing);
+            newCustomer.ShowDialog();
+            
+            
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -65,7 +49,7 @@ namespace FuelStation.Win
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DialogResult dResult = MessageBox.Show("Proceed with customer deletion?", "Error", MessageBoxButtons.YesNo);
+            DialogResult dResult = MessageBox.Show("Proceed with customer deletion?", "Warning", MessageBoxButtons.YesNo);
             if (dResult == DialogResult.Yes)
             {
                 int id = (int)grvCustomer.CurrentRow.Cells["clmID"].Value;
@@ -78,6 +62,11 @@ namespace FuelStation.Win
             }
         }
 
+        private void CreateCustomer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MessageBox.Show("Customer added!", "Success");
+            btnRefresh.PerformClick();
+        }
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();

@@ -1,4 +1,5 @@
 ﻿using FuelStation.EF.Context;
+using FuelStation.Model.Enums;
 using FuelStation.Web.Blazor.Shared.DTO;
 using FuelStation.Win.Handler;
 using Syncfusion.Blazor.Diagrams;
@@ -38,6 +39,7 @@ namespace FuelStation.Win
         }
         private async void SetControlProperties()
         {
+            nudQuantity.Controls.RemoveAt(0);
             var dbItems = await itHandler.PopulateDataGridView();
             cmbItem.DataSource = new BindingSource(dbItems, null);
             cmbItem.DisplayMember = "Description";
@@ -49,27 +51,52 @@ namespace FuelStation.Win
         private async void btnSave_Click(object sender, EventArgs e)
         {
             int itemId = (int)cmbItem.SelectedValue;
-            Task<decimal> task = GetItemPrice(itemId);
-            decimal itemPrice = await task;
+            int qnt = (int)nudQuantity.Value;
+            if (qnt <= 0)
+            {
+                MessageBox.Show("Enter a meaningfull quantity of products", "Error", MessageBoxButtons.OK);
+                return;
+            }
+            Task<decimal> taskPrice = GetItemPrice(itemId);
+            decimal itemPrice = await taskPrice;
+            Task<decimal> taskDiscount = CheckDiscount(itemId, itemPrice, qnt);
+            decimal discount = await taskDiscount;
+            decimal percent = 0;
+            if (discount > 0)
+            {
+                percent = 20;
+            }
+
             TransactionLineEditDto transLine = new TransactionLineEditDto
             {
                 TransactionID = Int32.Parse(textBox1.Text),
                 ItemID = itemId,
-                Quantity = Int32.Parse(textBox3.Text),
+                Quantity = qnt,
                 ItemPrice = itemPrice,
-                NetValue = (Int32.Parse(textBox3.Text) * itemPrice),
-                DiscountPercent = 0.2m,//decimal.Parse(textBox6.Text),
-                DiscountValue = 0.3m,//decimal.Parse(textBox7.Text),
-                TotalValue = 0.3m//decimal.Parse(textBox8.Text),
-
+                NetValue = (qnt * itemPrice),
+                DiscountPercent = percent,
+                DiscountValue = (qnt * itemPrice) * discount,
+                TotalValue = (qnt * itemPrice) - (qnt * itemPrice) * discount,
             };
             textBox1.Text = "";
-            textBox3.Text = "";
+            nudQuantity.Value = 0;
             bsTransLine.Add(transLine);
             handler.AddTransactionLine(transLine);
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dResult = MessageBox.Show("Proceed with line deletion?", "Warning", MessageBoxButtons.YesNo);
+            if (dResult == DialogResult.Yes)
+            {
+                int id = (int)grvTransLine.CurrentRow.Cells["clmID"].Value;
+                handler.DeleteTransactionLine(id);
+                bsTransLine.RemoveCurrent();
+            }
+        }
         #endregion
 
+        #region Methods
         private async Task<decimal> GetItemPrice(int id)
         {
             var dbItems = await itHandler.PopulateDataGridView();
@@ -78,6 +105,18 @@ namespace FuelStation.Win
             decimal itemPrice = items.SingleOrDefault(it => it.ID == id).Price;
             return itemPrice;
         }
-
+        private async Task<decimal> CheckDiscount(int id, decimal price, int qnt)
+        {
+            decimal discount = 0;
+            var dbItems = await itHandler.PopulateDataGridView();
+            List<ItemEditDto> items = dbItems.ToList();
+            ItemType type = items.SingleOrDefault(it => it.ID == id).ItemType;
+            if (type == ItemType.Fuel && (price * qnt) > 20)
+            {
+                discount = 0.2m;
+            }
+            return discount;
+        }
+        #endregion
     }
 }

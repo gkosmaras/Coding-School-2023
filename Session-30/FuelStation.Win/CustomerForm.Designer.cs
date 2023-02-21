@@ -35,15 +35,11 @@
             this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblName = new System.Windows.Forms.Label();
-            this.lblSurname = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.txtSurname = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bsCustomer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomer)).BeginInit();
             this.SuspendLayout();
@@ -86,51 +82,9 @@
             this.clmCardNumber.HeaderText = "Card Number";
             this.clmCardNumber.Name = "clmCardNumber";
             // 
-            // lblName
-            // 
-            this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(89, 232);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(39, 15);
-            this.lblName.TabIndex = 8;
-            this.lblName.Text = "Name";
-            // 
-            // lblSurname
-            // 
-            this.lblSurname.AutoSize = true;
-            this.lblSurname.Location = new System.Drawing.Point(89, 263);
-            this.lblSurname.Name = "lblSurname";
-            this.lblSurname.Size = new System.Drawing.Size(54, 15);
-            this.lblSurname.TabIndex = 9;
-            this.lblSurname.Text = "Surname";
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(164, 230);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(110, 23);
-            this.txtName.TabIndex = 11;
-            // 
-            // txtSurname
-            // 
-            this.txtSurname.Location = new System.Drawing.Point(164, 263);
-            this.txtSurname.Name = "txtSurname";
-            this.txtSurname.Size = new System.Drawing.Size(110, 23);
-            this.txtSurname.TabIndex = 12;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(360, 260);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(118, 45);
-            this.btnSave.TabIndex = 13;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(360, 311);
+            this.btnDelete.Location = new System.Drawing.Point(528, 125);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(118, 45);
             this.btnDelete.TabIndex = 14;
@@ -140,7 +94,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(537, 260);
+            this.btnEdit.Location = new System.Drawing.Point(528, 74);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(118, 45);
             this.btnEdit.TabIndex = 15;
@@ -168,20 +122,26 @@
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(22, 198);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(118, 45);
+            this.btnAdd.TabIndex = 18;
+            this.btnAdd.Text = "Create New";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnCreate_Click);
+            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.txtSurname);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.lblSurname);
-            this.Controls.Add(this.lblName);
             this.Controls.Add(this.grvCustomer);
             this.Name = "CustomerForm";
             this.Text = "CustomerForm";
@@ -189,7 +149,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.bsCustomer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomer)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -197,18 +156,14 @@
 
         private DataGridView grvCustomer;
         private BindingSource bsCustomer;
-        private Label lblName;
-        private Label lblSurname;
-        private TextBox txtName;
-        private TextBox txtSurname;
         private DataGridViewTextBoxColumn clmName;
         private DataGridViewTextBoxColumn clmID;
         private DataGridViewTextBoxColumn clmSurname;
         private DataGridViewTextBoxColumn clmCardNumber;
-        private Button btnSave;
         private Button btnDelete;
         private Button btnEdit;
         private Button btnRefresh;
         private Button btnBack;
+        private Button btnAdd;
     }
 }

@@ -29,6 +29,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
 
             var result = dbTransLine.Select(tLine => new TransactionLineEditDto
             {
+                ID = tLine.ID,
                 TransactionID = tLine.TransactionID,
                 ItemID = tLine.ItemID,
                 Quantity = tLine.Quantity,
@@ -36,9 +37,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                 NetValue = tLine.NetValue,
                 DiscountPercent = tLine.DiscountPercent,
                 DiscountValue = tLine.DiscountValue,
-                TotalValue = tLine.TotalValue,
-/*                Transaction = _transactionRepo.GetById(tLine.TransactionID),
-                Item = _itemRepo.GetById(tLine.ItemID)*/
+                TotalValue = tLine.TotalValue
             });
             return result;
         }
@@ -63,9 +62,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                 NetValue = dbTransLine.NetValue,
                 DiscountPercent = dbTransLine.DiscountPercent,
                 DiscountValue = dbTransLine.DiscountValue,
-                TotalValue = dbTransLine.TotalValue,
-/*                Transaction = _transactionRepo.GetById(dbTransLine.TransactionID),
-                Item = _itemRepo.GetById(dbTransLine.ItemID)*/
+                TotalValue = dbTransLine.TotalValue
             };
             return result;
         }
