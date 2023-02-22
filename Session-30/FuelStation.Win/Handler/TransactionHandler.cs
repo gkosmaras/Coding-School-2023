@@ -16,6 +16,12 @@ namespace FuelStation.Win.Handler
             return await httpClient.GetFromJsonAsync<List<TransactionEditDto>>("https://localhost:7209/Transaction");
         }
 
+        public async Task<TransactionEditDto> GetTransaction(int id)
+        {
+            HttpClient httpClient = new HttpClient();
+            return await httpClient.GetFromJsonAsync<TransactionEditDto>($"https://localhost:7209/Transaction/{id}");
+        }
+
         public async Task AddTransaction(TransactionEditDto transaction)
         {
             HttpClient httpClient = new HttpClient();
@@ -29,7 +35,7 @@ namespace FuelStation.Win.Handler
         public async Task EditTransaction(TransactionEditDto transaction)
         {
             HttpClient httpClient = new HttpClient();
-            var response = await httpClient.PutAsJsonAsync("https://localhost:7209/Transaction", transaction);
+            var response = await httpClient.PutAsJsonAsync("https://localhost:7209/transaction", transaction);
             if (!response.IsSuccessStatusCode)
             {
                 MessageBox.Show("FailureEdit", "Error", MessageBoxButtons.OK);

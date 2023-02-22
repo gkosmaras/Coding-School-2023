@@ -31,7 +31,6 @@ namespace FuelStation.Win.Handler
         public async Task EditItem(ItemEditDto item)
         {
             HttpClient httpClient = new HttpClient();
-            string errorMessage = "Success";
             var responseOriginal= await httpClient.GetAsync($"https://localhost:7209/item/{item.ID}");
             var data = await responseOriginal.Content.ReadAsAsync<ItemEditDto>();
             if (validator.ValidateCode(item.Code, data.Code))

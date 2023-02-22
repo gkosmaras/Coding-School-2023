@@ -56,6 +56,7 @@ namespace FuelStation.Win
             cmbEmployee.DisplayMember = "Name";
             cmbEmployee.ValueMember = "ID";
 
+            // TODO: get employee combobox to work
 /*            var dbEmployees = await eeHandler.PopulateDataGridView();
             DataGridViewComboBoxColumn colboxEmployee = grvTransaction.Columns["clmEmployeeID"] as DataGridViewComboBoxColumn;
             colboxEmployee.DataSource = new BindingSource(dbEmployees, null);
@@ -86,7 +87,7 @@ namespace FuelStation.Win
             }
             else
             {
-                //create new customer
+                // TODO: create new customer
             }
         }
 

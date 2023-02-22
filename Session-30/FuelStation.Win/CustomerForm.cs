@@ -14,16 +14,20 @@ namespace FuelStation.Win
         }
         private async void CustomerForm_Load(object sender, EventArgs e)
         {
+            SetControlProperties();
             await PopulateGrid();
         }
-
         private async Task PopulateGrid()
         {
-            grvCustomer.Columns["clmID"].Visible = false;
-            grvCustomer.Columns["clmCardNumber"].ReadOnly = true;
+
             bsCustomer.DataSource = await handler.PopulateDataGridView();
             grvCustomer.DataSource = null;
             grvCustomer.DataSource = bsCustomer;
+        }
+        private void SetControlProperties()
+        {
+            grvCustomer.Columns["clmID"].Visible = false;
+            grvCustomer.Columns["clmCardNumber"].ReadOnly = true;
         }
 
         #region Buttons

@@ -50,13 +50,18 @@ namespace FuelStation.Win
         private void btnCustomers_Click(object sender, EventArgs e)
         {
             CustomerForm customerForm = new CustomerForm();
+            customerForm.FormClosed += new FormClosedEventHandler(customerForm_FormClosed);
+            this.Hide();
             customerForm.ShowDialog();
         }
         private void btnItems_Click(object sender, EventArgs e)
         {
             ItemForm itemForm = new ItemForm();
+            itemForm.FormClosed += new FormClosedEventHandler(itemForm_FormClosed);
+            this.Hide();
             itemForm.ShowDialog();
         }
+
         private void btnTransLines_Click(object sender, EventArgs e)
         {
             TransactionLineForm transLineForm = new TransactionLineForm();
@@ -65,7 +70,22 @@ namespace FuelStation.Win
         private void btnTransactions(object sender, EventArgs e)
         {
             TransactionForm transactionForm = new TransactionForm();
+            transactionForm.FormClosed += new FormClosedEventHandler(transactionForm_FormClosed);
+            this.Hide();
             transactionForm.ShowDialog();
+        }
+        #region Visiblity
+        private void customerForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Show();
+        }
+        private void itemForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Show();
+        }
+        private void transactionForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Show();
         }
         private void HideLogins()
         {
@@ -73,5 +93,6 @@ namespace FuelStation.Win
             btnCashierLg.Visible = false;
             btnStaffLg.Visible = false;
         }
+        #endregion
     }
 }

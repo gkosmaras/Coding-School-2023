@@ -15,7 +15,6 @@ namespace FuelStation.Win.Handler
 {
     public class CustomerHandler
     {
-        HttpClient httpClient = new HttpClient();
         public async Task<IEnumerable<CustomerEditDto>> PopulateDataGridView()
         {
             HttpClient httpClient = new HttpClient();
@@ -24,6 +23,7 @@ namespace FuelStation.Win.Handler
 
         public async Task AddCustomer(CustomerEditDto customer)
         {
+            HttpClient httpClient = new HttpClient();
             var response = await httpClient.PostAsJsonAsync("https://localhost:7209/customer", customer);
             if (!response.IsSuccessStatusCode)
             {
@@ -33,6 +33,7 @@ namespace FuelStation.Win.Handler
 
         public async Task EditCustomer(CustomerEditDto customer)
         {
+            HttpClient httpClient = new HttpClient();
             var response = await httpClient.PutAsJsonAsync($"https://localhost:7209/customer", customer);
             if (!response.IsSuccessStatusCode)
             {
@@ -42,6 +43,7 @@ namespace FuelStation.Win.Handler
 
         public async Task  DeleteCustomer(int id)
         {
+            HttpClient httpClient = new HttpClient();
             var response = await httpClient.DeleteAsync($"https://localhost:7209/customer/{id}");
             if (!response.IsSuccessStatusCode)
             {

@@ -54,6 +54,7 @@ namespace FuelStation.Win
             cmbItem.ValueMember = "ID";
 
             nudQuantity.Controls.RemoveAt(0);
+            lblPayment.Visible = false;
             grvTransLine.Columns["clmTransID"].ReadOnly = true;
             grvTransLine.Columns["clmPrice"].ReadOnly = true;
             grvTransLine.Columns["clmValue"].ReadOnly = true;
@@ -61,6 +62,18 @@ namespace FuelStation.Win
             grvTransLine.Columns["clmDiscount"].ReadOnly = true;
             grvTransLine.Columns["clmTotal"].ReadOnly = true;
             grvTransLine.Columns["clmID"].Visible = false;
+        }
+        private async void SetPayment()
+        {
+            var dbTransLines = await handler.PopulateDataGridView();
+            var lines = dbTransLines.Where(tLines => tLines.TransactionID == transID);
+            if (lines.Select(x => x.TotalValue).Sum() > 50)
+            {
+                radCard.Enabled = false;
+                lblPayment.Visible = true;
+                radCard.Checked = false;
+                radCash.Checked = true;
+            }
         }
 
         private async void btnSave_Click(object sender, EventArgs e)
@@ -72,16 +85,16 @@ namespace FuelStation.Win
                 MessageBox.Show("Enter a meaningfull quantity of products", "Error", MessageBoxButtons.OK);
                 return;
             }
-
             TransactionLineEditDto transLine = new TransactionLineEditDto
             {
                 TransactionID = transID,
                 ItemID = itemId,
                 Quantity = qnt
             };
+            SetPayment();
             await handler.AddTransactionLine(transLine);
             nudQuantity.Value = 0;
-            PopulateGrid();
+            await PopulateGrid();
         }
 
         private async void btnDone_Click(object sender, EventArgs e)
@@ -95,10 +108,11 @@ namespace FuelStation.Win
             }
             else if (radCard.Checked == true)
             {
-                var dbTransactions = await transHandler.PopulateDataGridView();
-                var temp = dbTransactions.Last();
-                temp.PaymentMethod = PaymentMethod.CreditCard;
-                await transHandler.EditTransaction(temp);
+                TransactionEditDto dbTransaction = await transHandler.GetTransaction(transID);
+                dbTransaction.PaymentMethod = PaymentMethod.CreditCard;
+                MessageBox.Show($"{dbTransaction.ID.ToString()}, {dbTransaction.Date.ToString()}, {dbTransaction.PaymentMethod.ToString()}, {dbTransaction.CustomerID.ToString()}, {dbTransaction.EmployeeID.ToString()}");
+                // TODO: fix failure edit
+                await transHandler.EditTransaction(dbTransaction);
             }
             this.Close();
         }

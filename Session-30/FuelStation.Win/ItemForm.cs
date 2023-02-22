@@ -45,6 +45,7 @@ namespace FuelStation.Win
             nudPrice.DecimalPlaces = 2;
             nudCost.Controls.RemoveAt(0);
             nudCost.DecimalPlaces = 2;
+            
             DataGridViewComboBoxColumn colbox = grvItem.Columns["clmItemType"] as DataGridViewComboBoxColumn;
             foreach (var value in Enum.GetValues(typeof(ItemType)))
             {

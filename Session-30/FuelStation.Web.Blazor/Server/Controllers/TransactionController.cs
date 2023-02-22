@@ -47,12 +47,12 @@ namespace FuelStation.Web.Blazor.Server.Controllers
 
             var result = new TransactionEditDto
             {
+                ID = id,
                 Date = dbTransaction.Date,
                 CustomerID = dbTransaction.CustomerID,
                 EmployeeID = dbTransaction.EmployeeID,
                 TotalValue = dbTransaction.TransactionLines.Sum(x => x.TotalValue),
                 PaymentMethod = dbTransaction.PaymentMethod,
-                TransactionLines = dbTransaction.TransactionLines
             };
             return result;
         }
