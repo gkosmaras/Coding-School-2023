@@ -39,7 +39,7 @@
             this.btnDone = new System.Windows.Forms.Button();
             this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmTransID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmItemID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -141,6 +141,7 @@
             this.clmItemID.HeaderText = "Item";
             this.clmItemID.Name = "clmItemID";
             this.clmItemID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmItemID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // clmQuantity
             // 
@@ -213,7 +214,7 @@
         private Button btnDone;
         private DataGridViewTextBoxColumn clmID;
         private DataGridViewTextBoxColumn clmTransID;
-        private DataGridViewTextBoxColumn clmItemID;
+        private DataGridViewComboBoxColumn clmItemID;
         private DataGridViewTextBoxColumn clmQuantity;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmValue;

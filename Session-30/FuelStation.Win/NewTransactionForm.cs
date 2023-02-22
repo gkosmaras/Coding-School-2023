@@ -20,7 +20,6 @@ namespace FuelStation.Win
         private ItemHandler itHandler = new ItemHandler();
         private TransactionLineHandler handler = new TransactionLineHandler();
         private TransactionHandler transHandler = new TransactionHandler();
-        public List<TransactionLineEditDto> lines = new List<TransactionLineEditDto>();
         private TransactionEditDto transaction = new TransactionEditDto();
         private static int transID;
         public NewTransactionForm()
@@ -32,20 +31,20 @@ namespace FuelStation.Win
             SetControlProperties();
             PopulateGrid();
         }
-        private void PopulateGrid()
+        private async Task PopulateGrid()
         {
-            bsNewTransaction.DataSource = lines;
+            var lines = await handler.PopulateDataGridView();
+            bsNewTransaction.DataSource = lines.Where(tLines => tLines.TransactionID == transID);
             grvTransLine.DataSource = null;
             grvTransLine.DataSource = bsNewTransaction;
-
         }
         private async void SetControlProperties()
         {
             var dbItems = await itHandler.PopulateDataGridView();
-            /*            DataGridViewComboBoxColumn colbox = grvTransLine.Columns["clmItemID"] as DataGridViewComboBoxColumn;
-                        colbox.DataSource = new BindingSource(dbItems, null);
-                        colbox.DisplayMember = "Description";
-                        colbox.ValueMember = "ID";*/
+            DataGridViewComboBoxColumn colbox = grvTransLine.Columns["clmItemID"] as DataGridViewComboBoxColumn;
+            colbox.DataSource = new BindingSource(dbItems, null);
+            colbox.DisplayMember = "Description";
+            colbox.ValueMember = "ID";
 
             var dbTransactions = await transHandler.PopulateDataGridView();
             transID = dbTransactions.Last().ID;
@@ -67,7 +66,6 @@ namespace FuelStation.Win
         private async void btnSave_Click(object sender, EventArgs e)
         {
             int itemId = (int)cmbItem.SelectedValue;
-            MessageBox.Show(transaction.ID.ToString(), "asdd");
             int qnt = (int)nudQuantity.Value;
             if (qnt <= 0)
             {
@@ -81,17 +79,14 @@ namespace FuelStation.Win
                 ItemID = itemId,
                 Quantity = qnt
             };
-            lines.Add(transLine);
+            await handler.AddTransactionLine(transLine);
             nudQuantity.Value = 0;
             PopulateGrid();
         }
 
         private async void btnDone_Click(object sender, EventArgs e)
         {
-            foreach (var line in lines)
-            {
-                await handler.AddTransactionLine(line);
-            }
+
         }
     }
 }

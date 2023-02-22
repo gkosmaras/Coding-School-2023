@@ -22,7 +22,7 @@ namespace FuelStation.Win
             InitializeComponent();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             if (validator.StringCheck(txtName.Text, txtSurname.Text))
             {
@@ -36,7 +36,7 @@ namespace FuelStation.Win
             };
             txtName.Text = "";
             txtSurname.Text = "";
-            handler.AddCustomer(customer);
+            await handler.AddCustomer(customer);
             this.Close();
         }
     }

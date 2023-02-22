@@ -26,10 +26,10 @@ namespace FuelStation.Win
         {
             InitializeComponent();
         }
-        private void ItemForm_Load(object sender, EventArgs e)
+        private async void ItemForm_Load(object sender, EventArgs e)
         {
             SetControlProperties();
-            PopulateGrid();
+            await PopulateGrid();
         }
 
         private async Task PopulateGrid()
@@ -54,7 +54,7 @@ namespace FuelStation.Win
         }
 
         #region Buttons
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             string errorMessage = "Succces";
             if (validator.StringCheck(txtDescription.Text, txtDescription.Text))
@@ -92,10 +92,10 @@ namespace FuelStation.Win
             nudPrice.Value = 0;
             nudCost.Value = 0;
             bsItem.Add(item);
-            handler.AddItem(item);
+            await handler.AddItem(item);
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        private async void btnEdit_Click(object sender, EventArgs e)
         {
             ItemEditDto item = (ItemEditDto)bsItem.Current;
             if (validator.StringCheck(item.Code.ToString(), item.Description))
@@ -108,18 +108,18 @@ namespace FuelStation.Win
                 MessageBox.Show("Item's price & cost can not be negative", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            handler.EditItem(item);
-            bsItem.ResetCurrentItem();
+            await handler.EditItem(item);
+            await PopulateGrid();
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private async void btnDelete_Click(object sender, EventArgs e)
         {
             DialogResult dResult = MessageBox.Show("Proceed with item deletion?", "Error", MessageBoxButtons.YesNo);
             if (dResult == DialogResult.Yes)
             {
                 int id = (int)grvItem.CurrentRow.Cells["clmID"].Value;
-                handler.DeleteItem(id);
-                bsItem.RemoveCurrent();
+                await handler.DeleteItem(id);
+                await PopulateGrid();
             }
             else
             {

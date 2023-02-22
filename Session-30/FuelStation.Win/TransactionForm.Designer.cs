@@ -40,6 +40,7 @@
             this.txtCardNumber = new System.Windows.Forms.TextBox();
             this.btnNew = new System.Windows.Forms.Button();
             this.cmbEmployee = new System.Windows.Forms.ComboBox();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransaction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransaction)).BeginInit();
             this.SuspendLayout();
@@ -126,11 +127,22 @@
             this.cmbEmployee.Size = new System.Drawing.Size(143, 23);
             this.cmbEmployee.TabIndex = 3;
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(32, 167);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(167, 35);
+            this.btnDelete.TabIndex = 4;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // TransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.cmbEmployee);
             this.Controls.Add(this.btnNew);
             this.Controls.Add(this.txtCardNumber);
@@ -158,5 +170,6 @@
         private DataGridViewComboBoxColumn clmPaymentMethod;
         private DataGridViewTextBoxColumn clmTotalValue;
         private ComboBox cmbEmployee;
+        private Button btnDelete;
     }
 }

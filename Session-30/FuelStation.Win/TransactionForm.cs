@@ -88,5 +88,20 @@ namespace FuelStation.Win
                 //create new customer
             }
         }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dResult = MessageBox.Show("Proceed with transaction deletion?", "Error", MessageBoxButtons.YesNo);
+            if (dResult == DialogResult.Yes)
+            {
+                int id = (int)grvTransaction.CurrentRow.Cells["clmID"].Value;
+                await handler.DeleteTransaction(id);
+                bsTransaction.RemoveCurrent();
+            }
+            else
+            {
+                return;
+            }
+        }
     }
 }

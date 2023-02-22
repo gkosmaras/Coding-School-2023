@@ -12,9 +12,9 @@ namespace FuelStation.Win
         {
             InitializeComponent();
         }
-        private void CustomerForm_Load(object sender, EventArgs e)
+        private async void CustomerForm_Load(object sender, EventArgs e)
         {
-            PopulateGrid();
+            await PopulateGrid();
         }
 
         private async Task PopulateGrid()
@@ -22,6 +22,7 @@ namespace FuelStation.Win
             grvCustomer.Columns["clmID"].Visible = false;
             grvCustomer.Columns["clmCardNumber"].ReadOnly = true;
             bsCustomer.DataSource = await handler.PopulateDataGridView();
+            grvCustomer.DataSource = null;
             grvCustomer.DataSource = bsCustomer;
         }
 
@@ -35,7 +36,7 @@ namespace FuelStation.Win
             
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        private async void btnEdit_Click(object sender, EventArgs e)
         {
             CustomerEditDto customer = (CustomerEditDto)bsCustomer.Current;
             if (validator.StringCheck(customer.Name, customer.Surname))
@@ -43,18 +44,18 @@ namespace FuelStation.Win
                 MessageBox.Show("Customer's name & surname can not be empty", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            handler.EditCustomer(customer);
-            bsCustomer.ResetCurrentItem();
+            await handler.EditCustomer(customer);
+            await PopulateGrid();
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private async void btnDelete_Click(object sender, EventArgs e)
         {
             DialogResult dResult = MessageBox.Show("Proceed with customer deletion?", "Warning", MessageBoxButtons.YesNo);
             if (dResult == DialogResult.Yes)
             {
                 int id = (int)grvCustomer.CurrentRow.Cells["clmID"].Value;
-                handler.DeleteCustomer(id);
-                bsCustomer.RemoveCurrent();
+                await handler.DeleteCustomer(id);
+                await PopulateGrid();
             }
             else
             {
@@ -62,10 +63,9 @@ namespace FuelStation.Win
             }
         }
 
-        private void CreateCustomer_FormClosing(object sender, FormClosingEventArgs e)
+        private async void CreateCustomer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MessageBox.Show("Customer added!", "Success");
-            btnRefresh.PerformClick();
+            await PopulateGrid();
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
