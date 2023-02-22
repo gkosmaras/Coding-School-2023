@@ -24,10 +24,12 @@ namespace FuelStation.EF.Configurations
 
             builder.HasOne(trans => trans.Employee)
                 .WithMany(ee => ee.Transactions)
-                .HasForeignKey(trans => trans.EmployeeID);
+                .HasForeignKey(trans => trans.EmployeeID)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(trans => trans.Customer)
                 .WithMany(cus => cus.Transactions)
-                .HasForeignKey(trans => trans.CustomerID);
+                .HasForeignKey(trans => trans.CustomerID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

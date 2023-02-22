@@ -30,11 +30,12 @@
         {
             this.btnCustomers = new System.Windows.Forms.Button();
             this.btnItems = new System.Windows.Forms.Button();
-            this.btnTransactions = new System.Windows.Forms.Button();
+            this.btnTransLines = new System.Windows.Forms.Button();
             this.btnMangerLg = new System.Windows.Forms.Button();
             this.btnCashierLg = new System.Windows.Forms.Button();
             this.btnStaffLg = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
+            this.btnTransaction = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCustomers
@@ -57,15 +58,15 @@
             this.btnItems.UseVisualStyleBackColor = true;
             this.btnItems.Click += new System.EventHandler(this.btnItems_Click);
             // 
-            // btnTransactions
+            // btnTransLines
             // 
-            this.btnTransactions.Location = new System.Drawing.Point(484, 169);
-            this.btnTransactions.Name = "btnTransactions";
-            this.btnTransactions.Size = new System.Drawing.Size(192, 69);
-            this.btnTransactions.TabIndex = 2;
-            this.btnTransactions.Text = "To Transactions";
-            this.btnTransactions.UseVisualStyleBackColor = true;
-            this.btnTransactions.Click += new System.EventHandler(this.btnTransactions_Click);
+            this.btnTransLines.Location = new System.Drawing.Point(484, 169);
+            this.btnTransLines.Name = "btnTransLines";
+            this.btnTransLines.Size = new System.Drawing.Size(192, 69);
+            this.btnTransLines.TabIndex = 2;
+            this.btnTransLines.Text = "To Lines";
+            this.btnTransLines.UseVisualStyleBackColor = true;
+            this.btnTransLines.Click += new System.EventHandler(this.btnTransLines_Click);
             // 
             // btnMangerLg
             // 
@@ -107,16 +108,27 @@
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.LoginFrom_Load);
             // 
+            // btnTransaction
+            // 
+            this.btnTransaction.Location = new System.Drawing.Point(484, 244);
+            this.btnTransaction.Name = "btnTransaction";
+            this.btnTransaction.Size = new System.Drawing.Size(192, 69);
+            this.btnTransaction.TabIndex = 7;
+            this.btnTransaction.Text = "To Transactions";
+            this.btnTransaction.UseVisualStyleBackColor = true;
+            this.btnTransaction.Click += new System.EventHandler(this.btnTransactions);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnTransaction);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnStaffLg);
             this.Controls.Add(this.btnCashierLg);
             this.Controls.Add(this.btnMangerLg);
-            this.Controls.Add(this.btnTransactions);
+            this.Controls.Add(this.btnTransLines);
             this.Controls.Add(this.btnItems);
             this.Controls.Add(this.btnCustomers);
             this.Name = "LoginForm";
@@ -135,6 +147,7 @@
         private Button btnCashierLg;
         private Button btnStaffLg;
         private Button btnLogout;
-        private Button btnTransactions;
+        private Button btnTransLines;
+        private Button btnTransaction;
     }
 }

@@ -29,10 +29,12 @@ namespace FuelStation.EF.Configurations
             builder.HasOne(transLine => transLine.Transaction)
                 .WithMany(trans => trans.TransactionLines)
                 .HasForeignKey(transLine => transLine.TransactionID)
-                .IsRequired(true);
+                .IsRequired(true)
+                .OnDelete(DeleteBehavior.Restrict); 
             builder.HasOne(transLine => transLine.Item)
                 .WithMany(it => it.TransactionLines)
                 .HasForeignKey(transLine => transLine.ItemID)
+                .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
         }
     }

@@ -8,38 +8,38 @@ using System.Threading.Tasks;
 
 namespace FuelStation.Win.Handler
 {
-    public class TransactionLineHandler
+    public class TransactionHandler
     {
-        public async Task<IEnumerable<TransactionLineEditDto>> PopulateDataGridView()
+        public async Task<IEnumerable<TransactionEditDto>> PopulateDataGridView()
         {
             HttpClient httpClient = new HttpClient();
-            return await httpClient.GetFromJsonAsync<List<TransactionLineEditDto>>("https://localhost:7209/TransactionLine");
+            return await httpClient.GetFromJsonAsync<List<TransactionEditDto>>("https://localhost:7209/Transaction");
         }
 
-        public async Task AddTransactionLine(TransactionLineEditDto transLine)
+        public async Task AddTransaction(TransactionEditDto transaction)
         {
             HttpClient httpClient = new HttpClient();
-            var response = await httpClient.PostAsJsonAsync("https://localhost:7209/TransactionLine", transLine);
+            var response = await httpClient.PostAsJsonAsync("https://localhost:7209/Transaction", transaction);
             if (!response.IsSuccessStatusCode)
             {
                 MessageBox.Show("FailureAdd", "Error", MessageBoxButtons.OK);
             }
         }
 
-        public async Task EditTransactionLine(TransactionLineEditDto transLine)
+        public async Task EditTransaction(TransactionEditDto transaction)
         {
             HttpClient httpClient = new HttpClient();
-            var response = await httpClient.PutAsJsonAsync("https://localhost:7209/transactionLine", transLine);
+            var response = await httpClient.PutAsJsonAsync("https://localhost:7209/Transaction", transaction);
             if (!response.IsSuccessStatusCode)
             {
                 MessageBox.Show("FailureEdit", "Error", MessageBoxButtons.OK);
             }
         }
 
-        public async Task DeleteTransactionLine(int id)
+        public async Task DeleteTransaction(int id)
         {
             HttpClient httpClient = new HttpClient();
-            var response = await httpClient.DeleteAsync($"https://localhost:7209/transactionLine/{id}");
+            var response = await httpClient.DeleteAsync($"https://localhost:7209/Transaction/{id}");
             if (!response.IsSuccessStatusCode)
             {
                 MessageBox.Show("FailureDelete", "Error", MessageBoxButtons.OK);

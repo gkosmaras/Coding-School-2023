@@ -33,7 +33,6 @@ namespace FuelStation.Win
             {
                 Name = txtName.Text,
                 Surname = txtSurname.Text,
-                CardNumber = validator.GetCardNumber()
             };
             txtName.Text = "";
             txtSurname.Text = "";

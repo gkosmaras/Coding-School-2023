@@ -187,7 +187,6 @@ namespace FuelStation.Web.Blazor.Shared.Validators
                 }
             }
             return result;
-
         }
     }
 }

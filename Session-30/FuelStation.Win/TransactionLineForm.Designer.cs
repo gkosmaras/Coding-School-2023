@@ -40,13 +40,15 @@
             this.grvTransLine = new System.Windows.Forms.DataGridView();
             this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmTransID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmItemID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnRefersh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransLine)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransLine)).BeginInit();
@@ -54,14 +56,14 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(52, 256);
+            this.textBox1.Location = new System.Drawing.Point(17, 375);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(58, 23);
             this.textBox1.TabIndex = 1;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(665, 245);
+            this.btnSave.Location = new System.Drawing.Point(685, 316);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(147, 42);
             this.btnSave.TabIndex = 11;
@@ -72,7 +74,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(231, 259);
+            this.label1.Location = new System.Drawing.Point(236, 351);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 15);
             this.label1.TabIndex = 12;
@@ -80,7 +82,7 @@
             // 
             // nudQuantity
             // 
-            this.nudQuantity.Location = new System.Drawing.Point(231, 283);
+            this.nudQuantity.Location = new System.Drawing.Point(236, 375);
             this.nudQuantity.Name = "nudQuantity";
             this.nudQuantity.Size = new System.Drawing.Size(59, 23);
             this.nudQuantity.TabIndex = 13;
@@ -88,7 +90,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(321, 259);
+            this.label2.Location = new System.Drawing.Point(326, 351);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 15);
             this.label2.TabIndex = 14;
@@ -97,14 +99,14 @@
             // cmbItem
             // 
             this.cmbItem.FormattingEnabled = true;
-            this.cmbItem.Location = new System.Drawing.Point(321, 283);
+            this.cmbItem.Location = new System.Drawing.Point(326, 375);
             this.cmbItem.Name = "cmbItem";
             this.cmbItem.Size = new System.Drawing.Size(154, 23);
             this.cmbItem.TabIndex = 15;
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(665, 293);
+            this.btnDelete.Location = new System.Drawing.Point(685, 364);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(147, 42);
             this.btnDelete.TabIndex = 16;
@@ -125,11 +127,12 @@
             this.clmPercent,
             this.clmDiscount,
             this.clmTotal});
-            this.grvTransLine.Location = new System.Drawing.Point(18, 29);
+            this.grvTransLine.Location = new System.Drawing.Point(12, 65);
             this.grvTransLine.Name = "grvTransLine";
             this.grvTransLine.RowTemplate.Height = 25;
             this.grvTransLine.Size = new System.Drawing.Size(981, 185);
             this.grvTransLine.TabIndex = 17;
+            this.grvTransLine.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridView1_CellValidating);
             // 
             // clmID
             // 
@@ -146,8 +149,10 @@
             // clmItemID
             // 
             this.clmItemID.DataPropertyName = "ItemID";
-            this.clmItemID.HeaderText = "Item ID";
+            this.clmItemID.HeaderText = "Item";
             this.clmItemID.Name = "clmItemID";
+            this.clmItemID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmItemID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // clmQuantity
             // 
@@ -185,11 +190,33 @@
             this.clmTotal.HeaderText = "Total Value";
             this.clmTotal.Name = "clmTotal";
             // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(516, 316);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(147, 42);
+            this.btnEdit.TabIndex = 18;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnRefersh
+            // 
+            this.btnRefersh.Location = new System.Drawing.Point(516, 364);
+            this.btnRefersh.Name = "btnRefersh";
+            this.btnRefersh.Size = new System.Drawing.Size(147, 42);
+            this.btnRefersh.TabIndex = 19;
+            this.btnRefersh.Text = "Refresh";
+            this.btnRefersh.UseVisualStyleBackColor = true;
+            this.btnRefersh.Click += new System.EventHandler(this.TransactionLineForm_Load);
+            // 
             // TransactionLineForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1053, 450);
+            this.Controls.Add(this.btnRefersh);
+            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.grvTransLine);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.cmbItem);
@@ -219,9 +246,12 @@
         private ComboBox cmbItem;
         private Button btnDelete;
         private DataGridView grvTransLine;
+        private Button btnEdit;
+        private Button btnDone;
+        private Button btnRefersh;
         private DataGridViewTextBoxColumn clmID;
         private DataGridViewTextBoxColumn clmTransID;
-        private DataGridViewTextBoxColumn clmItemID;
+        private DataGridViewComboBoxColumn clmItemID;
         private DataGridViewTextBoxColumn clmQuantity;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmValue;

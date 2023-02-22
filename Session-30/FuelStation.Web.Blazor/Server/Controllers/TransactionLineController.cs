@@ -1,5 +1,6 @@
 ﻿using FuelStation.EF.Repositories;
 using FuelStation.Model;
+using FuelStation.Model.Enums;
 using FuelStation.Model.Transactions;
 using FuelStation.Web.Blazor.Shared.DTO;
 using Microsoft.AspNetCore.Http;
@@ -37,7 +38,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                 NetValue = tLine.NetValue,
                 DiscountPercent = tLine.DiscountPercent,
                 DiscountValue = tLine.DiscountValue,
-                TotalValue = tLine.TotalValue
+                TotalValue = tLine.TotalValue,
             });
             return result;
         }
@@ -70,18 +71,29 @@ namespace FuelStation.Web.Blazor.Server.Controllers
         [HttpPost]
         public async Task Post(TransactionLineEditDto transLine)
         {
+            decimal itemPrice = _itemRepo.GetById(transLine.ItemID).Price;
+            ItemType itemType = _itemRepo.GetById(transLine.ItemID).ItemType;
+            int qnt = transLine.Quantity;
+            decimal discount = 0;
+            if (itemType == ItemType.Fuel && (itemPrice * qnt) > 20)
+            {
+                discount = 0.2m;
+            }
+            decimal percent = 0;
+            if (discount > 0)
+            {
+                percent = 20;
+            }
             TransactionLine newTransLine = new()
             {
                 TransactionID = transLine.TransactionID,
                 ItemID = transLine.ItemID,
-                Quantity = transLine.Quantity,
-                ItemPrice = transLine.ItemPrice,
-                NetValue = transLine.NetValue,
-                DiscountPercent = transLine.DiscountPercent,
-                DiscountValue = transLine.DiscountValue,
-                TotalValue = transLine.TotalValue,
-/*                Transaction = _transactionRepo.GetById(transLine.TransactionID),
-                Item = _itemRepo.GetById(transLine.ItemID)*/
+                Quantity = qnt,
+                ItemPrice = itemPrice,
+                NetValue = qnt * itemPrice,
+                DiscountPercent = percent,
+                DiscountValue = (qnt * itemPrice) * discount,
+                TotalValue = (qnt * itemPrice) - (qnt * itemPrice) * discount,
             };
 
             _transLineRepo.Add(newTransLine);
@@ -90,12 +102,32 @@ namespace FuelStation.Web.Blazor.Server.Controllers
         [HttpPut]
         public async Task Put(TransactionLineEditDto transLine)
         {
+            decimal itemPrice = _itemRepo.GetById(transLine.ItemID).Price;
+            ItemType itemType = _itemRepo.GetById(transLine.ItemID).ItemType;
+            int qnt = transLine.Quantity;
+            decimal discount = 0;
+            if (itemType == ItemType.Fuel && (itemPrice * qnt) > 20)
+            {
+                discount = 0.2m;
+            }
+            decimal percent = 0;
+            if (discount > 0)
+            {
+                percent = 20;
+            }
             var dbTransLine = _transLineRepo.GetById(transLine.ID);
             if (dbTransLine == null)
             {
                 throw new ArgumentNullException();
             }
-
+            dbTransLine.TransactionID = transLine.TransactionID;
+            dbTransLine.ItemID = transLine.ItemID;
+            dbTransLine.Quantity = qnt;
+            dbTransLine.ItemPrice = itemPrice;
+            dbTransLine.NetValue = qnt * itemPrice;
+            dbTransLine.DiscountPercent = percent;
+            dbTransLine.DiscountValue = (qnt * itemPrice) * discount;
+            dbTransLine.TotalValue = (qnt * itemPrice) - (qnt * itemPrice) * discount;
             _transLineRepo.Update(transLine.ID, dbTransLine);
         }
 

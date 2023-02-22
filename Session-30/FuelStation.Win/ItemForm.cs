@@ -49,9 +49,6 @@ namespace FuelStation.Win
             foreach (var value in Enum.GetValues(typeof(ItemType)))
             {
                 colbox.Items.Add(value);
-            }
-            foreach (var value in Enum.GetValues(typeof(ItemType)))
-            {
                 cmbType.Items.Add(value.ToString());
             }
         }
@@ -73,6 +70,11 @@ namespace FuelStation.Win
             if (!validator.ValidateAddItem((int)nudCode.Value, out errorMessage))
             {
                 MessageBox.Show("Item's code already exists", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (cmbType.Text == "")
+            {
+                MessageBox.Show("Choose an item type", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

@@ -18,6 +18,7 @@ namespace FuelStation.Win.Handler
         HttpClient httpClient = new HttpClient();
         public async Task<IEnumerable<CustomerEditDto>> PopulateDataGridView()
         {
+            HttpClient httpClient = new HttpClient();
             return await httpClient.GetFromJsonAsync<List<CustomerEditDto>>("https://localhost:7209/customer");
         }
 
