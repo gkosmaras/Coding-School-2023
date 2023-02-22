@@ -30,7 +30,7 @@ namespace FuelStation.Win
         private void btnCreate_Click(object sender, EventArgs e)
         {
             CreateCustomerForm newCustomer = new CreateCustomerForm();
-            newCustomer.FormClosing += new FormClosingEventHandler(this.CreateCustomer_FormClosing);
+            newCustomer.FormClosing += new FormClosingEventHandler(this.CreateCustomerForm_FormClosing);
             newCustomer.ShowDialog();
             
             
@@ -63,7 +63,7 @@ namespace FuelStation.Win
             }
         }
 
-        private async void CreateCustomer_FormClosing(object sender, FormClosingEventArgs e)
+        private async void CreateCustomerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             await PopulateGrid();
         }

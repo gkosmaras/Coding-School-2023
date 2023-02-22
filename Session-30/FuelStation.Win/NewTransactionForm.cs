@@ -1,4 +1,5 @@
-﻿using FuelStation.Web.Blazor.Shared.DTO;
+﻿using FuelStation.Model.Enums;
+using FuelStation.Web.Blazor.Shared.DTO;
 using FuelStation.Win.Handler;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Query;
@@ -20,7 +21,6 @@ namespace FuelStation.Win
         private ItemHandler itHandler = new ItemHandler();
         private TransactionLineHandler handler = new TransactionLineHandler();
         private TransactionHandler transHandler = new TransactionHandler();
-        private TransactionEditDto transaction = new TransactionEditDto();
         private static int transID;
         public NewTransactionForm()
         {
@@ -86,7 +86,21 @@ namespace FuelStation.Win
 
         private async void btnDone_Click(object sender, EventArgs e)
         {
-
+            var lines = await handler.PopulateDataGridView();
+            decimal sum = lines.Where(x => x.TransactionID == transID).Sum(x => x.TotalValue);
+            if (radCard.Checked == true && sum > 50)
+            {
+                MessageBox.Show("Payments over 50€ must be made with cash", "Warning", MessageBoxButtons.OK);
+                return;
+            }
+            else if (radCard.Checked == true)
+            {
+                var dbTransactions = await transHandler.PopulateDataGridView();
+                var temp = dbTransactions.Last();
+                temp.PaymentMethod = PaymentMethod.CreditCard;
+                await transHandler.EditTransaction(temp);
+            }
+            this.Close();
         }
     }
 }

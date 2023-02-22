@@ -75,12 +75,13 @@ namespace FuelStation.Win
                 {
                     CustomerID = id,
                     EmployeeID = (int)cmbEmployee.SelectedValue,
-                    PaymentMethod = PaymentMethod.CreditCard,
+                    PaymentMethod = PaymentMethod.Cash,
                     TotalValue = 0,
                     TransactionLines = new List<TransactionLine>()
                 };
                 await handler.AddTransaction(transaction);
                 NewTransactionForm newTransaction = new NewTransactionForm();
+                newTransaction.FormClosing += new FormClosingEventHandler(this.NewTransactionForm_FormClosing);
                 newTransaction.Show();
             }
             else
@@ -102,6 +103,11 @@ namespace FuelStation.Win
             {
                 return;
             }
+        }
+
+        private async void NewTransactionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            await PopulateGrid();
         }
     }
 }
