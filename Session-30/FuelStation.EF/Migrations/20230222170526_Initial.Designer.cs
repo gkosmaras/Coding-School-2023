@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FuelStation.EF.Migrations
 {
     [DbContext(typeof(FuelStationDbContext))]
-    [Migration("20230219130947_Initital")]
-    partial class Initital
+    [Migration("20230222170526_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,7 +96,7 @@ namespace FuelStation.EF.Migrations
                     b.Property<int>("EmployeeType")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("HireDateEnd")
+                    b.Property<DateTime?>("HireDateEnd")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("HireDateStart")
@@ -205,13 +205,13 @@ namespace FuelStation.EF.Migrations
                     b.HasOne("FuelStation.Model.People.Customer", "Customer")
                         .WithMany("Transactions")
                         .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FuelStation.Model.People.Employee", "Employee")
                         .WithMany("Transactions")
                         .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -224,13 +224,13 @@ namespace FuelStation.EF.Migrations
                     b.HasOne("FuelStation.Model.Item", "Item")
                         .WithMany("TransactionLines")
                         .HasForeignKey("ItemID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FuelStation.Model.Transactions.Transaction", "Transaction")
                         .WithMany("TransactionLines")
                         .HasForeignKey("TransactionID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Item");

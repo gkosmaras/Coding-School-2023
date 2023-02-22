@@ -1,4 +1,7 @@
 ﻿using FuelStation.Model.Enums;
+using FuelStation.Model.Transactions;
+using FuelStation.Web.Blazor.Shared.DTO;
+using FuelStation.Web.Blazor.Shared.Validators;
 using FuelStation.Win.Handler;
 using System;
 using System.Collections.Generic;
@@ -18,6 +21,7 @@ namespace FuelStation.Win
         private TransactionHandler handler = new TransactionHandler();
         private CustomerHandler cusHandler = new CustomerHandler();
         private EmployeeHandler eeHandler = new EmployeeHandler();
+        private Validator validator = new Validator();
         public TransactionForm()
         {
             InitializeComponent();
@@ -46,7 +50,11 @@ namespace FuelStation.Win
             colboxCustomer.DataSource = new BindingSource(dbCustomers, null);
             colboxCustomer.DisplayMember = "Name";
             colboxCustomer.ValueMember = "ID";
-            
+
+            var dbEmployees = await eeHandler.PopulateDataGridView();
+            cmbEmployee.DataSource = new BindingSource(dbEmployees, null);
+            cmbEmployee.DisplayMember = "Name";
+            cmbEmployee.ValueMember = "ID";
 
 /*            var dbEmployees = await eeHandler.PopulateDataGridView();
             DataGridViewComboBoxColumn colboxEmployee = grvTransaction.Columns["clmEmployeeID"] as DataGridViewComboBoxColumn;
@@ -57,10 +65,28 @@ namespace FuelStation.Win
 
             grvTransaction.Columns["clmID"].Visible = false;
         }
-
-/*        private void grvTransaction_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private async void btnNew_Click(object sender, EventArgs e)
         {
-            e.Cancel = true;
-        }*/
+            
+            int id = validator.ExistingCustomer(txtCardNumber.Text);
+            if (id != 0)
+            {
+                TransactionEditDto transaction = new TransactionEditDto
+                {
+                    CustomerID = id,
+                    EmployeeID = (int)cmbEmployee.SelectedValue,
+                    PaymentMethod = PaymentMethod.CreditCard,
+                    TotalValue = 0,
+                    TransactionLines = new List<TransactionLine>()
+                };
+                await handler.AddTransaction(transaction);
+                NewTransactionForm newTransaction = new NewTransactionForm();
+                newTransaction.Show();
+            }
+            else
+            {
+                //create new customer
+            }
+        }
     }
 }

@@ -75,6 +75,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
             ItemType itemType = _itemRepo.GetById(transLine.ItemID).ItemType;
             int qnt = transLine.Quantity;
             decimal discount = 0;
+
             if (itemType == ItemType.Fuel && (itemPrice * qnt) > 20)
             {
                 discount = 0.2m;
@@ -84,6 +85,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
             {
                 percent = 20;
             }
+
             TransactionLine newTransLine = new()
             {
                 TransactionID = transLine.TransactionID,

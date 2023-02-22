@@ -132,7 +132,7 @@
             this.grvTransLine.RowTemplate.Height = 25;
             this.grvTransLine.Size = new System.Drawing.Size(981, 185);
             this.grvTransLine.TabIndex = 17;
-            this.grvTransLine.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridView1_CellValidating);
+            this.grvTransLine.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.grvTransLine_CellValidating);
             // 
             // clmID
             // 

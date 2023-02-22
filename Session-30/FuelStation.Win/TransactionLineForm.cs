@@ -107,7 +107,7 @@ namespace FuelStation.Win
             }
         }
         #endregion
-        private void dataGridView1_CellValidating(object sender,
+        private void grvTransLine_CellValidating(object sender,
                                                DataGridViewCellValidatingEventArgs e)
         {
             if (e.ColumnIndex == 3)

@@ -39,6 +39,7 @@
             this.bsTransaction = new System.Windows.Forms.BindingSource(this.components);
             this.txtCardNumber = new System.Windows.Forms.TextBox();
             this.btnNew = new System.Windows.Forms.Button();
+            this.cmbEmployee = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransaction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsTransaction)).BeginInit();
             this.SuspendLayout();
@@ -115,12 +116,22 @@
             this.btnNew.TabIndex = 2;
             this.btnNew.Text = "New";
             this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // cmbEmployee
+            // 
+            this.cmbEmployee.FormattingEnabled = true;
+            this.cmbEmployee.Location = new System.Drawing.Point(302, 259);
+            this.cmbEmployee.Name = "cmbEmployee";
+            this.cmbEmployee.Size = new System.Drawing.Size(143, 23);
+            this.cmbEmployee.TabIndex = 3;
             // 
             // TransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cmbEmployee);
             this.Controls.Add(this.btnNew);
             this.Controls.Add(this.txtCardNumber);
             this.Controls.Add(this.grvTransaction);
@@ -138,13 +149,14 @@
 
         private DataGridView grvTransaction;
         private BindingSource bsTransaction;
+        private TextBox txtCardNumber;
+        private Button btnNew;
         private DataGridViewTextBoxColumn clmID;
         private DataGridViewTextBoxColumn clmDate;
         private DataGridViewTextBoxColumn clmEmployeeID;
         private DataGridViewComboBoxColumn clmCustomerID;
         private DataGridViewComboBoxColumn clmPaymentMethod;
         private DataGridViewTextBoxColumn clmTotalValue;
-        private TextBox txtCardNumber;
-        private Button btnNew;
+        private ComboBox cmbEmployee;
     }
 }

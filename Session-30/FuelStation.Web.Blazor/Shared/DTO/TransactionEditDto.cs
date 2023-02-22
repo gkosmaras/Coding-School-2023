@@ -1,4 +1,5 @@
 ﻿using FuelStation.Model.Enums;
+using FuelStation.Model.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace FuelStation.Web.Blazor.Shared.DTO
         public DateTime Date { get; set; }
         public int CustomerID { get; set; }
         public int EmployeeID { get; set; }
-        public decimal TotalValue { get; set; }
+        public decimal? TotalValue { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
-        public List<TransactionLineEditDto> TransactionLines { get; set; }
+        public List<TransactionLine> TransactionLines { get; set; } = null!;
     }
 }
