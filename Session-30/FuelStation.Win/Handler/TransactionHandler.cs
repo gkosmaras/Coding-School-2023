@@ -35,7 +35,7 @@ namespace FuelStation.Win.Handler
         public async Task EditTransaction(TransactionEditDto transaction)
         {
             HttpClient httpClient = new HttpClient();
-            var response = await httpClient.PutAsJsonAsync("https://localhost:7209/transaction", transaction);
+            var response = await httpClient.PutAsJsonAsync("https://localhost:7209/Transaction", transaction);
             if (!response.IsSuccessStatusCode)
             {
                 MessageBox.Show("FailureEdit", "Error", MessageBoxButtons.OK);

@@ -28,8 +28,9 @@ namespace FuelStation.Win
         }
         private void NewTransactionForm_Load(object sender, EventArgs e)
         {
-            SetControlProperties();
+            
             PopulateGrid();
+            SetControlProperties();
         }
         private async Task PopulateGrid()
         {
@@ -54,6 +55,7 @@ namespace FuelStation.Win
             cmbItem.DisplayMember = "Description";
             cmbItem.ValueMember = "ID";
 
+            grvTransLine.AutoGenerateColumns = false;
             nudQuantity.Controls.RemoveAt(0);
             grvTransLine.Columns["clmTransID"].ReadOnly = true;
             grvTransLine.Columns["clmPrice"].ReadOnly = true;
@@ -80,7 +82,7 @@ namespace FuelStation.Win
                 Quantity = qnt
             };
             SetPayment();
-            Task<bool> task = CheckFuel();
+            Task<bool> task = CheckFuel(itemId);
             bool result = await task;
             if (!result)
             {
@@ -135,16 +137,23 @@ namespace FuelStation.Win
             }
         }
 
-        private async Task<bool> CheckFuel()
+        private async Task<bool> CheckFuel(int id)
         {
             var result = true;
-            var dbTransLines = await handler.PopulateDataGridView();
             var dbItems = await itHandler.PopulateDataGridView();
-            var lines = dbTransLines.Where(tLines => tLines.TransactionID == transID).Select(x => x.ItemID).ToList();
-            var fuels = dbItems.Where(it => it.ItemType == ItemType.Fuel).Select(x => x.ID).ToList();
-            if (lines.Intersect(fuels).Any())
+            var fuels = dbItems
+                .Where(it => it.ItemType == ItemType.Fuel)
+                .Select(x => x.ID);
+            if (fuels.Contains(id))
             {
-                result = false;
+                var dbTransLines = await handler.PopulateDataGridView();
+                var lines = dbTransLines
+                    .Where(tLines => tLines.TransactionID == transID)
+                    .Select(x => x.ItemID);
+                if (lines.Intersect(fuels).Any())
+                {
+                    result = false;
+                }
             }
             return result;
         }

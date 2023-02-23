@@ -4,6 +4,7 @@ using FuelStation.Model.Transactions;
 using FuelStation.Web.Blazor.Shared.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FuelStation.Web.Blazor.Server.Controllers
 {

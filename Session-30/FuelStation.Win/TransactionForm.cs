@@ -90,7 +90,9 @@ namespace FuelStation.Win
             }
             else
             {
-                // TODO: create new customer
+                CreateCustomerForm createCustomer = new CreateCustomerForm();
+                createCustomer.FormClosing += new FormClosingEventHandler(this.CreateCustomerForm_FormClosing);
+                createCustomer.Show();
             }
         }
 
@@ -113,5 +115,13 @@ namespace FuelStation.Win
         {
             await PopulateGrid();
         }
+        private async void CreateCustomerForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var dbCustomers = await cusHandler.PopulateDataGridView();
+            string cusCard = dbCustomers.Last().CardNumber;
+            txtCardNumber.Text = cusCard;
+            btnNew.PerformClick();
+        }
+        
     }
 }

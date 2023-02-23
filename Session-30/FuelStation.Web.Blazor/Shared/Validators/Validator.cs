@@ -192,7 +192,10 @@ namespace FuelStation.Web.Blazor.Shared.Validators
         public int ExistingCustomer(string code)
         {
             var id = 0;
-            id = context.Customers.SingleOrDefault(cus => cus.CardNumber == code).ID;
+            if (code != "")
+            {
+                id = context.Customers.SingleOrDefault(cus => cus.CardNumber == code).ID;
+            }
             return id;
         }
     }

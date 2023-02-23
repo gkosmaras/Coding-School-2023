@@ -36,6 +36,7 @@ namespace FuelStation.Win
         private async Task PopulateGrid()
         {
             bsTransLine.DataSource = await handler.PopulateDataGridView();
+            grvTransLine.DataSource = null;
             grvTransLine.DataSource = bsTransLine;
         }
         private async void SetControlProperties()
@@ -50,6 +51,7 @@ namespace FuelStation.Win
             cmbItem.DisplayMember = "Description";
             cmbItem.ValueMember = "ID";
 
+            grvTransLine.AutoGenerateColumns = false;
             nudQuantity.Controls.RemoveAt(0);
             grvTransLine.Columns["clmTransID"].ReadOnly = true;
             grvTransLine.Columns["clmPrice"].ReadOnly = true;
@@ -79,8 +81,10 @@ namespace FuelStation.Win
             };
             textBox1.Text = "";
             nudQuantity.Value = 0;
-            bsTransLine.Add(transLine);
-            handler.AddTransactionLine(transLine);
+            //bsTransLine.Add(transLine);
+            await handler.AddTransactionLine(transLine);
+            await PopulateGrid();
+            //SetControlProperties();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
