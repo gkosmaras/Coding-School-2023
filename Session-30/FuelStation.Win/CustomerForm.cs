@@ -49,7 +49,6 @@ namespace FuelStation.Win
                 var lastDate = dbTransactions
                     .Where(trans => trans.CustomerID == customer.ID)
                     .Select(x => x.Date);
-                    //.Max();
                 var total = dbTransactions
                     .Where(trans => trans.CustomerID == customer.ID)
                     .Sum(x => x.TotalValue);

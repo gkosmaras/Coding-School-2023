@@ -174,7 +174,7 @@ namespace FuelStation.Web.Blazor.Shared.Validators
         public bool ValidateCode(int code, int oldCode)
         {
             bool result = true;
-            if (oldCode == null)
+            if (oldCode == 0)
             {
                 result = false;
             }

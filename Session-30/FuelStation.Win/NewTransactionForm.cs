@@ -49,7 +49,6 @@ namespace FuelStation.Win
             colbox.ValueMember = "ID";
 
             var dbTransactions = await transHandler.PopulateDataGridView();
-            int transID = TransactionForm.transID;
 
             cmbItem.DataSource = new BindingSource(dbItems, null);
             cmbItem.DisplayMember = "Description";
@@ -67,6 +66,7 @@ namespace FuelStation.Win
             lblPayment.Text = "";
         }
 
+        #region Buttons
         private async void btnSave_Click(object sender, EventArgs e)
         {
             int transID = TransactionForm.transID;
@@ -126,6 +126,7 @@ namespace FuelStation.Win
             transID = 0;
             this.Close();
         }
+        #endregion
 
         #region Methods
         private async void SetPayment()
