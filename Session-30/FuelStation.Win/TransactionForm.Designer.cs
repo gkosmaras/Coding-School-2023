@@ -32,7 +32,7 @@
             this.grvTransaction = new System.Windows.Forms.DataGridView();
             this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmEmployeeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmEmployeeID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmCustomerID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmPaymentMethod = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmTotalValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,6 +60,7 @@
             this.grvTransaction.RowTemplate.Height = 25;
             this.grvTransaction.Size = new System.Drawing.Size(691, 111);
             this.grvTransaction.TabIndex = 0;
+            this.grvTransaction.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grvTransaction_DataError);
             // 
             // clmID
             // 
@@ -79,6 +80,7 @@
             this.clmEmployeeID.HeaderText = "Employee ID";
             this.clmEmployeeID.Name = "clmEmployeeID";
             this.clmEmployeeID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmEmployeeID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // clmCustomerID
             // 
@@ -163,13 +165,13 @@
         private BindingSource bsTransaction;
         private TextBox txtCardNumber;
         private Button btnNew;
+        private ComboBox cmbEmployee;
+        private Button btnDelete;
         private DataGridViewTextBoxColumn clmID;
         private DataGridViewTextBoxColumn clmDate;
-        private DataGridViewTextBoxColumn clmEmployeeID;
+        private DataGridViewComboBoxColumn clmEmployeeID;
         private DataGridViewComboBoxColumn clmCustomerID;
         private DataGridViewComboBoxColumn clmPaymentMethod;
         private DataGridViewTextBoxColumn clmTotalValue;
-        private ComboBox cmbEmployee;
-        private Button btnDelete;
     }
 }

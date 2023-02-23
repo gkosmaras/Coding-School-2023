@@ -56,15 +56,18 @@ namespace FuelStation.Win
             cmbEmployee.DisplayMember = "Name";
             cmbEmployee.ValueMember = "ID";
 
-            // TODO: get employee combobox to work
-/*            var dbEmployees = await eeHandler.PopulateDataGridView();
+            // HACK: not sure if that DataError solution is stable
             DataGridViewComboBoxColumn colboxEmployee = grvTransaction.Columns["clmEmployeeID"] as DataGridViewComboBoxColumn;
             colboxEmployee.DataSource = new BindingSource(dbEmployees, null);
             colboxEmployee.DisplayMember = "Name";
-            colboxEmployee.ValueMember = "ID";*/
-
+            colboxEmployee.ValueMember = "ID";
 
             grvTransaction.Columns["clmID"].Visible = false;
+        }
+
+        private void grvTransaction_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.Cancel = true;
         }
         private async void btnNew_Click(object sender, EventArgs e)
         {

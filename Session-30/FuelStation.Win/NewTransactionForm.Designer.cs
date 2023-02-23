@@ -49,6 +49,7 @@
             this.radCash = new System.Windows.Forms.RadioButton();
             this.radCard = new System.Windows.Forms.RadioButton();
             this.lblPayment = new System.Windows.Forms.Label();
+            this.btnEdit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransLine)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsNewTransaction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
@@ -174,7 +175,7 @@
             // 
             // btnDone
             // 
-            this.btnDone.Location = new System.Drawing.Point(469, 297);
+            this.btnDone.Location = new System.Drawing.Point(469, 340);
             this.btnDone.Name = "btnDone";
             this.btnDone.Size = new System.Drawing.Size(181, 34);
             this.btnDone.TabIndex = 24;
@@ -213,11 +214,22 @@
             this.lblPayment.TabIndex = 27;
             this.lblPayment.Text = "Payments over 50€ must be made with cash";
             // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(469, 289);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(181, 34);
+            this.btnEdit.TabIndex = 28;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
             // NewTransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.lblPayment);
             this.Controls.Add(this.radCard);
             this.Controls.Add(this.radCash);
@@ -261,5 +273,6 @@
         private RadioButton radCash;
         private RadioButton radCard;
         private Label lblPayment;
+        private Button btnEdit;
     }
 }

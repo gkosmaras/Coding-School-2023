@@ -33,6 +33,7 @@ namespace FuelStation.Win
         }
         private async Task PopulateGrid()
         {
+            lblPayment.Visible = false;
             var lines = await handler.PopulateDataGridView();
             bsNewTransaction.DataSource = lines.Where(tLines => tLines.TransactionID == transID);
             grvTransLine.DataSource = null;
@@ -54,7 +55,6 @@ namespace FuelStation.Win
             cmbItem.ValueMember = "ID";
 
             nudQuantity.Controls.RemoveAt(0);
-            lblPayment.Visible = false;
             grvTransLine.Columns["clmTransID"].ReadOnly = true;
             grvTransLine.Columns["clmPrice"].ReadOnly = true;
             grvTransLine.Columns["clmValue"].ReadOnly = true;
@@ -95,16 +95,22 @@ namespace FuelStation.Win
             }
         }
 
-        private async void btnDone_Click(object sender, EventArgs e)
+        private async void btnEdit_Click(object sender, EventArgs e)
         {
-            var lines = await handler.PopulateDataGridView();
-            decimal sum = lines.Where(x => x.TransactionID == transID).Sum(x => x.TotalValue);
-            if (radCard.Checked == true && sum > 50)
+            TransactionLineEditDto transLine = (TransactionLineEditDto)bsNewTransaction.Current;
+            if (transLine.Quantity <= 0)
             {
-                MessageBox.Show("Payments over 50€ must be made with cash", "Warning", MessageBoxButtons.OK);
+                MessageBox.Show("Enter a meaningfull quantity of products", "Error", MessageBoxButtons.OK);
                 return;
             }
-            else if (radCard.Checked == true)
+            await handler.EditTransactionLine(transLine);
+            await PopulateGrid();
+
+        }
+
+        private async void btnDone_Click(object sender, EventArgs e)
+        {
+            if (radCard.Checked == true)
             {
                 TransactionEditDto dbTransaction = await transHandler.GetTransaction(transID);
                 dbTransaction.PaymentMethod = PaymentMethod.CreditCard;

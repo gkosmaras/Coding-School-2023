@@ -30,7 +30,7 @@ namespace FuelStation.EF.Configurations
                 .WithMany(trans => trans.TransactionLines)
                 .HasForeignKey(transLine => transLine.TransactionID)
                 .IsRequired(true)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Cascade); 
             builder.HasOne(transLine => transLine.Item)
                 .WithMany(it => it.TransactionLines)
                 .HasForeignKey(transLine => transLine.ItemID)
