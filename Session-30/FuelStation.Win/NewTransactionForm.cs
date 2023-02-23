@@ -63,18 +63,6 @@ namespace FuelStation.Win
             grvTransLine.Columns["clmTotal"].ReadOnly = true;
             grvTransLine.Columns["clmID"].Visible = false;
         }
-        private async void SetPayment()
-        {
-            var dbTransLines = await handler.PopulateDataGridView();
-            var lines = dbTransLines.Where(tLines => tLines.TransactionID == transID);
-            if (lines.Select(x => x.TotalValue).Sum() > 50)
-            {
-                radCard.Enabled = false;
-                lblPayment.Visible = true;
-                radCard.Checked = false;
-                radCash.Checked = true;
-            }
-        }
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
@@ -92,9 +80,19 @@ namespace FuelStation.Win
                 Quantity = qnt
             };
             SetPayment();
-            await handler.AddTransactionLine(transLine);
-            nudQuantity.Value = 0;
-            await PopulateGrid();
+            Task<bool> task = CheckFuel();
+            bool result = await task;
+            if (!result)
+            {
+                MessageBox.Show("Only one fuel item allowed", "Warning", MessageBoxButtons.OK);
+                return;
+            }
+            else
+            {
+                await handler.AddTransactionLine(transLine);
+                nudQuantity.Value = 0;
+                await PopulateGrid();
+            }
         }
 
         private async void btnDone_Click(object sender, EventArgs e)
@@ -116,5 +114,34 @@ namespace FuelStation.Win
             }
             this.Close();
         }
+
+        #region Methods
+        private async void SetPayment()
+        {
+            var dbTransLines = await handler.PopulateDataGridView();
+            var lines = dbTransLines.Where(tLines => tLines.TransactionID == transID);
+            if (lines.Select(x => x.TotalValue).Sum() > 50)
+            {
+                radCard.Enabled = false;
+                lblPayment.Visible = true;
+                radCard.Checked = false;
+                radCash.Checked = true;
+            }
+        }
+
+        private async Task<bool> CheckFuel()
+        {
+            var result = true;
+            var dbTransLines = await handler.PopulateDataGridView();
+            var dbItems = await itHandler.PopulateDataGridView();
+            var lines = dbTransLines.Where(tLines => tLines.TransactionID == transID).Select(x => x.ItemID).ToList();
+            var fuels = dbItems.Where(it => it.ItemType == ItemType.Fuel).Select(x => x.ID).ToList();
+            if (lines.Intersect(fuels).Any())
+            {
+                result = false;
+            }
+            return result;
+        }
+        #endregion
     }
 }
