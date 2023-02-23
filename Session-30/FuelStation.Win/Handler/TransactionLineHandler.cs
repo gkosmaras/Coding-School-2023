@@ -1,4 +1,5 @@
 ﻿using FuelStation.Web.Blazor.Shared.DTO;
+using FuelStation.Web.Blazor.Shared.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace FuelStation.Win.Handler
 {
     public class TransactionLineHandler
     {
+        private Validator validator = new Validator();
         public async Task<IEnumerable<TransactionLineEditDto>> PopulateDataGridView()
         {
             HttpClient httpClient = new HttpClient();
@@ -29,10 +31,15 @@ namespace FuelStation.Win.Handler
         public async Task EditTransactionLine(TransactionLineEditDto transLine)
         {
             HttpClient httpClient = new HttpClient();
-            var response = await httpClient.PutAsJsonAsync("https://localhost:7209/transactionLine", transLine);
-            if (!response.IsSuccessStatusCode)
+            var responseOriginal = await httpClient.GetAsync($"https://localhost:7209/TransactionLine/{transLine.ID}");
+            var data = await responseOriginal.Content.ReadAsAsync<TransactionLineEditDto>();
+            if (validator.ValidateFuel(transLine.ItemID, data.ItemID))
             {
-                MessageBox.Show("FailureEdit", "Error", MessageBoxButtons.OK);
+                var response = await httpClient.PutAsJsonAsync("https://localhost:7209/TransactionLine", transLine);
+            }
+            else
+            {
+                MessageBox.Show("Only one fuel item allowed", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

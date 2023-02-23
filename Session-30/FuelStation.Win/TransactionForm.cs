@@ -18,6 +18,7 @@ namespace FuelStation.Win
 {
     public partial class TransactionForm : Form
     {
+        // TODO: add edit transactions
         private TransactionHandler handler = new TransactionHandler();
         private CustomerHandler cusHandler = new CustomerHandler();
         private EmployeeHandler eeHandler = new EmployeeHandler();

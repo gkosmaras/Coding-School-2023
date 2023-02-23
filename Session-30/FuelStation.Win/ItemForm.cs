@@ -20,6 +20,7 @@ namespace FuelStation.Win
 {
     public partial class ItemForm : Form
     {
+        // TODO: add details, as per Customer form
         private Validator validator = new Validator();
         private ItemHandler handler = new ItemHandler();
         public ItemForm()

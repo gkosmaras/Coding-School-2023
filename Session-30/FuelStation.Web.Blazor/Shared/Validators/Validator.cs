@@ -198,5 +198,17 @@ namespace FuelStation.Web.Blazor.Shared.Validators
             }
             return id;
         }
+
+        public bool ValidateFuel(int Id, int oldId)
+        {
+            bool result = true;
+            if (Id != oldId)
+            {
+                var newItem = context.Items.SingleOrDefault(it => it.ID == Id).ItemType;
+                var oldItem = context.Items.SingleOrDefault(it => it.ID == oldId).ItemType;
+                result = false;
+            }
+            return result;
+        }
     }
 }

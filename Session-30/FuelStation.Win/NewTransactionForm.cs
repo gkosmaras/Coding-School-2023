@@ -18,6 +18,7 @@ namespace FuelStation.Win
 {
     public partial class NewTransactionForm : Form
     {
+        // TODO: add edit capabilities for lines
         private ItemHandler itHandler = new ItemHandler();
         private TransactionLineHandler handler = new TransactionLineHandler();
         private TransactionHandler transHandler = new TransactionHandler();
@@ -86,7 +87,7 @@ namespace FuelStation.Win
             bool result = await task;
             if (!result)
             {
-                MessageBox.Show("Only one fuel item allowed", "Warning", MessageBoxButtons.OK);
+                MessageBox.Show("Only one fuel item allowed", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -102,7 +103,7 @@ namespace FuelStation.Win
             TransactionLineEditDto transLine = (TransactionLineEditDto)bsNewTransaction.Current;
             if (transLine.Quantity <= 0)
             {
-                MessageBox.Show("Enter a meaningfull quantity of products", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("Enter a meaningfull quantity of products", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             await handler.EditTransactionLine(transLine);

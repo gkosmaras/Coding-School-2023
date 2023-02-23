@@ -60,10 +60,7 @@ namespace FuelStation.Win
                     lblTotal.Text = $"Total transactions value: {total}€";
                     lblDate.Text = $"Last purchase date: {lastDate.Max()}";
                 }
-                
-                //lblDate.Text = $"Date of last purchase: {lastDate}";
             }
-            
         }
 
 
