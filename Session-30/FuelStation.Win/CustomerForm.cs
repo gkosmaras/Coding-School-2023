@@ -8,6 +8,7 @@ namespace FuelStation.Win
     {
         private Validator validator = new Validator();
         private CustomerHandler handler = new CustomerHandler();
+        private TransactionHandler transHandler = new TransactionHandler();
         public CustomerForm()
         {
             InitializeComponent();
@@ -26,9 +27,45 @@ namespace FuelStation.Win
         }
         private void SetControlProperties()
         {
+            grvCustomer.AutoGenerateColumns = false;
             grvCustomer.Columns["clmID"].Visible = false;
             grvCustomer.Columns["clmCardNumber"].ReadOnly = true;
+            lblName.Text = "";
+            lblTotal.Text = "";
+            lblDate.Text = "";
         }
+
+        private async void grvCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var row = grvCustomer.CurrentRow;
+            var customer = (CustomerEditDto)row.DataBoundItem;
+            if (customer != null)
+            {
+                var dbTransactions = await transHandler.PopulateDataGridView();
+                var lastDate = dbTransactions
+                    .Where(trans => trans.CustomerID == customer.ID)
+                    .Select(x => x.Date);
+                    //.Max();
+                var total = dbTransactions
+                    .Where(trans => trans.CustomerID == customer.ID)
+                    .Sum(x => x.TotalValue);
+                lblName.Text = $"Details for {customer.Name} {customer.Surname}";
+                if (total == 0)
+                {
+                    lblTotal.Text = "This customer has no transactions";
+                    
+                }
+                else
+                {
+                    lblTotal.Text = $"Total transactions value: {total}€";
+                    lblDate.Text = $"Last purchase date: {lastDate.Max()}";
+                }
+                
+                //lblDate.Text = $"Date of last purchase: {lastDate}";
+            }
+            
+        }
+
 
         #region Buttons
         private void btnCreate_Click(object sender, EventArgs e)
@@ -36,8 +73,6 @@ namespace FuelStation.Win
             CreateCustomerForm newCustomer = new CreateCustomerForm();
             newCustomer.FormClosing += new FormClosingEventHandler(this.CreateCustomerForm_FormClosing);
             newCustomer.ShowDialog();
-            
-            
         }
 
         private async void btnEdit_Click(object sender, EventArgs e)
@@ -65,6 +100,11 @@ namespace FuelStation.Win
             {
                 return;
             }
+        }
+
+        private async void btnRefresh_Click(object sender, EventArgs e)
+        {
+            await PopulateGrid();
         }
 
         private async void CreateCustomerForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -35,6 +35,7 @@ namespace FuelStation.Win
         private async Task PopulateGrid()
         {
             bsTransaction.DataSource = await handler.PopulateDataGridView();
+            grvTransaction.DataSource = null;
             grvTransaction.DataSource = bsTransaction;
         }
         private async void SetControlProperties()
@@ -62,6 +63,7 @@ namespace FuelStation.Win
             colboxEmployee.DisplayMember = "Name";
             colboxEmployee.ValueMember = "ID";
 
+            grvTransaction.AutoGenerateColumns = false;
             grvTransaction.Columns["clmID"].Visible = false;
         }
 
@@ -79,7 +81,6 @@ namespace FuelStation.Win
                 {
                     CustomerID = id,
                     EmployeeID = (int)cmbEmployee.SelectedValue,
-                    PaymentMethod = PaymentMethod.Cash,
                     TotalValue = 0,
                     TransactionLines = new List<TransactionLine>()
                 };
@@ -103,7 +104,7 @@ namespace FuelStation.Win
             {
                 int id = (int)grvTransaction.CurrentRow.Cells["clmID"].Value;
                 await handler.DeleteTransaction(id);
-                bsTransaction.RemoveCurrent();
+                await PopulateGrid();
             }
             else
             {
@@ -114,6 +115,7 @@ namespace FuelStation.Win
         private async void NewTransactionForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             await PopulateGrid();
+            // TODO: after completing transaction with new customer refresh correctly
         }
         private async void CreateCustomerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -122,6 +124,5 @@ namespace FuelStation.Win
             txtCardNumber.Text = cusCard;
             btnNew.PerformClick();
         }
-        
     }
 }
