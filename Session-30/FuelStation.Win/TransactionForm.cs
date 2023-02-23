@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FuelStation.Win
 {
@@ -23,10 +24,13 @@ namespace FuelStation.Win
         private CustomerHandler cusHandler = new CustomerHandler();
         private EmployeeHandler eeHandler = new EmployeeHandler();
         private Validator validator = new Validator();
+        public static int transID;
+
         public TransactionForm()
         {
             InitializeComponent();
         }
+
         private void TransactionForm_load(object sender, EventArgs e)
         {
             SetControlProperties();
@@ -39,6 +43,7 @@ namespace FuelStation.Win
             grvTransaction.DataSource = null;
             grvTransaction.DataSource = bsTransaction;
         }
+
         private async void SetControlProperties()
         {
             DataGridViewComboBoxColumn colboxPay = grvTransaction.Columns["clmPaymentMethod"] as DataGridViewComboBoxColumn;
@@ -66,12 +71,16 @@ namespace FuelStation.Win
 
             grvTransaction.AutoGenerateColumns = false;
             grvTransaction.Columns["clmID"].Visible = false;
+            grvTransaction.Columns["clmDate"].ReadOnly = true;
+            grvTransaction.Columns["clmTotalValue"].ReadOnly = true;
         }
 
         private void grvTransaction_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             e.Cancel = true;
         }
+
+        #region Buttons
         private async void btnNew_Click(object sender, EventArgs e)
         {
             
@@ -86,9 +95,9 @@ namespace FuelStation.Win
                     TransactionLines = new List<TransactionLine>()
                 };
                 await handler.AddTransaction(transaction);
-                NewTransactionForm newTransaction = new NewTransactionForm();
-                newTransaction.FormClosing += new FormClosingEventHandler(this.NewTransactionForm_FormClosing);
-                newTransaction.Show();
+                var dbTrasnactions = await handler.PopulateDataGridView();
+                transID = dbTrasnactions.Last().ID;
+                TransactionDetails();
             }
             else
             {
@@ -112,9 +121,23 @@ namespace FuelStation.Win
                 return;
             }
         }
+        #endregion
 
+        private void grvTransaction_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            transID = (int)grvTransaction.CurrentRow.Cells["clmID"].Value;
+            TransactionDetails();
+        }
+        private void TransactionDetails()
+        {
+            NewTransactionForm newTransaction = new NewTransactionForm();
+            newTransaction.FormClosing += new FormClosingEventHandler(this.NewTransactionForm_FormClosing);
+            newTransaction.Show();
+        }
         private async void NewTransactionForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            txtCardNumber.Text = "";
+            transID = 0;
             await PopulateGrid();
             // TODO: after completing transaction with new customer refresh correctly
         }

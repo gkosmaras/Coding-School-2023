@@ -9,15 +9,18 @@ namespace FuelStation.Win
         private Validator validator = new Validator();
         private CustomerHandler handler = new CustomerHandler();
         private TransactionHandler transHandler = new TransactionHandler();
+
         public CustomerForm()
         {
             InitializeComponent();
         }
+
         private async void CustomerForm_Load(object sender, EventArgs e)
         {
             SetControlProperties();
             await PopulateGrid();
         }
+
         private async Task PopulateGrid()
         {
 
@@ -25,6 +28,7 @@ namespace FuelStation.Win
             grvCustomer.DataSource = null;
             grvCustomer.DataSource = bsCustomer;
         }
+
         private void SetControlProperties()
         {
             grvCustomer.AutoGenerateColumns = false;
@@ -62,7 +66,6 @@ namespace FuelStation.Win
                 }
             }
         }
-
 
         #region Buttons
         private void btnCreate_Click(object sender, EventArgs e)

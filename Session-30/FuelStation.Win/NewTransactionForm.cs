@@ -18,11 +18,9 @@ namespace FuelStation.Win
 {
     public partial class NewTransactionForm : Form
     {
-        // TODO: add edit capabilities for lines
         private ItemHandler itHandler = new ItemHandler();
         private TransactionLineHandler handler = new TransactionLineHandler();
         private TransactionHandler transHandler = new TransactionHandler();
-        private static int transID;
         public NewTransactionForm()
         {
             InitializeComponent();
@@ -35,6 +33,7 @@ namespace FuelStation.Win
         }
         private async Task PopulateGrid()
         {
+            int transID = TransactionForm.transID;
             lblPayment.Visible = false;
             var lines = await handler.PopulateDataGridView();
             bsNewTransaction.DataSource = lines.Where(tLines => tLines.TransactionID == transID);
@@ -50,7 +49,7 @@ namespace FuelStation.Win
             colbox.ValueMember = "ID";
 
             var dbTransactions = await transHandler.PopulateDataGridView();
-            transID = dbTransactions.Last().ID;
+            int transID = TransactionForm.transID;
 
             cmbItem.DataSource = new BindingSource(dbItems, null);
             cmbItem.DisplayMember = "Description";
@@ -65,10 +64,12 @@ namespace FuelStation.Win
             grvTransLine.Columns["clmDiscount"].ReadOnly = true;
             grvTransLine.Columns["clmTotal"].ReadOnly = true;
             grvTransLine.Columns["clmID"].Visible = false;
+            lblPayment.Text = "";
         }
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
+            int transID = TransactionForm.transID;
             int itemId = (int)cmbItem.SelectedValue;
             int qnt = (int)nudQuantity.Value;
             if (qnt <= 0)
@@ -82,7 +83,6 @@ namespace FuelStation.Win
                 ItemID = itemId,
                 Quantity = qnt
             };
-            SetPayment();
             Task<bool> task = CheckFuel(itemId);
             bool result = await task;
             if (!result)
@@ -93,6 +93,7 @@ namespace FuelStation.Win
             else
             {
                 await handler.AddTransactionLine(transLine);
+                SetPayment();
                 nudQuantity.Value = 0;
                 await PopulateGrid();
             }
@@ -113,6 +114,7 @@ namespace FuelStation.Win
 
         private async void btnDone_Click(object sender, EventArgs e)
         {
+            int transID = TransactionForm.transID;
             if (radCard.Checked == true)
             {
                 TransactionEditDto dbTransaction = await transHandler.GetTransaction(transID);
@@ -121,18 +123,20 @@ namespace FuelStation.Win
                 // TODO: fix failure edit
                 await transHandler.EditTransaction(dbTransaction);
             }
+            transID = 0;
             this.Close();
         }
 
         #region Methods
         private async void SetPayment()
         {
+            int transID = TransactionForm.transID;
             var dbTransLines = await handler.PopulateDataGridView();
             var lines = dbTransLines.Where(tLines => tLines.TransactionID == transID);
             if (lines.Select(x => x.TotalValue).Sum() > 50)
             {
                 radCard.Enabled = false;
-                lblPayment.Visible = true;
+                lblPayment.Text = "Payments over 50€ must be made with cash";
                 radCard.Checked = false;
                 radCash.Checked = true;
             }
@@ -140,6 +144,7 @@ namespace FuelStation.Win
 
         private async Task<bool> CheckFuel(int id)
         {
+            int transID = TransactionForm.transID;
             var result = true;
             var dbItems = await itHandler.PopulateDataGridView();
             var fuels = dbItems

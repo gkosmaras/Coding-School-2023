@@ -210,9 +210,9 @@
             this.lblPayment.AutoSize = true;
             this.lblPayment.Location = new System.Drawing.Point(224, 279);
             this.lblPayment.Name = "lblPayment";
-            this.lblPayment.Size = new System.Drawing.Size(238, 15);
+            this.lblPayment.Size = new System.Drawing.Size(13, 15);
             this.lblPayment.TabIndex = 27;
-            this.lblPayment.Text = "Payments over 50€ must be made with cash";
+            this.lblPayment.Text = "a";
             // 
             // btnEdit
             // 

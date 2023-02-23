@@ -60,6 +60,7 @@
             this.grvTransaction.RowTemplate.Height = 25;
             this.grvTransaction.Size = new System.Drawing.Size(691, 111);
             this.grvTransaction.TabIndex = 0;
+            this.grvTransaction.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvTransaction_CellContentDoubleClick);
             this.grvTransaction.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grvTransaction_DataError);
             // 
             // clmID
