@@ -31,16 +31,16 @@
             this.components = new System.ComponentModel.Container();
             this.bsCustomer = new System.Windows.Forms.BindingSource(this.components);
             this.grvCustomer = new System.Windows.Forms.DataGridView();
-            this.lblTotal = new System.Windows.Forms.Label();
-            this.lblName = new System.Windows.Forms.Label();
-            this.lblDate = new System.Windows.Forms.Label();
             this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.chkEditMode = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.bsCustomer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomer)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +61,31 @@
             this.grvCustomer.Size = new System.Drawing.Size(348, 188);
             this.grvCustomer.TabIndex = 0;
             this.grvCustomer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvCustomer_CellClick);
+            // 
+            // clmID
+            // 
+            this.clmID.DataPropertyName = "ID";
+            this.clmID.HeaderText = "ID";
+            this.clmID.Name = "clmID";
+            this.clmID.Width = 5;
+            // 
+            // clmName
+            // 
+            this.clmName.DataPropertyName = "Name";
+            this.clmName.HeaderText = "Name";
+            this.clmName.Name = "clmName";
+            // 
+            // clmSurname
+            // 
+            this.clmSurname.DataPropertyName = "Surname";
+            this.clmSurname.HeaderText = "Surname";
+            this.clmSurname.Name = "clmSurname";
+            // 
+            // clmCardNumber
+            // 
+            this.clmCardNumber.DataPropertyName = "CardNumber";
+            this.clmCardNumber.HeaderText = "Card Number";
+            this.clmCardNumber.Name = "clmCardNumber";
             // 
             // lblTotal
             // 
@@ -89,56 +114,18 @@
             this.lblDate.TabIndex = 21;
             this.lblDate.Text = "Date";
             // 
-            // clmID
-            // 
-            this.clmID.DataPropertyName = "ID";
-            this.clmID.HeaderText = "ID";
-            this.clmID.Name = "clmID";
-            this.clmID.Width = 5;
-            // 
-            // clmName
-            // 
-            this.clmName.DataPropertyName = "Name";
-            this.clmName.HeaderText = "Name";
-            this.clmName.Name = "clmName";
-            // 
-            // clmSurname
-            // 
-            this.clmSurname.DataPropertyName = "Surname";
-            this.clmSurname.HeaderText = "Surname";
-            this.clmSurname.Name = "clmSurname";
-            // 
-            // clmCardNumber
-            // 
-            this.clmCardNumber.DataPropertyName = "CardNumber";
-            this.clmCardNumber.HeaderText = "Card Number";
-            this.clmCardNumber.Name = "clmCardNumber";
-            // 
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.Color.ForestGreen;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSave.Location = new System.Drawing.Point(391, 12);
+            this.btnSave.Location = new System.Drawing.Point(391, 77);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(173, 50);
             this.btnSave.TabIndex = 40;
-            this.btnSave.Text = "Create";
+            this.btnSave.Text = "Create New";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnCreate_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.DimGray;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(391, 81);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(173, 50);
-            this.button1.TabIndex = 39;
-            this.button1.Text = "Edit";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // button2
             // 
@@ -153,14 +140,26 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // chkEditMode
+            // 
+            this.chkEditMode.AutoSize = true;
+            this.chkEditMode.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.chkEditMode.Location = new System.Drawing.Point(391, 12);
+            this.chkEditMode.Name = "chkEditMode";
+            this.chkEditMode.Size = new System.Drawing.Size(99, 24);
+            this.chkEditMode.TabIndex = 41;
+            this.chkEditMode.Text = "Edit Mode";
+            this.chkEditMode.UseVisualStyleBackColor = true;
+            this.chkEditMode.CheckedChanged += new System.EventHandler(this.chkEditMode_CheckChanged);
+            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Honeydew;
             this.ClientSize = new System.Drawing.Size(579, 310);
+            this.Controls.Add(this.chkEditMode);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.lblName);
@@ -190,5 +189,6 @@
         private Button btnSave;
         private Button button1;
         private Button button2;
+        private CheckBox chkEditMode;
     }
 }

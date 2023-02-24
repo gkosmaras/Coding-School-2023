@@ -32,6 +32,8 @@ namespace FuelStation.Win
         private void SetControlProperties()
         {
             grvCustomer.AutoGenerateColumns = false;
+            grvCustomer.Columns["clmName"].ReadOnly = true;
+            grvCustomer.Columns["clmSurname"].ReadOnly = true;
             grvCustomer.Columns["clmID"].Visible = false;
             grvCustomer.Columns["clmCardNumber"].ReadOnly = true;
             ClearText();
@@ -47,12 +49,20 @@ namespace FuelStation.Win
         #region Buttons
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            CreateCustomerForm newCustomer = new CreateCustomerForm();
-            newCustomer.FormClosing += new FormClosingEventHandler(this.CreateCustomerForm_FormClosing);
-            newCustomer.ShowDialog();
+            if (chkEditMode.Checked)
+            {
+                btnEdit_Click();
+            }
+            else
+            {
+                CreateCustomerForm newCustomer = new CreateCustomerForm();
+                newCustomer.FormClosing += new FormClosingEventHandler(this.CreateCustomerForm_FormClosing);
+                newCustomer.ShowDialog();
+            }
+
         }
 
-        private async void btnEdit_Click(object sender, EventArgs e)
+        private async void btnEdit_Click()
         {
             CustomerEditDto customer = (CustomerEditDto)bsCustomer.Current;
             if (validator.StringCheck(customer.Name, customer.Surname))
@@ -81,6 +91,22 @@ namespace FuelStation.Win
 
         #endregion
         #region Events
+        private void chkEditMode_CheckChanged(object sender, EventArgs e)
+        {
+            if (chkEditMode.Checked)
+            {
+                btnSave.Text = "Save Edit";
+                grvCustomer.Columns["clmName"].ReadOnly = false;
+                grvCustomer.Columns["clmSurname"].ReadOnly = false;
+            }
+            else
+            {
+                btnSave.Text = "Create New";
+                grvCustomer.Columns["clmName"].ReadOnly = true;
+                grvCustomer.Columns["clmSurname"].ReadOnly = true;
+            }
+        }
+
         private async void grvCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ClearText();
@@ -106,6 +132,14 @@ namespace FuelStation.Win
                     lblTotal.Text = $"Total transactions value: {total}€";
                     lblDate.Text = $"Last purchase date: {lastDate}";
                 }
+            }
+        }
+
+        private async void grvCustomer_CellDoubleClick(object sender , DataGridViewCellEventArgs e)
+        {
+            if (!chkEditMode.Checked)
+            {
+                MessageBox.Show("ok");
             }
         }
 

@@ -174,11 +174,7 @@ namespace FuelStation.Web.Blazor.Shared.Validators
         public bool ValidateCode(int code, int oldCode)
         {
             bool result = true;
-            if (oldCode == 0)
-            {
-                result = false;
-            }
-            else if (code != oldCode)
+            if (code != oldCode)
             {
                 var codes = context.Items.Select(it => it.Code);
                 if (codes.Contains(code))

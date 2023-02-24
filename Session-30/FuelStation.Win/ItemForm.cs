@@ -42,6 +42,7 @@ namespace FuelStation.Win
         private void SetControlProperties()
         {
             grvItem.Columns["clmID"].Visible = false;
+            ReadOnly();
             nudCode.Controls.RemoveAt(0);
             nudPrice.Controls.RemoveAt(0);
             nudPrice.DecimalPlaces = 2;
@@ -57,6 +58,15 @@ namespace FuelStation.Win
             }
         }
 
+        private void ReadOnly()
+        {
+            grvItem.Columns["clmCode"].ReadOnly = true;
+            grvItem.Columns["clmDescription"].ReadOnly = true;
+            grvItem.Columns["clmItemType"].ReadOnly = true;
+            grvItem.Columns["clmPrice"].ReadOnly = true;
+            grvItem.Columns["clmCost"].ReadOnly = true;
+        }
+
         private void ClearText()
         {
             lblDetail.Text = "";
@@ -67,46 +77,53 @@ namespace FuelStation.Win
         #region Buttons
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            string errorMessage = "Succces";
-            if (validator.StringCheck(txtDescription.Text, txtDescription.Text))
+            if (chkEditMode.Checked)
             {
-                MessageBox.Show("Description can not be null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                btnEdit_Click();
             }
-            if (validator.DecCheck(nudPrice.Value, nudCost.Value))
+            else
             {
-                MessageBox.Show("Item's price & cost can not be negative", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (!validator.ValidateAddItem((int)nudCode.Value, out errorMessage))
-            {
-                MessageBox.Show("Item's code already exists", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (cmbType.Text == "")
-            {
-                MessageBox.Show("Choose an item type", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                string errorMessage = "Succces";
+                if (validator.StringCheck(txtDescription.Text, txtDescription.Text))
+                {
+                    MessageBox.Show("Description can not be null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (validator.DecCheck(nudPrice.Value, nudCost.Value))
+                {
+                    MessageBox.Show("Item's price & cost can not be negative", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (!validator.ValidateAddItem((int)nudCode.Value, out errorMessage))
+                {
+                    MessageBox.Show("Item's code already exists", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (cmbType.Text == "")
+                {
+                    MessageBox.Show("Choose an item type", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            ItemEditDto item = new ItemEditDto
-            {
-                Code = (int)nudCode.Value,
-                Description = txtDescription.Text,
-                ItemType = (ItemType)Enum.Parse(typeof(ItemType), cmbType.Text),
-                Price = nudPrice.Value,
-                Cost = nudCost.Value,
-            };
-            nudCode.Value = 0;
-            txtDescription.Text = "";
-            cmbType.SelectedText = "";
-            nudPrice.Value = 0;
-            nudCost.Value = 0;
-            bsItem.Add(item);
-            await handler.AddItem(item);
+                ItemEditDto item = new ItemEditDto
+                {
+                    Code = (int)nudCode.Value,
+                    Description = txtDescription.Text,
+                    ItemType = (ItemType)Enum.Parse(typeof(ItemType), cmbType.Text),
+                    Price = nudPrice.Value,
+                    Cost = nudCost.Value,
+                };
+                nudCode.Value = 0;
+                txtDescription.Text = "";
+                cmbType.SelectedText = "";
+                nudPrice.Value = 0;
+                nudCost.Value = 0;
+                bsItem.Add(item);
+                await handler.AddItem(item);
+            }
         }
 
-        private async void btnEdit_Click(object sender, EventArgs e)
+        private async void btnEdit_Click()
         {
             ItemEditDto item = (ItemEditDto)bsItem.Current;
             if (validator.StringCheck(item.Code.ToString(), item.Description))
@@ -140,6 +157,24 @@ namespace FuelStation.Win
 
         #endregion
         #region Events
+        private void chkEditMode_CheckChanged(object sender, EventArgs e)
+        {
+            if (chkEditMode.Checked)
+            {
+                btnSave.Text = "Save Edit";
+                grvItem.Columns["clmCode"].ReadOnly = false;
+                grvItem.Columns["clmDescription"].ReadOnly = false;
+                grvItem.Columns["clmItemType"].ReadOnly = false;
+                grvItem.Columns["clmPrice"].ReadOnly = false;
+                grvItem.Columns["clmCost"].ReadOnly = false;
+            }
+            else
+            {
+                btnSave.Text = "Save New";
+                ReadOnly();
+            }
+        }
+
         private async void grvItem_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ClearText();
