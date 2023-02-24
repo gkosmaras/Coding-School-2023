@@ -83,6 +83,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
             dbTransaction.CustomerID = transaction.CustomerID;
             dbTransaction.EmployeeID = transaction.EmployeeID;
             dbTransaction.PaymentMethod = transaction.PaymentMethod;
+            dbTransaction.TotalValue = transaction.TransactionLines.Sum(x => x.TotalValue);
             _transactionRepo.Update(transaction.ID, dbTransaction);
         }
 
