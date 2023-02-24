@@ -66,7 +66,6 @@ namespace FuelStation.Win
             grvTransLine.Columns["clmTotal"].ReadOnly = true;
             grvTransLine.Columns["clmID"].Visible = false;
             grvTransLine.Columns["clmTransID"].Visible = false;
-            lblPayment.Text = "";
         }
 
         private void ReadOnly()
@@ -109,10 +108,8 @@ namespace FuelStation.Win
                 {
                     await handler.AddTransactionLine(transLine);
                     nudQuantity.Value = 0;
-                    SetPayment();
                     await PopulateGrid();
                 }
-                SetPayment();
             }
         }
 
@@ -125,21 +122,24 @@ namespace FuelStation.Win
                 return;
             }
             await handler.EditTransactionLine(transLine);
-            SetPayment();
             await PopulateGrid();
         }
 
         private async void btnDone_Click(object sender, EventArgs e)
         {
             int transID = TransactionForm.transID;
+            TransactionEditDto dbTransaction = await transHandler.GetTransaction(transID);
+            dbTransaction.TransactionLines = new List<TransactionLine>();
             if (radCard.Checked == true)
             {
-                TransactionEditDto dbTransaction = await transHandler.GetTransaction(transID);
                 dbTransaction.PaymentMethod = PaymentMethod.CreditCard;
-                dbTransaction.TransactionLines = new List<TransactionLine>();
-                await transHandler.EditTransaction(dbTransaction);
             }
-            if (DialogResult == DialogResult.OK)
+            else
+            {
+                dbTransaction.PaymentMethod = PaymentMethod.Cash;
+            }
+            bool status = await transHandler.EditTransaction(dbTransaction);
+            if (status)
             {
                 transID = 0;
                 this.Close();
@@ -164,23 +164,6 @@ namespace FuelStation.Win
         #endregion
 
         #region Methods
-        private async void SetPayment()
-        {
-/*            int transID = TransactionForm.transID;
-            if (!validator.CheckPayment(transID))
-            {
-                radCard.Enabled = false;
-                lblPayment.Text = "Payments over 50€ must be made with cash";
-                radCard.Checked = false;
-                radCash.Checked = true;
-            }
-            else
-            {
-                radCard.Enabled = true;
-                lblPayment.Text = "";
-            }*/
-        }
-
         private async Task<bool> CheckFuel(int id)
         {
             int transID = TransactionForm.transID;

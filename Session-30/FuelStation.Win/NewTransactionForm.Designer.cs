@@ -44,7 +44,6 @@
             this.nudQuantity = new System.Windows.Forms.NumericUpDown();
             this.radCash = new System.Windows.Forms.RadioButton();
             this.radCard = new System.Windows.Forms.RadioButton();
-            this.lblPayment = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -170,24 +169,12 @@
             // radCard
             // 
             this.radCard.AutoSize = true;
-            this.radCard.Location = new System.Drawing.Point(26, 418);
+            this.radCard.Location = new System.Drawing.Point(26, 401);
             this.radCard.Name = "radCard";
             this.radCard.Size = new System.Drawing.Size(85, 19);
             this.radCard.TabIndex = 26;
             this.radCard.Text = "Credit Card";
             this.radCard.UseVisualStyleBackColor = true;
-            // 
-            // lblPayment
-            // 
-            this.lblPayment.AutoSize = true;
-            this.lblPayment.Font = new System.Drawing.Font("Segoe UI", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.lblPayment.ForeColor = System.Drawing.Color.Maroon;
-            this.lblPayment.Location = new System.Drawing.Point(26, 390);
-            this.lblPayment.MaximumSize = new System.Drawing.Size(1000, 0);
-            this.lblPayment.Name = "lblPayment";
-            this.lblPayment.Size = new System.Drawing.Size(134, 20);
-            this.lblPayment.TabIndex = 27;
-            this.lblPayment.Text = "Payment Warning";
             // 
             // label5
             // 
@@ -271,7 +258,6 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.lblPayment);
             this.Controls.Add(this.radCard);
             this.Controls.Add(this.radCash);
             this.Controls.Add(this.cmbItem);
@@ -296,7 +282,6 @@
         private NumericUpDown nudQuantity;
         private RadioButton radCash;
         private RadioButton radCard;
-        private Label lblPayment;
         private DataGridViewTextBoxColumn clmID;
         private DataGridViewTextBoxColumn clmTransID;
         private DataGridViewComboBoxColumn clmItemID;

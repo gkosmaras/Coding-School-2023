@@ -20,7 +20,6 @@ namespace FuelStation.Win
 {
     public partial class TransactionForm : Form
     {
-        // TODO: add edit transactions
         private TransactionHandler handler = new TransactionHandler();
         private CustomerHandler cusHandler = new CustomerHandler();
         private EmployeeHandler eeHandler = new EmployeeHandler();
@@ -97,7 +96,7 @@ namespace FuelStation.Win
                 };
                 await handler.AddTransaction(transaction);
                 var dbTrasnactions = await handler.PopulateDataGridView();
-                transID = dbTrasnactions.Last().ID;
+                transID = dbTrasnactions.Select(x => x.ID).LastOrDefault();
                 TransactionDetails();
             }
             else
@@ -154,6 +153,7 @@ namespace FuelStation.Win
         {
             var dbCustomers = await cusHandler.PopulateDataGridView();
             string cusCard = dbCustomers.Last().CardNumber;
+            txtCardNumber.Text = cusCard;
             btnNew.PerformClick();
         }
     }

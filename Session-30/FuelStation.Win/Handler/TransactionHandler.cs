@@ -30,15 +30,17 @@ namespace FuelStation.Win.Handler
             var response = await httpClient.PostAsJsonAsync("https://localhost:7209/Transaction", transaction);
             if (!response.IsSuccessStatusCode)
             {
-                MessageBox.Show("FailureAdd", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("FailureAdd", "Error", MessageBoxButtons.OKCancel);
             }
         }
 
-        public async Task EditTransaction(TransactionEditDto transaction)
+        public async Task<bool> EditTransaction(TransactionEditDto transaction)
         {
+            bool status = true;
             if (!validator.CheckPayment(transaction.ID) && transaction.PaymentMethod == Model.Enums.PaymentMethod.CreditCard)
             {
                 MessageBox.Show("Transactions over 50€ can not be paid with card", "Warnign", MessageBoxButtons.OK);
+                status = false;
             }
             else
             {
@@ -49,6 +51,7 @@ namespace FuelStation.Win.Handler
                     MessageBox.Show("FailureEdit", "Error", MessageBoxButtons.OKCancel);
                 }
             }
+            return status;
         }
 
         public async Task DeleteTransaction(int id)
