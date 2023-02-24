@@ -34,7 +34,6 @@ namespace FuelStation.Win
         private async Task PopulateGrid()
         {
             int transID = TransactionForm.transID;
-            lblPayment.Visible = false;
             var lines = await handler.PopulateDataGridView();
             bsNewTransaction.DataSource = lines.Where(tLines => tLines.TransactionID == transID);
             grvTransLine.DataSource = null;
@@ -63,43 +62,57 @@ namespace FuelStation.Win
             grvTransLine.Columns["clmDiscount"].ReadOnly = true;
             grvTransLine.Columns["clmTotal"].ReadOnly = true;
             grvTransLine.Columns["clmID"].Visible = false;
+            grvTransLine.Columns["clmTransID"].Visible = false;
             lblPayment.Text = "";
         }
 
-        #region Buttons
-        private async void btnSave_Click(object sender, EventArgs e)
+        private void ReadOnly()
         {
-            int transID = TransactionForm.transID;
-            int itemId = (int)cmbItem.SelectedValue;
-            int qnt = (int)nudQuantity.Value;
-            if (qnt <= 0)
+            grvTransLine.Columns["clmQuantity"].ReadOnly = true;
+            grvTransLine.Columns["clmItemID"].ReadOnly = true;
+        }
+
+        #region Buttons
+        private async void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (chkEditMode.Checked)
             {
-                MessageBox.Show("Enter a meaningfull quantity of products", "Error", MessageBoxButtons.OK);
-                return;
-            }
-            TransactionLineEditDto transLine = new TransactionLineEditDto
-            {
-                TransactionID = transID,
-                ItemID = itemId,
-                Quantity = qnt
-            };
-            Task<bool> task = CheckFuel(itemId);
-            bool result = await task;
-            if (!result)
-            {
-                MessageBox.Show("Only one fuel item allowed", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                btnEdit_Click();
             }
             else
             {
-                await handler.AddTransactionLine(transLine);
-                SetPayment();
-                nudQuantity.Value = 0;
-                await PopulateGrid();
+                int transID = TransactionForm.transID;
+                int itemId = (int)cmbItem.SelectedValue;
+                int qnt = (int)nudQuantity.Value;
+                if (qnt <= 0)
+                {
+                    MessageBox.Show("Enter a meaningfull quantity of products", "Error", MessageBoxButtons.OK);
+                    return;
+                }
+                TransactionLineEditDto transLine = new TransactionLineEditDto
+                {
+                    TransactionID = transID,
+                    ItemID = itemId,
+                    Quantity = qnt
+                };
+                Task<bool> task = CheckFuel(itemId);
+                bool result = await task;
+                if (!result)
+                {
+                    MessageBox.Show("Only one fuel item allowed", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    await handler.AddTransactionLine(transLine);
+                    SetPayment();
+                    nudQuantity.Value = 0;
+                    await PopulateGrid();
+                }
             }
         }
 
-        private async void btnEdit_Click(object sender, EventArgs e)
+        private async void btnEdit_Click()
         {
             TransactionLineEditDto transLine = (TransactionLineEditDto)bsNewTransaction.Current;
             if (transLine.Quantity <= 0)
@@ -125,6 +138,22 @@ namespace FuelStation.Win
             }
             transID = 0;
             this.Close();
+        }
+        #endregion
+        #region Events
+        private void chkEditMode_CheckChanged(object sender, EventArgs e)
+        {
+            if (chkEditMode.Checked)
+            {
+                btnAdd.Text = "Save Edit";
+                grvTransLine.Columns["clmQuantity"].ReadOnly = false;
+                grvTransLine.Columns["clmItemID"].ReadOnly = false;
+            }
+            else
+            {
+                btnAdd.Text = "Add New";
+                ReadOnly();
+            }
         }
         #endregion
 

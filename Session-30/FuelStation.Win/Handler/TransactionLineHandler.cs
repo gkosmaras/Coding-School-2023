@@ -33,7 +33,7 @@ namespace FuelStation.Win.Handler
             HttpClient httpClient = new HttpClient();
             var responseOriginal = await httpClient.GetAsync($"https://localhost:7209/TransactionLine/{transLine.ID}");
             var data = await responseOriginal.Content.ReadAsAsync<TransactionLineEditDto>();
-            if (validator.ValidateFuel(transLine.ItemID, data.ItemID))
+            if (validator.ValidateFuel(transLine, data.ItemID))
             {
                 var response = await httpClient.PutAsJsonAsync("https://localhost:7209/TransactionLine", transLine);
             }

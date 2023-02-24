@@ -41,15 +41,16 @@
             this.clmTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsNewTransaction = new System.Windows.Forms.BindingSource(this.components);
             this.cmbItem = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.nudQuantity = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnDone = new System.Windows.Forms.Button();
             this.radCash = new System.Windows.Forms.RadioButton();
             this.radCard = new System.Windows.Forms.RadioButton();
             this.lblPayment = new System.Windows.Forms.Label();
-            this.btnEdit = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnDone = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.chkEditMode = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransLine)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsNewTransaction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
@@ -57,6 +58,7 @@
             // 
             // grvTransLine
             // 
+            this.grvTransLine.BackgroundColor = System.Drawing.Color.LightYellow;
             this.grvTransLine.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvTransLine.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmID,
@@ -68,10 +70,12 @@
             this.clmPercent,
             this.clmDiscount,
             this.clmTotal});
+            this.grvTransLine.GridColor = System.Drawing.Color.Black;
             this.grvTransLine.Location = new System.Drawing.Point(26, 26);
             this.grvTransLine.Name = "grvTransLine";
             this.grvTransLine.RowTemplate.Height = 25;
-            this.grvTransLine.Size = new System.Drawing.Size(688, 185);
+            this.grvTransLine.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.grvTransLine.Size = new System.Drawing.Size(593, 331);
             this.grvTransLine.TabIndex = 18;
             // 
             // clmID
@@ -79,12 +83,14 @@
             this.clmID.DataPropertyName = "ID";
             this.clmID.HeaderText = "ID";
             this.clmID.Name = "clmID";
+            this.clmID.Width = 5;
             // 
             // clmTransID
             // 
             this.clmTransID.DataPropertyName = "TransactionID";
             this.clmTransID.HeaderText = "TransactionID";
             this.clmTransID.Name = "clmTransID";
+            this.clmTransID.Width = 5;
             // 
             // clmItemID
             // 
@@ -99,12 +105,14 @@
             this.clmQuantity.DataPropertyName = "Quantity";
             this.clmQuantity.HeaderText = "Quantity";
             this.clmQuantity.Name = "clmQuantity";
+            this.clmQuantity.Width = 60;
             // 
             // clmPrice
             // 
             this.clmPrice.DataPropertyName = "ItemPrice";
             this.clmPrice.HeaderText = "Item Price";
             this.clmPrice.Name = "clmPrice";
+            this.clmPrice.Width = 70;
             // 
             // clmValue
             // 
@@ -117,12 +125,14 @@
             this.clmPercent.DataPropertyName = "DiscountPercent";
             this.clmPercent.HeaderText = "Discount %";
             this.clmPercent.Name = "clmPercent";
+            this.clmPercent.Width = 65;
             // 
             // clmDiscount
             // 
             this.clmDiscount.DataPropertyName = "DiscountValue";
             this.clmDiscount.HeaderText = "Discount Value";
             this.clmDiscount.Name = "clmDiscount";
+            this.clmDiscount.Width = 65;
             // 
             // clmTotal
             // 
@@ -133,61 +143,23 @@
             // cmbItem
             // 
             this.cmbItem.FormattingEnabled = true;
-            this.cmbItem.Location = new System.Drawing.Point(172, 340);
+            this.cmbItem.Location = new System.Drawing.Point(754, 62);
             this.cmbItem.Name = "cmbItem";
-            this.cmbItem.Size = new System.Drawing.Size(154, 23);
+            this.cmbItem.Size = new System.Drawing.Size(126, 23);
             this.cmbItem.TabIndex = 22;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(172, 316);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 15);
-            this.label2.TabIndex = 21;
-            this.label2.Text = "Product";
             // 
             // nudQuantity
             // 
-            this.nudQuantity.Location = new System.Drawing.Point(82, 340);
+            this.nudQuantity.Location = new System.Drawing.Point(754, 111);
             this.nudQuantity.Name = "nudQuantity";
-            this.nudQuantity.Size = new System.Drawing.Size(59, 23);
+            this.nudQuantity.Size = new System.Drawing.Size(126, 23);
             this.nudQuantity.TabIndex = 20;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(82, 316);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 15);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "Quantity";
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(469, 244);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(181, 34);
-            this.btnSave.TabIndex = 23;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnDone
-            // 
-            this.btnDone.Location = new System.Drawing.Point(469, 340);
-            this.btnDone.Name = "btnDone";
-            this.btnDone.Size = new System.Drawing.Size(181, 34);
-            this.btnDone.TabIndex = 24;
-            this.btnDone.Text = "Done";
-            this.btnDone.UseVisualStyleBackColor = true;
-            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
             // 
             // radCash
             // 
             this.radCash.AutoSize = true;
             this.radCash.Checked = true;
-            this.radCash.Location = new System.Drawing.Point(304, 252);
+            this.radCash.Location = new System.Drawing.Point(26, 363);
             this.radCash.Name = "radCash";
             this.radCash.Size = new System.Drawing.Size(51, 19);
             this.radCash.TabIndex = 25;
@@ -198,7 +170,7 @@
             // radCard
             // 
             this.radCard.AutoSize = true;
-            this.radCard.Location = new System.Drawing.Point(304, 297);
+            this.radCard.Location = new System.Drawing.Point(26, 418);
             this.radCard.Name = "radCard";
             this.radCard.Size = new System.Drawing.Size(85, 19);
             this.radCard.TabIndex = 26;
@@ -208,40 +180,105 @@
             // lblPayment
             // 
             this.lblPayment.AutoSize = true;
-            this.lblPayment.Location = new System.Drawing.Point(224, 279);
+            this.lblPayment.Font = new System.Drawing.Font("Segoe UI", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.lblPayment.ForeColor = System.Drawing.Color.Maroon;
+            this.lblPayment.Location = new System.Drawing.Point(26, 390);
+            this.lblPayment.MaximumSize = new System.Drawing.Size(1000, 0);
             this.lblPayment.Name = "lblPayment";
-            this.lblPayment.Size = new System.Drawing.Size(13, 15);
+            this.lblPayment.Size = new System.Drawing.Size(134, 20);
             this.lblPayment.TabIndex = 27;
-            this.lblPayment.Text = "a";
+            this.lblPayment.Text = "Payment Warning";
             // 
-            // btnEdit
+            // label5
             // 
-            this.btnEdit.Location = new System.Drawing.Point(469, 289);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(181, 34);
-            this.btnEdit.TabIndex = 28;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(663, 62);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(68, 20);
+            this.label5.TabIndex = 41;
+            this.label5.Text = "Product:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(663, 111);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 20);
+            this.label3.TabIndex = 39;
+            this.label3.Text = "Quantity:";
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.BackColor = System.Drawing.Color.Yellow;
+            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAdd.Location = new System.Drawing.Point(662, 171);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(173, 50);
+            this.btnAdd.TabIndex = 42;
+            this.btnAdd.Text = "Add New";
+            this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnDone
+            // 
+            this.btnDone.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDone.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnDone.Location = new System.Drawing.Point(662, 307);
+            this.btnDone.Name = "btnDone";
+            this.btnDone.Size = new System.Drawing.Size(173, 50);
+            this.btnDone.TabIndex = 43;
+            this.btnDone.Text = "Finish";
+            this.btnDone.UseVisualStyleBackColor = false;
+            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.Color.OrangeRed;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnDelete.Location = new System.Drawing.Point(662, 239);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(173, 50);
+            this.btnDelete.TabIndex = 44;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            // 
+            // chkEditMode
+            // 
+            this.chkEditMode.AutoSize = true;
+            this.chkEditMode.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.chkEditMode.Location = new System.Drawing.Point(664, 26);
+            this.chkEditMode.Name = "chkEditMode";
+            this.chkEditMode.Size = new System.Drawing.Size(99, 24);
+            this.chkEditMode.TabIndex = 45;
+            this.chkEditMode.Text = "Edit Mode";
+            this.chkEditMode.UseVisualStyleBackColor = true;
+            this.chkEditMode.CheckedChanged += new System.EventHandler(this.chkEditMode_CheckChanged);
             // 
             // NewTransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnEdit);
+            this.BackColor = System.Drawing.Color.Honeydew;
+            this.ClientSize = new System.Drawing.Size(979, 450);
+            this.Controls.Add(this.chkEditMode);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnDone);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.lblPayment);
             this.Controls.Add(this.radCard);
             this.Controls.Add(this.radCash);
-            this.Controls.Add(this.btnDone);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.cmbItem);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.nudQuantity);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.grvTransLine);
             this.Name = "NewTransactionForm";
-            this.Text = "NewTransaction";
+            this.Text = "New Transaction";
             this.Load += new System.EventHandler(this.NewTransactionForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grvTransLine)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsNewTransaction)).EndInit();
@@ -256,11 +293,10 @@
         private DataGridView grvTransLine;
         private BindingSource bsNewTransaction;
         private ComboBox cmbItem;
-        private Label label2;
         private NumericUpDown nudQuantity;
-        private Label label1;
-        private Button btnSave;
-        private Button btnDone;
+        private RadioButton radCash;
+        private RadioButton radCard;
+        private Label lblPayment;
         private DataGridViewTextBoxColumn clmID;
         private DataGridViewTextBoxColumn clmTransID;
         private DataGridViewComboBoxColumn clmItemID;
@@ -270,9 +306,11 @@
         private DataGridViewTextBoxColumn clmPercent;
         private DataGridViewTextBoxColumn clmDiscount;
         private DataGridViewTextBoxColumn clmTotal;
-        private RadioButton radCash;
-        private RadioButton radCard;
-        private Label lblPayment;
-        private Button btnEdit;
+        private Label label5;
+        private Label label3;
+        private Button btnAdd;
+        private Button btnDone;
+        private Button btnDelete;
+        private CheckBox chkEditMode;
     }
 }

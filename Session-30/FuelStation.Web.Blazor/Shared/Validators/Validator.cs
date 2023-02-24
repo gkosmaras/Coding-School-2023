@@ -2,12 +2,14 @@
 using FuelStation.Model;
 using FuelStation.Model.Enums;
 using FuelStation.Model.People;
+using FuelStation.Web.Blazor.Shared.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace FuelStation.Web.Blazor.Shared.Validators
 {
@@ -187,22 +189,29 @@ namespace FuelStation.Web.Blazor.Shared.Validators
 
         public int ExistingCustomer(string code)
         {
-            var id = 0;
-            if (code != "")
+            int id = 0;
+            if (CheckCardUniqueness(code))
             {
                 id = context.Customers.SingleOrDefault(cus => cus.CardNumber == code).ID;
             }
             return id;
         }
 
-        public bool ValidateFuel(int Id, int oldId)
+        public bool ValidateFuel(TransactionLineEditDto transLine, int oldId)
         {
             bool result = true;
-            if (Id != oldId)
+            var items = context.TransactionLines
+                .Where(trans => trans.TransactionID == transLine.TransactionID).Select(x => x.ItemID).ToList();
+            var fuels = context.Items.Where(it => it.ItemType == ItemType.Fuel).Select(x => x.ID).ToList();
+            bool hasFuel = fuels.Any(it => items.Contains(it));
+            var oldType = context.Items.SingleOrDefault(x => x.ID == oldId).ItemType;
+            var newItem = context.Items.SingleOrDefault(x => x.ID == transLine.ItemID);
+            if (hasFuel && oldType != ItemType.Fuel)
             {
-                var newItem = context.Items.SingleOrDefault(it => it.ID == Id).ItemType;
-                var oldItem = context.Items.SingleOrDefault(it => it.ID == oldId).ItemType;
-                result = false;
+                if (newItem.ItemType == ItemType.Fuel)
+                {
+                    result = false;
+                }
             }
             return result;
         }
