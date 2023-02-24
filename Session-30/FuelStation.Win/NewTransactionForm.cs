@@ -1,5 +1,7 @@
 ﻿using FuelStation.Model.Enums;
+using FuelStation.Model.Transactions;
 using FuelStation.Web.Blazor.Shared.DTO;
+using FuelStation.Web.Blazor.Shared.Validators;
 using FuelStation.Win.Handler;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Query;
@@ -21,6 +23,7 @@ namespace FuelStation.Win
         private ItemHandler itHandler = new ItemHandler();
         private TransactionLineHandler handler = new TransactionLineHandler();
         private TransactionHandler transHandler = new TransactionHandler();
+        private Validator validator = new Validator();
         public NewTransactionForm()
         {
             InitializeComponent();
@@ -105,10 +108,11 @@ namespace FuelStation.Win
                 else
                 {
                     await handler.AddTransactionLine(transLine);
-                    SetPayment();
                     nudQuantity.Value = 0;
+                    SetPayment();
                     await PopulateGrid();
                 }
+                SetPayment();
             }
         }
 
@@ -121,8 +125,8 @@ namespace FuelStation.Win
                 return;
             }
             await handler.EditTransactionLine(transLine);
+            SetPayment();
             await PopulateGrid();
-
         }
 
         private async void btnDone_Click(object sender, EventArgs e)
@@ -132,12 +136,14 @@ namespace FuelStation.Win
             {
                 TransactionEditDto dbTransaction = await transHandler.GetTransaction(transID);
                 dbTransaction.PaymentMethod = PaymentMethod.CreditCard;
-                MessageBox.Show($"{dbTransaction.ID.ToString()}, {dbTransaction.Date.ToString()}, {dbTransaction.PaymentMethod.ToString()}, {dbTransaction.CustomerID.ToString()}, {dbTransaction.EmployeeID.ToString()}");
-                // TODO: fix failure edit
+                dbTransaction.TransactionLines = new List<TransactionLine>();
                 await transHandler.EditTransaction(dbTransaction);
             }
-            transID = 0;
-            this.Close();
+            if (DialogResult == DialogResult.OK)
+            {
+                transID = 0;
+                this.Close();
+            }
         }
         #endregion
         #region Events
@@ -160,16 +166,19 @@ namespace FuelStation.Win
         #region Methods
         private async void SetPayment()
         {
-            int transID = TransactionForm.transID;
-            var dbTransLines = await handler.PopulateDataGridView();
-            var lines = dbTransLines.Where(tLines => tLines.TransactionID == transID);
-            if (lines.Select(x => x.TotalValue).Sum() > 50)
+/*            int transID = TransactionForm.transID;
+            if (!validator.CheckPayment(transID))
             {
                 radCard.Enabled = false;
                 lblPayment.Text = "Payments over 50€ must be made with cash";
                 radCard.Checked = false;
                 radCash.Checked = true;
             }
+            else
+            {
+                radCard.Enabled = true;
+                lblPayment.Text = "";
+            }*/
         }
 
         private async Task<bool> CheckFuel(int id)

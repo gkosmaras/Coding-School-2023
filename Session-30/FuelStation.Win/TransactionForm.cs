@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -107,6 +108,14 @@ namespace FuelStation.Win
             }
         }
 
+        private async void btnEdit_Click(object sender, EventArgs e)
+        {
+            TransactionEditDto transLine = (TransactionEditDto)bsTransaction.Current;
+            transLine.TransactionLines = new List<TransactionLine>();
+            await handler.EditTransaction(transLine);
+            await PopulateGrid();
+        }
+
         private async void btnDelete_Click(object sender, EventArgs e)
         {
             DialogResult dResult = MessageBox.Show("Proceed with transaction deletion?", "Error", MessageBoxButtons.YesNo);
@@ -145,7 +154,6 @@ namespace FuelStation.Win
         {
             var dbCustomers = await cusHandler.PopulateDataGridView();
             string cusCard = dbCustomers.Last().CardNumber;
-            txtCardNumber.Text = cusCard;
             btnNew.PerformClick();
         }
     }

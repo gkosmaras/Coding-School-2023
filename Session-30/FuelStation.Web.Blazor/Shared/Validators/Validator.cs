@@ -215,5 +215,16 @@ namespace FuelStation.Web.Blazor.Shared.Validators
             }
             return result;
         }
+
+        public bool CheckPayment(int trans)
+        {
+            bool result = true;
+            var totalValue = context.TransactionLines.Where(x => x.TransactionID == trans).Sum(x => x.TotalValue);
+            if (totalValue > 50)
+            {
+                result = false;
+            }
+            return result;
+        }
     }
 }

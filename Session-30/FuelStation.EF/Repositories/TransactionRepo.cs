@@ -61,6 +61,7 @@ namespace FuelStation.EF.Repositories
             }
             dbTrans.EmployeeID = transaction.EmployeeID;
             dbTrans.CustomerID = transaction.CustomerID;
+            dbTrans.PaymentMethod = transaction.PaymentMethod;
             context.SaveChanges();
         }
 

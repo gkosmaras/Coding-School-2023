@@ -1,4 +1,5 @@
 ﻿using FuelStation.Web.Blazor.Shared.DTO;
+using FuelStation.Web.Blazor.Shared.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace FuelStation.Win.Handler
 {
     public class TransactionHandler
     {
+        private Validator validator = new Validator();
         public async Task<IEnumerable<TransactionEditDto>> PopulateDataGridView()
         {
             HttpClient httpClient = new HttpClient();
@@ -34,11 +36,18 @@ namespace FuelStation.Win.Handler
 
         public async Task EditTransaction(TransactionEditDto transaction)
         {
-            HttpClient httpClient = new HttpClient();
-            var response = await httpClient.PutAsJsonAsync("https://localhost:7209/Transaction", transaction);
-            if (!response.IsSuccessStatusCode)
+            if (!validator.CheckPayment(transaction.ID) && transaction.PaymentMethod == Model.Enums.PaymentMethod.CreditCard)
             {
-                MessageBox.Show("FailureEdit", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("Transactions over 50€ can not be paid with card", "Warnign", MessageBoxButtons.OK);
+            }
+            else
+            {
+                HttpClient httpClient = new HttpClient();
+                var response = await httpClient.PutAsJsonAsync("https://localhost:7209/Transaction", transaction);
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("FailureEdit", "Error", MessageBoxButtons.OKCancel);
+                }
             }
         }
 
