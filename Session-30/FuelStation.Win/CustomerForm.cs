@@ -34,36 +34,14 @@ namespace FuelStation.Win
             grvCustomer.AutoGenerateColumns = false;
             grvCustomer.Columns["clmID"].Visible = false;
             grvCustomer.Columns["clmCardNumber"].ReadOnly = true;
+            ClearText();
+        }
+
+        private void ClearText()
+        {
             lblName.Text = "";
             lblTotal.Text = "";
             lblDate.Text = "";
-        }
-
-        private async void grvCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var row = grvCustomer.CurrentRow;
-            var customer = (CustomerEditDto)row.DataBoundItem;
-            if (customer != null)
-            {
-                var dbTransactions = await transHandler.PopulateDataGridView();
-                var lastDate = dbTransactions
-                    .Where(trans => trans.CustomerID == customer.ID)
-                    .Select(x => x.Date);
-                var total = dbTransactions
-                    .Where(trans => trans.CustomerID == customer.ID)
-                    .Sum(x => x.TotalValue);
-                lblName.Text = $"Details for {customer.Name} {customer.Surname}";
-                if (total == 0)
-                {
-                    lblTotal.Text = "This customer has no transactions";
-                    
-                }
-                else
-                {
-                    lblTotal.Text = $"Total transactions value: {total}€";
-                    lblDate.Text = $"Last purchase date: {lastDate.Max()}";
-                }
-            }
         }
 
         #region Buttons
@@ -101,18 +79,39 @@ namespace FuelStation.Win
             }
         }
 
-        private async void btnRefresh_Click(object sender, EventArgs e)
+        #endregion
+        #region Events
+        private async void grvCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            await PopulateGrid();
+            ClearText();
+            var row = grvCustomer.CurrentRow;
+            var customer = (CustomerEditDto)row.DataBoundItem;
+            if (customer != null)
+            {
+                var dbTransactions = await transHandler.PopulateDataGridView();
+                var lastDate = dbTransactions
+                    .Where(trans => trans.CustomerID == customer.ID)
+                    .Select(x => x.Date).LastOrDefault();
+                var total = dbTransactions
+                    .Where(trans => trans.CustomerID == customer.ID)
+                    .Sum(x => x.TotalValue);
+                lblName.Text = $"Details for {customer.Name} {customer.Surname}";
+                if (total == 0)
+                {
+                    lblTotal.Text = "This customer has no transactions";
+
+                }
+                else
+                {
+                    lblTotal.Text = $"Total transactions value: {total}€";
+                    lblDate.Text = $"Last purchase date: {lastDate}";
+                }
+            }
         }
 
         private async void CreateCustomerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             await PopulateGrid();
-        }
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
         #endregion
     }

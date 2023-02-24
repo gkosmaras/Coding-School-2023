@@ -34,7 +34,6 @@
             this.lblCount = new System.Windows.Forms.Label();
             this.lblQnt = new System.Windows.Forms.Label();
             this.lblSum = new System.Windows.Forms.Label();
-            this.btnBack = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.nudCode = new System.Windows.Forms.NumericUpDown();
             this.nudCost = new System.Windows.Forms.NumericUpDown();
@@ -49,8 +48,8 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.grvItem = new System.Windows.Forms.DataGridView();
-            this.clmCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmItemType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -65,48 +64,38 @@
             // lblDetail
             // 
             this.lblDetail.AutoSize = true;
-            this.lblDetail.Location = new System.Drawing.Point(32, 316);
+            this.lblDetail.Location = new System.Drawing.Point(32, 344);
             this.lblDetail.Name = "lblDetail";
-            this.lblDetail.Size = new System.Drawing.Size(38, 15);
+            this.lblDetail.Size = new System.Drawing.Size(39, 15);
             this.lblDetail.TabIndex = 43;
-            this.lblDetail.Text = "label6";
+            this.lblDetail.Text = "Name";
             // 
             // lblCount
             // 
             this.lblCount.AutoSize = true;
-            this.lblCount.Location = new System.Drawing.Point(32, 396);
+            this.lblCount.Location = new System.Drawing.Point(32, 424);
             this.lblCount.Name = "lblCount";
-            this.lblCount.Size = new System.Drawing.Size(38, 15);
+            this.lblCount.Size = new System.Drawing.Size(40, 15);
             this.lblCount.TabIndex = 42;
-            this.lblCount.Text = "label8";
+            this.lblCount.Text = "Count";
             // 
             // lblQnt
             // 
             this.lblQnt.AutoSize = true;
-            this.lblQnt.Location = new System.Drawing.Point(32, 371);
+            this.lblQnt.Location = new System.Drawing.Point(32, 399);
             this.lblQnt.Name = "lblQnt";
-            this.lblQnt.Size = new System.Drawing.Size(38, 15);
+            this.lblQnt.Size = new System.Drawing.Size(53, 15);
             this.lblQnt.TabIndex = 41;
-            this.lblQnt.Text = "label7";
+            this.lblQnt.Text = "Quantity";
             // 
             // lblSum
             // 
             this.lblSum.AutoSize = true;
-            this.lblSum.Location = new System.Drawing.Point(32, 344);
+            this.lblSum.Location = new System.Drawing.Point(32, 372);
             this.lblSum.Name = "lblSum";
-            this.lblSum.Size = new System.Drawing.Size(38, 15);
+            this.lblSum.Size = new System.Drawing.Size(32, 15);
             this.lblSum.TabIndex = 40;
-            this.lblSum.Text = "label6";
-            // 
-            // btnBack
-            // 
-            this.btnBack.Location = new System.Drawing.Point(708, 412);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(80, 26);
-            this.btnBack.TabIndex = 39;
-            this.btnBack.Text = "Back";
-            this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            this.lblSum.Text = "Total";
             // 
             // btnSave
             // 
@@ -212,7 +201,7 @@
             this.btnEdit.BackColor = System.Drawing.Color.DimGray;
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnEdit.Location = new System.Drawing.Point(358, 361);
+            this.btnEdit.Location = new System.Drawing.Point(554, 361);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(173, 50);
             this.btnEdit.TabIndex = 26;
@@ -225,7 +214,7 @@
             this.btnDelete.BackColor = System.Drawing.Color.OrangeRed;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnDelete.Location = new System.Drawing.Point(358, 296);
+            this.btnDelete.Location = new System.Drawing.Point(358, 361);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(173, 50);
             this.btnDelete.TabIndex = 25;
@@ -235,26 +224,21 @@
             // 
             // grvItem
             // 
+            this.grvItem.BackgroundColor = System.Drawing.Color.LightYellow;
             this.grvItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvItem.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmCode,
             this.clmID,
+            this.clmCode,
             this.clmDescription,
             this.clmItemType,
             this.clmPrice,
             this.clmCost});
+            this.grvItem.GridColor = System.Drawing.Color.Black;
             this.grvItem.Location = new System.Drawing.Point(32, 19);
             this.grvItem.Name = "grvItem";
-            this.grvItem.Size = new System.Drawing.Size(499, 262);
+            this.grvItem.Size = new System.Drawing.Size(499, 312);
             this.grvItem.TabIndex = 24;
             this.grvItem.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvItem_CellClick);
-            // 
-            // clmCode
-            // 
-            this.clmCode.DataPropertyName = "Code";
-            this.clmCode.HeaderText = "Code";
-            this.clmCode.Name = "clmCode";
-            this.clmCode.Width = 50;
             // 
             // clmID
             // 
@@ -262,6 +246,13 @@
             this.clmID.HeaderText = "ID";
             this.clmID.Name = "clmID";
             this.clmID.Width = 5;
+            // 
+            // clmCode
+            // 
+            this.clmCode.DataPropertyName = "Code";
+            this.clmCode.HeaderText = "Code";
+            this.clmCode.Name = "clmCode";
+            this.clmCode.Width = 50;
             // 
             // clmDescription
             // 
@@ -297,7 +288,6 @@
             this.Controls.Add(this.lblCount);
             this.Controls.Add(this.lblQnt);
             this.Controls.Add(this.lblSum);
-            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.nudCode);
             this.Controls.Add(this.nudCost);
@@ -331,7 +321,6 @@
         private Label lblCount;
         private Label lblQnt;
         private Label lblSum;
-        private Button btnBack;
         private Button btnSave;
         private NumericUpDown nudCode;
         private NumericUpDown nudCost;
@@ -346,8 +335,8 @@
         private Button btnEdit;
         private Button btnDelete;
         private DataGridView grvItem;
-        private DataGridViewTextBoxColumn clmCode;
         private DataGridViewTextBoxColumn clmID;
+        private DataGridViewTextBoxColumn clmCode;
         private DataGridViewTextBoxColumn clmDescription;
         private DataGridViewComboBoxColumn clmItemType;
         private DataGridViewTextBoxColumn clmPrice;

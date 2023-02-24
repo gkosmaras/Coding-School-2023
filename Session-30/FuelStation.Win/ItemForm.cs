@@ -47,11 +47,8 @@ namespace FuelStation.Win
             nudPrice.DecimalPlaces = 2;
             nudCost.Controls.RemoveAt(0);
             nudCost.DecimalPlaces = 2;
-            lblDetail.Text = "";
-            lblSum.Text = "";
-            lblQnt.Text = "";
-            lblCount.Text = "";
-            
+            ClearText();
+
             DataGridViewComboBoxColumn colbox = grvItem.Columns["clmItemType"] as DataGridViewComboBoxColumn;
             foreach (var value in Enum.GetValues(typeof(ItemType)))
             {
@@ -60,36 +57,13 @@ namespace FuelStation.Win
             }
         }
 
-        private async void grvItem_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void ClearText()
         {
-            var row = grvItem.CurrentRow;
-            var item = (ItemEditDto)row.DataBoundItem;
-            if (item != null)
-            {
-                var dbTransLines = await transHandler.PopulateDataGridView();
-                var valueSold = dbTransLines
-                    .Where(tLine => tLine.ItemID == item.ID)
-                    .Sum(x => x.TotalValue);
-                var qntSold = dbTransLines
-                    .Where(tLine => tLine.ItemID == item.ID)
-                    .Sum(x => x.Quantity);
-                var timesSold = dbTransLines
-                    .Where(tLine => tLine.ItemID == item.ID)
-                    .Count();
-                lblDetail.Text = $"Details for item {item.Description} with code {item.Code}";
-                if (valueSold == 0)
-                {
-                    lblSum.Text = "This item has not been sold";
-                }
-                else
-                {
-                    lblSum.Text = $"Total value of transactions involving this item: {valueSold}€";
-                    lblQnt.Text = $"This item has been sold {qntSold} times";
-                    lblCount.Text = $"{timesSold} transactions involved this item";
-                }
-            }
+            lblDetail.Text = "";
+            lblSum.Text = "";
+            lblQnt.Text = "";
+            lblCount.Text = "";
         }
-
         #region Buttons
         private async void btnSave_Click(object sender, EventArgs e)
         {
@@ -164,9 +138,37 @@ namespace FuelStation.Win
             }
         }
 
-        private void btnBack_Click(object sender, EventArgs e)
+        #endregion
+        #region Events
+        private async void grvItem_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.Close();
+            ClearText();
+            var row = grvItem.CurrentRow;
+            var item = (ItemEditDto)row.DataBoundItem;
+            if (item != null)
+            {
+                var dbTransLines = await transHandler.PopulateDataGridView();
+                var valueSold = dbTransLines
+                    .Where(tLine => tLine.ItemID == item.ID)
+                    .Sum(x => x.TotalValue);
+                var qntSold = dbTransLines
+                    .Where(tLine => tLine.ItemID == item.ID)
+                    .Sum(x => x.Quantity);
+                var timesSold = dbTransLines
+                    .Where(tLine => tLine.ItemID == item.ID)
+                    .Count();
+                lblDetail.Text = $"Details for item {item.Description} with code {item.Code}";
+                if (valueSold == 0)
+                {
+                    lblSum.Text = "This item has not been sold";
+                }
+                else
+                {
+                    lblSum.Text = $"Total value of transactions involving this item: {valueSold}€";
+                    lblQnt.Text = $"This item has been sold {qntSold} times";
+                    lblCount.Text = $"{timesSold} transactions involved this item";
+                }
+            }
         }
         #endregion
     }
