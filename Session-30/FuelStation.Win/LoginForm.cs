@@ -23,7 +23,6 @@ namespace FuelStation.Win
             btnStaffLg.Visible = true;
             btnCustomers.Visible = false;
             btnItems.Visible = false;
-            btnTransLines.Visible = false;
             btnLogout.Visible = false;
         }
         private void btnManagerLg_Click(object sender, EventArgs e)
@@ -31,14 +30,12 @@ namespace FuelStation.Win
             HideLogins();
             btnCustomers.Visible = true;
             btnItems.Visible = true;
-            btnTransLines.Visible = true;
             btnLogout.Visible = true;
         }
         private void btnCashier_Click(object sender, EventArgs e)
         {
             HideLogins();
             btnCustomers.Visible = true;
-            btnTransLines.Visible = false;
             btnLogout.Visible = true;
         }
         private void btnStaff_Click(object sender, EventArgs e)
@@ -60,12 +57,6 @@ namespace FuelStation.Win
             itemForm.FormClosed += new FormClosedEventHandler(itemForm_FormClosed);
             this.Hide();
             itemForm.ShowDialog();
-        }
-
-        private void btnTransLines_Click(object sender, EventArgs e)
-        {
-            TransactionLineForm transLineForm = new TransactionLineForm();
-            transLineForm.ShowDialog();
         }
         private void btnTransactions(object sender, EventArgs e)
         {

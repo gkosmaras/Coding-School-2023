@@ -125,6 +125,21 @@ namespace FuelStation.Win
             await PopulateGrid();
         }
 
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dResult = MessageBox.Show("Proceed with transaction deletion?", "Error", MessageBoxButtons.YesNo);
+            if (dResult == DialogResult.Yes)
+            {
+                int id = (int)grvTransLine.CurrentRow.Cells["clmID"].Value;
+                await handler.DeleteTransactionLine(id);
+                await PopulateGrid();
+            }
+            else
+            {
+                return;
+            }
+        }
+
         private async void btnDone_Click(object sender, EventArgs e)
         {
             int transID = TransactionForm.transID;

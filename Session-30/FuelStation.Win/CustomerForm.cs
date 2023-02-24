@@ -137,10 +137,7 @@ namespace FuelStation.Win
 
         private async void grvCustomer_CellDoubleClick(object sender , DataGridViewCellEventArgs e)
         {
-            if (!chkEditMode.Checked)
-            {
-                MessageBox.Show("ok");
-            }
+            
         }
 
         private async void CreateCustomerForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -30,7 +30,6 @@
         {
             this.btnCustomers = new System.Windows.Forms.Button();
             this.btnItems = new System.Windows.Forms.Button();
-            this.btnTransLines = new System.Windows.Forms.Button();
             this.btnMangerLg = new System.Windows.Forms.Button();
             this.btnCashierLg = new System.Windows.Forms.Button();
             this.btnStaffLg = new System.Windows.Forms.Button();
@@ -57,16 +56,6 @@
             this.btnItems.Text = "To Items";
             this.btnItems.UseVisualStyleBackColor = true;
             this.btnItems.Click += new System.EventHandler(this.btnItems_Click);
-            // 
-            // btnTransLines
-            // 
-            this.btnTransLines.Location = new System.Drawing.Point(484, 169);
-            this.btnTransLines.Name = "btnTransLines";
-            this.btnTransLines.Size = new System.Drawing.Size(192, 69);
-            this.btnTransLines.TabIndex = 2;
-            this.btnTransLines.Text = "To Lines";
-            this.btnTransLines.UseVisualStyleBackColor = true;
-            this.btnTransLines.Click += new System.EventHandler(this.btnTransLines_Click);
             // 
             // btnMangerLg
             // 
@@ -128,7 +117,6 @@
             this.Controls.Add(this.btnStaffLg);
             this.Controls.Add(this.btnCashierLg);
             this.Controls.Add(this.btnMangerLg);
-            this.Controls.Add(this.btnTransLines);
             this.Controls.Add(this.btnItems);
             this.Controls.Add(this.btnCustomers);
             this.Name = "LoginForm";
@@ -147,7 +135,6 @@
         private Button btnCashierLg;
         private Button btnStaffLg;
         private Button btnLogout;
-        private Button btnTransLines;
         private Button btnTransaction;
     }
 }

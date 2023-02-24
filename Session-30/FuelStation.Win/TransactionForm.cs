@@ -83,31 +83,38 @@ namespace FuelStation.Win
         #region Buttons
         private async void btnNew_Click(object sender, EventArgs e)
         {
-            
-            int id = validator.ExistingCustomer(txtCardNumber.Text);
-            if (id != 0)
+            if (chkEditMode.Checked)
             {
-                TransactionEditDto transaction = new TransactionEditDto
-                {
-                    CustomerID = id,
-                    EmployeeID = (int)cmbEmployee.SelectedValue,
-                    TotalValue = 0,
-                    TransactionLines = new List<TransactionLine>()
-                };
-                await handler.AddTransaction(transaction);
-                var dbTrasnactions = await handler.PopulateDataGridView();
-                transID = dbTrasnactions.Select(x => x.ID).LastOrDefault();
-                TransactionDetails();
+                btnEdit_Click();
             }
             else
             {
-                CreateCustomerForm createCustomer = new CreateCustomerForm();
-                createCustomer.FormClosing += new FormClosingEventHandler(this.CreateCustomerForm_FormClosing);
-                createCustomer.Show();
+                int id = validator.ExistingCustomer(txtCardNumber.Text);
+                if (id != 0)
+                {
+                    TransactionEditDto transaction = new TransactionEditDto
+                    {
+                        CustomerID = id,
+                        EmployeeID = (int)cmbEmployee.SelectedValue,
+                        TotalValue = 0,
+                        TransactionLines = new List<TransactionLine>()
+                    };
+                    await handler.AddTransaction(transaction);
+                    var dbTrasnactions = await handler.PopulateDataGridView();
+                    transID = dbTrasnactions.Select(x => x.ID).LastOrDefault();
+                    TransactionDetails();
+                }
+                else
+                {
+                    CreateCustomerForm createCustomer = new CreateCustomerForm();
+                    createCustomer.FormClosing += new FormClosingEventHandler(this.CreateCustomerForm_FormClosing);
+                    createCustomer.Show();
+                }
             }
+
         }
 
-        private async void btnEdit_Click(object sender, EventArgs e)
+        private async void btnEdit_Click()
         {
             TransactionEditDto transLine = (TransactionEditDto)bsTransaction.Current;
             transLine.TransactionLines = new List<TransactionLine>();
@@ -144,6 +151,11 @@ namespace FuelStation.Win
         }
         private async void NewTransactionForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            var trans = await handler.GetTransaction(transID);
+            if (trans.TotalValue == 0)
+            {
+                handler.DeleteTransaction(transID);
+            }
             txtCardNumber.Text = "";
             transID = 0;
             await PopulateGrid();
@@ -154,7 +166,25 @@ namespace FuelStation.Win
             var dbCustomers = await cusHandler.PopulateDataGridView();
             string cusCard = dbCustomers.Last().CardNumber;
             txtCardNumber.Text = cusCard;
-            btnNew.PerformClick();
+            btnSave.PerformClick();
+        }
+
+        private void chkEditMode_CheckChanged(object sender, EventArgs e)
+        {
+            if (chkEditMode.Checked)
+            {
+                btnSave.Text = "Save Edit";
+                grvTransaction.Columns["clmEmployeeID"].ReadOnly = false;
+                grvTransaction.Columns["clmCustomerID"].ReadOnly = false;
+                grvTransaction.Columns["clmPaymentMethod"].ReadOnly = false;
+            }
+            else
+            {
+                btnSave.Text = "Create New";
+                grvTransaction.Columns["clmEmployeeID"].ReadOnly = true;
+                grvTransaction.Columns["clmCustomerID"].ReadOnly = true;
+                grvTransaction.Columns["clmPaymentMethod"].ReadOnly = true;
+            }
         }
     }
 }

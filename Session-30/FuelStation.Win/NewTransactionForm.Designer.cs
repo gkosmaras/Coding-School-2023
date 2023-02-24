@@ -142,14 +142,14 @@
             // cmbItem
             // 
             this.cmbItem.FormattingEnabled = true;
-            this.cmbItem.Location = new System.Drawing.Point(754, 62);
+            this.cmbItem.Location = new System.Drawing.Point(719, 61);
             this.cmbItem.Name = "cmbItem";
             this.cmbItem.Size = new System.Drawing.Size(126, 23);
             this.cmbItem.TabIndex = 22;
             // 
             // nudQuantity
             // 
-            this.nudQuantity.Location = new System.Drawing.Point(754, 111);
+            this.nudQuantity.Location = new System.Drawing.Point(719, 110);
             this.nudQuantity.Name = "nudQuantity";
             this.nudQuantity.Size = new System.Drawing.Size(126, 23);
             this.nudQuantity.TabIndex = 20;
@@ -158,9 +158,10 @@
             // 
             this.radCash.AutoSize = true;
             this.radCash.Checked = true;
-            this.radCash.Location = new System.Drawing.Point(26, 363);
+            this.radCash.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.radCash.Location = new System.Drawing.Point(629, 160);
             this.radCash.Name = "radCash";
-            this.radCash.Size = new System.Drawing.Size(51, 19);
+            this.radCash.Size = new System.Drawing.Size(60, 24);
             this.radCash.TabIndex = 25;
             this.radCash.TabStop = true;
             this.radCash.Text = "Cash";
@@ -169,9 +170,10 @@
             // radCard
             // 
             this.radCard.AutoSize = true;
-            this.radCard.Location = new System.Drawing.Point(26, 401);
+            this.radCard.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.radCard.Location = new System.Drawing.Point(629, 203);
             this.radCard.Name = "radCard";
-            this.radCard.Size = new System.Drawing.Size(85, 19);
+            this.radCard.Size = new System.Drawing.Size(105, 24);
             this.radCard.TabIndex = 26;
             this.radCard.Text = "Credit Card";
             this.radCard.UseVisualStyleBackColor = true;
@@ -180,7 +182,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(663, 62);
+            this.label5.Location = new System.Drawing.Point(628, 61);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(68, 20);
             this.label5.TabIndex = 41;
@@ -190,7 +192,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(663, 111);
+            this.label3.Location = new System.Drawing.Point(628, 110);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 20);
             this.label3.TabIndex = 39;
@@ -201,7 +203,7 @@
             this.btnAdd.BackColor = System.Drawing.Color.Yellow;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAdd.Location = new System.Drawing.Point(662, 171);
+            this.btnAdd.Location = new System.Drawing.Point(26, 373);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(173, 50);
             this.btnAdd.TabIndex = 42;
@@ -214,7 +216,7 @@
             this.btnDone.BackColor = System.Drawing.Color.ForestGreen;
             this.btnDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDone.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnDone.Location = new System.Drawing.Point(662, 307);
+            this.btnDone.Location = new System.Drawing.Point(446, 373);
             this.btnDone.Name = "btnDone";
             this.btnDone.Size = new System.Drawing.Size(173, 50);
             this.btnDone.TabIndex = 43;
@@ -227,18 +229,19 @@
             this.btnDelete.BackColor = System.Drawing.Color.OrangeRed;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnDelete.Location = new System.Drawing.Point(662, 239);
+            this.btnDelete.Location = new System.Drawing.Point(233, 373);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(173, 50);
             this.btnDelete.TabIndex = 44;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // chkEditMode
             // 
             this.chkEditMode.AutoSize = true;
             this.chkEditMode.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.chkEditMode.Location = new System.Drawing.Point(664, 26);
+            this.chkEditMode.Location = new System.Drawing.Point(629, 25);
             this.chkEditMode.Name = "chkEditMode";
             this.chkEditMode.Size = new System.Drawing.Size(99, 24);
             this.chkEditMode.TabIndex = 45;
@@ -251,7 +254,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Honeydew;
-            this.ClientSize = new System.Drawing.Size(979, 450);
+            this.ClientSize = new System.Drawing.Size(853, 450);
             this.Controls.Add(this.chkEditMode);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnDone);
