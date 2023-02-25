@@ -74,7 +74,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                 Name = employee.Name,
                 Surname = employee.Surname,
                 HireDateStart = DateTime.Now,
-                HireDateEnd = employee.HireDateEnd,
+                HireDateEnd = (DateTime)employee.HireDateEnd,
                 SalaryPerMonth = employee.SalaryPerMonth,
                 EmployeeType = employee.EmployeeType,
             };
@@ -110,7 +110,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
             {
                 dbEmployee.Name = employee.Name;
                 dbEmployee.Surname = employee.Surname;
-                dbEmployee.HireDateEnd = employee.HireDateEnd;
+                dbEmployee.HireDateEnd = (DateTime)employee.HireDateEnd;
                 dbEmployee.SalaryPerMonth = employee.SalaryPerMonth;
                 dbEmployee.EmployeeType = employee.EmployeeType;
                 try

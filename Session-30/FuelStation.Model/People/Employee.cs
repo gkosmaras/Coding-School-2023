@@ -10,7 +10,7 @@ namespace FuelStation.Model.People
     public class Employee : Person
     {
         public DateTime HireDateStart { get; set; }
-        public DateTime? HireDateEnd {get;set;}
+        public DateTime HireDateEnd {get;set;}
         public decimal SalaryPerMonth { get;set;}
         public EmployeeType EmployeeType { get;set;}
     }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FuelStation.Web.Blazor.Server.Controllers
 {
@@ -41,8 +42,8 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                     Year = ledge.First().Date.Year,
                     Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ledge.First().Date.Month),
                     Income = ledge.SelectMany(x => x.TransactionLines).Sum(it => (it.TotalValue)),
-                    Expenses = GetExpenses(ledge), //ledge.SelectMany(x => x.TransactionLines).Sum(it => (it.Item.Cost)),
-                    Total = 0
+                    Expenses = GetExpenses(ledge) + GetWages(ledge),
+                    Total = ledge.SelectMany(x => x.TransactionLines).Sum(it => (it.TotalValue)) - (GetExpenses(ledge) + GetWages(ledge))
                 });
             return result;
         }
@@ -57,11 +58,29 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                 var qnt = value.TransactionLines.Select(x => x.Quantity).ToList();
                 for (int i = 0; i < ids.Count(); i++)
                 {
-                    total = dbItem.SingleOrDefault(it => it.ID == ids[i]).Cost * qnt[i];
+                    total += dbItem.SingleOrDefault(it => it.ID == ids[i]).Cost * qnt[i];
                 }
             }
             return total;
-            
+        }
+
+        private decimal GetWages(IGrouping<DateTime, Transaction> ledge)
+        {
+            var dbEmployee = _employeeRepo.GetAll();
+            decimal total = 0;
+            foreach (var date in dbEmployee)
+            {
+                date.HireDateStart = new DateTime(date.HireDateStart.Year, date.HireDateStart.Month, 1);
+                date.HireDateEnd = new DateTime(date.HireDateEnd.Year, date.HireDateEnd.Month, 1);
+            }
+            foreach (var ee in dbEmployee)
+            {
+                if (DateTime.Compare(ledge.First().Date, ee.HireDateStart) >= 0 && (DateTime.Compare(ledge.First().Date, ee.HireDateEnd) <= 0))
+                {
+                    total += ee.SalaryPerMonth;
+                }
+            }
+            return total;
         }
     }
 }
