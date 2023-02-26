@@ -1,4 +1,4 @@
-﻿@page "/customer/detail/{id:int?}"
+﻿@page "/item/detail/{id:int?}"
 @using FuelStation.Web.Blazor.Shared.DTO;
 
 @inject HttpClient httpClient
@@ -10,12 +10,13 @@
 }
 else
 {
-    <PageTitle>Customer @Customer.Name @Customer.Surname - Fuel Station Retail System</PageTitle>
+    <PageTitle>Product @Item.Description - Fuel Station Retail System</PageTitle>
 
-    <h1 class="mb-5">Details for Customer: @Customer.Name @Customer.Surname</h1>
+    <h1 class="mb-5">Details for item: @Item.Description @Item.Code</h1>
 
     <div class="row mb-5">
-        <div><strong>Card number:</strong> @Customer.CardNumber</div>
+        <div><strong>Price:</strong> @Item.Price</div>
+        <div><strong>Cost:</strong> @Item.Cost</div>
     </div>
 
     <h2 class="mb-3">Transactions</h2>
@@ -26,16 +27,18 @@ else
 
             <thead>
                 <tr>
-                    <th>Date</th>
+                    <th>Quantity</th>
+                    <th>Discount</th>
                     <th>Total Value</th>
                 </tr>
             </thead>
 
             <tbody>
-                @foreach (var trans in transactions)
+                @foreach (var trans in transLine)
                 {
                     <tr>
-                        <td>@trans.Date</td>
+                        <td>@trans.Quantity</td>
+                        <td>@trans.DiscountValue</td>
                         <td>@trans.TotalValue</td>
                     </tr>
                 }
@@ -54,20 +57,20 @@ else
 
     [Parameter] public int? Id { get; set; }
 
-    CustomerEditDto? Customer { get; set; }
-    private List<TransactionEditDto> transactions = new();
+    ItemEditDto? Item { get; set; }
+    private List<TransactionLineEditDto> transLine = new();
 
     protected override async Task OnInitializedAsync()
     {
-        Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>($"customer/{Id}");
-        List<TransactionEditDto> temp = await httpClient.GetFromJsonAsync<List<TransactionEditDto>>("transaction");
-        transactions = temp.Where(x => x.CustomerID == Id).ToList();
+        Item = await httpClient.GetFromJsonAsync<ItemEditDto>($"item/{Id}");
+        var temp = await httpClient.GetFromJsonAsync<List<TransactionLineEditDto>>("transactionLine");
+        transLine = temp.Where(x => x.ItemID == Id).ToList();
         loading = false;
     }
 
     private void OnCancel()
     {
-        navigationManager.NavigateTo("customer");
+        navigationManager.NavigateTo("item");
     }
 
 }
