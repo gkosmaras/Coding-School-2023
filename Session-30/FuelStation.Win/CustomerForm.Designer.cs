@@ -31,16 +31,16 @@
             this.components = new System.ComponentModel.Container();
             this.bsCustomer = new System.Windows.Forms.BindingSource(this.components);
             this.grvCustomer = new System.Windows.Forms.DataGridView();
-            this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmCardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.chkEditMode = new System.Windows.Forms.CheckBox();
+            this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bsCustomer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomer)).BeginInit();
             this.SuspendLayout();
@@ -58,34 +58,10 @@
             this.grvCustomer.Location = new System.Drawing.Point(12, 12);
             this.grvCustomer.Name = "grvCustomer";
             this.grvCustomer.RowTemplate.Height = 25;
-            this.grvCustomer.Size = new System.Drawing.Size(348, 188);
+            this.grvCustomer.Size = new System.Drawing.Size(343, 188);
             this.grvCustomer.TabIndex = 0;
             this.grvCustomer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvCustomer_CellClick);
-            // 
-            // clmID
-            // 
-            this.clmID.DataPropertyName = "ID";
-            this.clmID.HeaderText = "ID";
-            this.clmID.Name = "clmID";
-            this.clmID.Width = 5;
-            // 
-            // clmName
-            // 
-            this.clmName.DataPropertyName = "Name";
-            this.clmName.HeaderText = "Name";
-            this.clmName.Name = "clmName";
-            // 
-            // clmSurname
-            // 
-            this.clmSurname.DataPropertyName = "Surname";
-            this.clmSurname.HeaderText = "Surname";
-            this.clmSurname.Name = "clmSurname";
-            // 
-            // clmCardNumber
-            // 
-            this.clmCardNumber.DataPropertyName = "CardNumber";
-            this.clmCardNumber.HeaderText = "Card Number";
-            this.clmCardNumber.Name = "clmCardNumber";
+            this.grvCustomer.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvCustomer_CellDoubleClick);
             // 
             // lblTotal
             // 
@@ -152,6 +128,32 @@
             this.chkEditMode.UseVisualStyleBackColor = true;
             this.chkEditMode.CheckedChanged += new System.EventHandler(this.chkEditMode_CheckChanged);
             // 
+            // clmID
+            // 
+            this.clmID.DataPropertyName = "ID";
+            this.clmID.HeaderText = "ID";
+            this.clmID.Name = "clmID";
+            this.clmID.Visible = false;
+            this.clmID.Width = 5;
+            // 
+            // clmName
+            // 
+            this.clmName.DataPropertyName = "Name";
+            this.clmName.HeaderText = "Name";
+            this.clmName.Name = "clmName";
+            // 
+            // clmSurname
+            // 
+            this.clmSurname.DataPropertyName = "Surname";
+            this.clmSurname.HeaderText = "Surname";
+            this.clmSurname.Name = "clmSurname";
+            // 
+            // clmCardNumber
+            // 
+            this.clmCardNumber.DataPropertyName = "CardNumber";
+            this.clmCardNumber.HeaderText = "Card Number";
+            this.clmCardNumber.Name = "clmCardNumber";
+            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -182,13 +184,13 @@
         private Label lblTotal;
         private Label lblName;
         private Label lblDate;
-        private DataGridViewTextBoxColumn clmID;
-        private DataGridViewTextBoxColumn clmName;
-        private DataGridViewTextBoxColumn clmSurname;
-        private DataGridViewTextBoxColumn clmCardNumber;
         private Button btnSave;
         private Button button1;
         private Button button2;
         private CheckBox chkEditMode;
+        private DataGridViewTextBoxColumn clmID;
+        private DataGridViewTextBoxColumn clmName;
+        private DataGridViewTextBoxColumn clmSurname;
+        private DataGridViewTextBoxColumn clmCardNumber;
     }
 }

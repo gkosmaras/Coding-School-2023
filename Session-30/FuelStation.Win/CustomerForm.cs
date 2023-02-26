@@ -1,6 +1,7 @@
 ﻿using FuelStation.Web.Blazor.Shared.DTO;
 using FuelStation.Web.Blazor.Shared.Validators;
 using FuelStation.Win.Handler;
+using System.Data.Common;
 
 namespace FuelStation.Win
 {
@@ -9,6 +10,7 @@ namespace FuelStation.Win
         private Validator validator = new Validator();
         private CustomerHandler handler = new CustomerHandler();
         private TransactionHandler transHandler = new TransactionHandler();
+        public static int cusID;
 
         public CustomerForm()
         {
@@ -137,7 +139,16 @@ namespace FuelStation.Win
 
         private async void grvCustomer_CellDoubleClick(object sender , DataGridViewCellEventArgs e)
         {
-            
+            cusID = (int)grvCustomer.CurrentRow.Cells["clmID"].Value;
+            DetailsForm newDetails = new DetailsForm();
+            newDetails.FormClosing += new FormClosingEventHandler(this.DetailsForm_FormClosing);
+            newDetails.Show();
+
+        }
+
+        private async void DetailsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            cusID = 0;
         }
 
         private async void CreateCustomerForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -24,6 +24,7 @@ namespace FuelStation.Win
         private Validator validator = new Validator();
         private ItemHandler handler = new ItemHandler();
         private TransactionLineHandler transHandler = new TransactionLineHandler();
+        public static int itID;
         public ItemForm()
         {
             InitializeComponent();
@@ -204,6 +205,19 @@ namespace FuelStation.Win
                     lblCount.Text = $"{timesSold} transactions involved this item";
                 }
             }
+        }
+
+        private async void grvItem_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            itID = (int)grvItem.CurrentRow.Cells["clmID"].Value;
+            DetailsForm newDetails = new DetailsForm();
+            newDetails.FormClosing += new FormClosingEventHandler(this.DetailsForm_FormClosing);
+            newDetails.Show();
+        }
+
+        private async void DetailsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            itID = 0;
         }
         #endregion
     }

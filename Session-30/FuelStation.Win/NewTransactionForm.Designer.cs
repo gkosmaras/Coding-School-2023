@@ -30,15 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.grvTransLine = new System.Windows.Forms.DataGridView();
-            this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTransID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmItemID = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.clmQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bsNewTransaction = new System.Windows.Forms.BindingSource(this.components);
             this.cmbItem = new System.Windows.Forms.ComboBox();
             this.nudQuantity = new System.Windows.Forms.NumericUpDown();
@@ -50,6 +41,15 @@
             this.btnDone = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.chkEditMode = new System.Windows.Forms.CheckBox();
+            this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTransID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmItemID = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.clmQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransLine)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsNewTransaction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
@@ -74,70 +74,8 @@
             this.grvTransLine.Name = "grvTransLine";
             this.grvTransLine.RowTemplate.Height = 25;
             this.grvTransLine.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.grvTransLine.Size = new System.Drawing.Size(593, 331);
+            this.grvTransLine.Size = new System.Drawing.Size(582, 331);
             this.grvTransLine.TabIndex = 18;
-            // 
-            // clmID
-            // 
-            this.clmID.DataPropertyName = "ID";
-            this.clmID.HeaderText = "ID";
-            this.clmID.Name = "clmID";
-            this.clmID.Width = 5;
-            // 
-            // clmTransID
-            // 
-            this.clmTransID.DataPropertyName = "TransactionID";
-            this.clmTransID.HeaderText = "TransactionID";
-            this.clmTransID.Name = "clmTransID";
-            this.clmTransID.Width = 5;
-            // 
-            // clmItemID
-            // 
-            this.clmItemID.DataPropertyName = "ItemID";
-            this.clmItemID.HeaderText = "Item";
-            this.clmItemID.Name = "clmItemID";
-            this.clmItemID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmItemID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // clmQuantity
-            // 
-            this.clmQuantity.DataPropertyName = "Quantity";
-            this.clmQuantity.HeaderText = "Quantity";
-            this.clmQuantity.Name = "clmQuantity";
-            this.clmQuantity.Width = 60;
-            // 
-            // clmPrice
-            // 
-            this.clmPrice.DataPropertyName = "ItemPrice";
-            this.clmPrice.HeaderText = "Item Price";
-            this.clmPrice.Name = "clmPrice";
-            this.clmPrice.Width = 70;
-            // 
-            // clmValue
-            // 
-            this.clmValue.DataPropertyName = "NetValue";
-            this.clmValue.HeaderText = "Net Value";
-            this.clmValue.Name = "clmValue";
-            // 
-            // clmPercent
-            // 
-            this.clmPercent.DataPropertyName = "DiscountPercent";
-            this.clmPercent.HeaderText = "Discount %";
-            this.clmPercent.Name = "clmPercent";
-            this.clmPercent.Width = 65;
-            // 
-            // clmDiscount
-            // 
-            this.clmDiscount.DataPropertyName = "DiscountValue";
-            this.clmDiscount.HeaderText = "Discount Value";
-            this.clmDiscount.Name = "clmDiscount";
-            this.clmDiscount.Width = 65;
-            // 
-            // clmTotal
-            // 
-            this.clmTotal.DataPropertyName = "TotalValue";
-            this.clmTotal.HeaderText = "Total Value";
-            this.clmTotal.Name = "clmTotal";
             // 
             // cmbItem
             // 
@@ -216,7 +154,7 @@
             this.btnDone.BackColor = System.Drawing.Color.ForestGreen;
             this.btnDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDone.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnDone.Location = new System.Drawing.Point(446, 373);
+            this.btnDone.Location = new System.Drawing.Point(435, 373);
             this.btnDone.Name = "btnDone";
             this.btnDone.Size = new System.Drawing.Size(173, 50);
             this.btnDone.TabIndex = 43;
@@ -229,7 +167,7 @@
             this.btnDelete.BackColor = System.Drawing.Color.OrangeRed;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnDelete.Location = new System.Drawing.Point(233, 373);
+            this.btnDelete.Location = new System.Drawing.Point(227, 373);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(173, 50);
             this.btnDelete.TabIndex = 44;
@@ -248,6 +186,70 @@
             this.chkEditMode.Text = "Edit Mode";
             this.chkEditMode.UseVisualStyleBackColor = true;
             this.chkEditMode.CheckedChanged += new System.EventHandler(this.chkEditMode_CheckChanged);
+            // 
+            // clmID
+            // 
+            this.clmID.DataPropertyName = "ID";
+            this.clmID.HeaderText = "ID";
+            this.clmID.Name = "clmID";
+            this.clmID.Visible = false;
+            this.clmID.Width = 5;
+            // 
+            // clmTransID
+            // 
+            this.clmTransID.DataPropertyName = "TransactionID";
+            this.clmTransID.HeaderText = "TransactionID";
+            this.clmTransID.Name = "clmTransID";
+            this.clmTransID.Visible = false;
+            this.clmTransID.Width = 5;
+            // 
+            // clmItemID
+            // 
+            this.clmItemID.DataPropertyName = "ItemID";
+            this.clmItemID.HeaderText = "Item";
+            this.clmItemID.Name = "clmItemID";
+            this.clmItemID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmItemID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // clmQuantity
+            // 
+            this.clmQuantity.DataPropertyName = "Quantity";
+            this.clmQuantity.HeaderText = "Quantity";
+            this.clmQuantity.Name = "clmQuantity";
+            this.clmQuantity.Width = 60;
+            // 
+            // clmPrice
+            // 
+            this.clmPrice.DataPropertyName = "ItemPrice";
+            this.clmPrice.HeaderText = "Item Price";
+            this.clmPrice.Name = "clmPrice";
+            this.clmPrice.Width = 70;
+            // 
+            // clmValue
+            // 
+            this.clmValue.DataPropertyName = "NetValue";
+            this.clmValue.HeaderText = "Net Value";
+            this.clmValue.Name = "clmValue";
+            // 
+            // clmPercent
+            // 
+            this.clmPercent.DataPropertyName = "DiscountPercent";
+            this.clmPercent.HeaderText = "Discount %";
+            this.clmPercent.Name = "clmPercent";
+            this.clmPercent.Width = 65;
+            // 
+            // clmDiscount
+            // 
+            this.clmDiscount.DataPropertyName = "DiscountValue";
+            this.clmDiscount.HeaderText = "Discount Value";
+            this.clmDiscount.Name = "clmDiscount";
+            this.clmDiscount.Width = 65;
+            // 
+            // clmTotal
+            // 
+            this.clmTotal.DataPropertyName = "TotalValue";
+            this.clmTotal.HeaderText = "Total Value";
+            this.clmTotal.Name = "clmTotal";
             // 
             // NewTransactionForm
             // 
@@ -285,6 +287,12 @@
         private NumericUpDown nudQuantity;
         private RadioButton radCash;
         private RadioButton radCard;
+        private Label label5;
+        private Label label3;
+        private Button btnAdd;
+        private Button btnDone;
+        private Button btnDelete;
+        private CheckBox chkEditMode;
         private DataGridViewTextBoxColumn clmID;
         private DataGridViewTextBoxColumn clmTransID;
         private DataGridViewComboBoxColumn clmItemID;
@@ -294,11 +302,5 @@
         private DataGridViewTextBoxColumn clmPercent;
         private DataGridViewTextBoxColumn clmDiscount;
         private DataGridViewTextBoxColumn clmTotal;
-        private Label label5;
-        private Label label3;
-        private Button btnAdd;
-        private Button btnDone;
-        private Button btnDelete;
-        private CheckBox chkEditMode;
     }
 }

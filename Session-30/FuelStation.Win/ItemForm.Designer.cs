@@ -47,13 +47,13 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.grvItem = new System.Windows.Forms.DataGridView();
+            this.chkEditMode = new System.Windows.Forms.CheckBox();
             this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmItemType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chkEditMode = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.bsItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCost)).BeginInit();
@@ -223,15 +223,29 @@
             this.grvItem.GridColor = System.Drawing.Color.Black;
             this.grvItem.Location = new System.Drawing.Point(32, 19);
             this.grvItem.Name = "grvItem";
-            this.grvItem.Size = new System.Drawing.Size(499, 312);
+            this.grvItem.Size = new System.Drawing.Size(493, 312);
             this.grvItem.TabIndex = 24;
             this.grvItem.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvItem_CellClick);
+            this.grvItem.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvItem_CellDoubleClick);
+            // 
+            // chkEditMode
+            // 
+            this.chkEditMode.AutoSize = true;
+            this.chkEditMode.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.chkEditMode.Location = new System.Drawing.Point(554, 19);
+            this.chkEditMode.Name = "chkEditMode";
+            this.chkEditMode.Size = new System.Drawing.Size(99, 24);
+            this.chkEditMode.TabIndex = 44;
+            this.chkEditMode.Text = "Edit Mode";
+            this.chkEditMode.UseVisualStyleBackColor = true;
+            this.chkEditMode.CheckedChanged += new System.EventHandler(this.chkEditMode_CheckChanged);
             // 
             // clmID
             // 
             this.clmID.DataPropertyName = "ID";
             this.clmID.HeaderText = "ID";
             this.clmID.Name = "clmID";
+            this.clmID.Visible = false;
             this.clmID.Width = 5;
             // 
             // clmCode
@@ -264,18 +278,6 @@
             this.clmCost.DataPropertyName = "Cost";
             this.clmCost.HeaderText = "Cost";
             this.clmCost.Name = "clmCost";
-            // 
-            // chkEditMode
-            // 
-            this.chkEditMode.AutoSize = true;
-            this.chkEditMode.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.chkEditMode.Location = new System.Drawing.Point(554, 19);
-            this.chkEditMode.Name = "chkEditMode";
-            this.chkEditMode.Size = new System.Drawing.Size(99, 24);
-            this.chkEditMode.TabIndex = 44;
-            this.chkEditMode.Text = "Edit Mode";
-            this.chkEditMode.UseVisualStyleBackColor = true;
-            this.chkEditMode.CheckedChanged += new System.EventHandler(this.chkEditMode_CheckChanged);
             // 
             // ItemForm
             // 
@@ -333,12 +335,12 @@
         private TextBox txtDescription;
         private Button btnDelete;
         private DataGridView grvItem;
+        private CheckBox chkEditMode;
         private DataGridViewTextBoxColumn clmID;
         private DataGridViewTextBoxColumn clmCode;
         private DataGridViewTextBoxColumn clmDescription;
         private DataGridViewComboBoxColumn clmItemType;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmCost;
-        private CheckBox chkEditMode;
     }
 }

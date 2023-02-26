@@ -62,14 +62,14 @@
             this.grvTransaction.Name = "grvTransaction";
             this.grvTransaction.RowTemplate.Height = 25;
             this.grvTransaction.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.grvTransaction.Size = new System.Drawing.Size(548, 414);
+            this.grvTransaction.Size = new System.Drawing.Size(543, 414);
             this.grvTransaction.TabIndex = 0;
             this.grvTransaction.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvTransaction_CellContentDoubleClick);
             this.grvTransaction.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grvTransaction_DataError);
             // 
             // txtCardNumber
             // 
-            this.txtCardNumber.Location = new System.Drawing.Point(582, 124);
+            this.txtCardNumber.Location = new System.Drawing.Point(576, 124);
             this.txtCardNumber.Name = "txtCardNumber";
             this.txtCardNumber.Size = new System.Drawing.Size(143, 23);
             this.txtCardNumber.TabIndex = 1;
@@ -77,7 +77,7 @@
             // cmbEmployee
             // 
             this.cmbEmployee.FormattingEnabled = true;
-            this.cmbEmployee.Location = new System.Drawing.Point(582, 75);
+            this.cmbEmployee.Location = new System.Drawing.Point(576, 75);
             this.cmbEmployee.Name = "cmbEmployee";
             this.cmbEmployee.Size = new System.Drawing.Size(143, 23);
             this.cmbEmployee.TabIndex = 3;
@@ -87,7 +87,7 @@
             this.btnSave.BackColor = System.Drawing.Color.ForestGreen;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSave.Location = new System.Drawing.Point(582, 188);
+            this.btnSave.Location = new System.Drawing.Point(576, 188);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(173, 50);
             this.btnSave.TabIndex = 42;
@@ -100,7 +100,7 @@
             this.button2.BackColor = System.Drawing.Color.OrangeRed;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(582, 261);
+            this.button2.Location = new System.Drawing.Point(576, 261);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(173, 50);
             this.button2.TabIndex = 41;
@@ -112,7 +112,7 @@
             // 
             this.chkEditMode.AutoSize = true;
             this.chkEditMode.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.chkEditMode.Location = new System.Drawing.Point(582, 24);
+            this.chkEditMode.Location = new System.Drawing.Point(576, 24);
             this.chkEditMode.Name = "chkEditMode";
             this.chkEditMode.Size = new System.Drawing.Size(99, 24);
             this.chkEditMode.TabIndex = 43;
@@ -125,6 +125,7 @@
             this.clmID.DataPropertyName = "ID";
             this.clmID.HeaderText = "ID";
             this.clmID.Name = "clmID";
+            this.clmID.Visible = false;
             this.clmID.Width = 5;
             // 
             // clmDate
@@ -168,7 +169,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Honeydew;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(761, 450);
             this.Controls.Add(this.chkEditMode);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.button2);

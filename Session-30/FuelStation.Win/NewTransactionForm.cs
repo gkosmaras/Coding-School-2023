@@ -50,14 +50,13 @@ namespace FuelStation.Win
             colbox.DisplayMember = "Description";
             colbox.ValueMember = "ID";
 
-            var dbTransactions = await transHandler.PopulateDataGridView();
-
             cmbItem.DataSource = new BindingSource(dbItems, null);
             cmbItem.DisplayMember = "Description";
             cmbItem.ValueMember = "ID";
 
             grvTransLine.AutoGenerateColumns = false;
             nudQuantity.Controls.RemoveAt(0);
+            ReadOnly();
             grvTransLine.Columns["clmTransID"].ReadOnly = true;
             grvTransLine.Columns["clmPrice"].ReadOnly = true;
             grvTransLine.Columns["clmValue"].ReadOnly = true;
