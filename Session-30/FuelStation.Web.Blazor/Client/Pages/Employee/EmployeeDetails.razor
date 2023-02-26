@@ -1,0 +1,74 @@
+﻿@page "/employee/detail/{id:int?}"
+@using FuelStation.Web.Blazor.Shared.DTO;
+
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+@if (loading)
+{
+    <Spinner />
+}
+else
+{
+    <PageTitle>Employee @Employee.Name @Employee.Surname - Fuel Station Retail System</PageTitle>
+
+    <h1 class="mb-5">Details for employee: @Employee.Name @Employee.Surname</h1>
+
+    <div class="row mb-5">
+        <div><strong>Employee type:</strong> @Employee.EmployeeType</div>
+        <div><strong>Salary per month:</strong> @Employee.SalaryPerMonth</div>
+    </div>
+
+    <h2 class="mb-3">Transactions</h2>
+
+    <div class="table-responsive">
+
+        <table class="table table-dark table-striped">
+
+            <thead>
+                <tr>
+                    <th>Transaction Date</th>
+                    <th>Transaction Total Value</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var trans in transactions)
+                {
+                    <tr>
+                        <td>@trans.Date</td>
+                        <td>@trans.TotalValue</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <button class="btn btn-secondary" @onclick="OnCancel">Back</button>
+}
+
+@code {
+
+    bool loading { get; set; } = true;
+
+    [Parameter] public int? Id { get; set; }
+
+    EmployeeEditDto? Employee { get; set; }
+    private List<TransactionEditDto> transactions = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Employee = await httpClient.GetFromJsonAsync<EmployeeEditDto>($"employee/{Id}");
+        var temp = await httpClient.GetFromJsonAsync<List<TransactionEditDto>>("transaction");
+        transactions = temp.Where(x => x.EmployeeID == Id).ToList();
+        loading = false;
+    }
+
+    private void OnCancel()
+    {
+        navigationManager.NavigateTo("employee");
+    }
+
+}

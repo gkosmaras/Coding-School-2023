@@ -1,0 +1,73 @@
+﻿@page "/customer/detail/{id:int?}"
+@using FuelStation.Web.Blazor.Shared.DTO;
+
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+@if (loading)
+{
+    <Spinner />
+}
+else
+{
+    <PageTitle>Customer @Customer.Name @Customer.Surname - Fuel Station Retail System</PageTitle>
+
+    <h1 class="mb-5">Details for Customer: @Customer.Name @Customer.Surname</h1>
+
+    <div class="row mb-5">
+        <div><strong>Card number:</strong> @Customer.CardNumber</div>
+    </div>
+
+    <h2 class="mb-3">Transactions</h2>
+
+    <div class="table-responsive">
+
+        <table class="table table-dark table-striped">
+
+            <thead>
+                <tr>
+                    <th>Transaction Date</th>
+                    <th>Transaction Total Value</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var trans in transactions)
+                {
+                    <tr>
+                        <td>@trans.Date</td>
+                        <td>@trans.TotalValue</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <button class="btn btn-secondary" @onclick="OnCancel">Back</button>
+}
+
+@code {
+
+    bool loading { get; set; } = true;
+
+    [Parameter] public int? Id { get; set; }
+
+    CustomerEditDto? Customer { get; set; }
+    private List<TransactionEditDto> transactions = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Customer = await httpClient.GetFromJsonAsync<CustomerEditDto>($"customer/{Id}");
+        List<TransactionEditDto> temp = await httpClient.GetFromJsonAsync<List<TransactionEditDto>>("transaction");
+        transactions = temp.Where(x => x.CustomerID == Id).ToList();
+        loading = false;
+    }
+
+    private void OnCancel()
+    {
+        navigationManager.NavigateTo("customer");
+    }
+
+}
