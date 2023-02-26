@@ -27,7 +27,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
             _transLineRepo = transLineRepo;
             _employeeRepo = employeeRepo;
         }
-
+        // TODO: implement manger-set rent
         [HttpGet]
         public async Task<IEnumerable<MonthlyLedgerDto>> Get()
         {
@@ -42,8 +42,8 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                     Year = ledge.First().Date.Year,
                     Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ledge.First().Date.Month),
                     Income = ledge.SelectMany(x => x.TransactionLines).Sum(it => (it.TotalValue)),
-                    Expenses = GetExpenses(ledge) + GetWages(ledge),
-                    Total = ledge.SelectMany(x => x.TransactionLines).Sum(it => (it.TotalValue)) - (GetExpenses(ledge) + GetWages(ledge))
+                    Expenses = GetExpenses(ledge) + GetWages(ledge) + 2000,
+                    Total = ledge.SelectMany(x => x.TransactionLines).Sum(it => (it.TotalValue)) - (GetExpenses(ledge) + GetWages(ledge) + 2000)
                 });
             return result;
         }
@@ -75,7 +75,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
             }
             foreach (var ee in dbEmployee)
             {
-                if (DateTime.Compare(ledge.First().Date, ee.HireDateStart) >= 0 && (DateTime.Compare(ledge.First().Date, ee.HireDateEnd) <= 0))
+                if ((DateTime.Compare(ledge.First().Date, ee.HireDateStart) >= 0) && (DateTime.Compare(ledge.First().Date, ee.HireDateEnd) <= 0))
                 {
                     total += ee.SalaryPerMonth;
                 }

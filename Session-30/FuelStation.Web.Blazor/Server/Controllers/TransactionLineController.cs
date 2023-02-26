@@ -78,12 +78,12 @@ namespace FuelStation.Web.Blazor.Server.Controllers
 
             if (itemType == ItemType.Fuel && (itemPrice * qnt) > 20)
             {
-                discount = 0.2m;
+                discount = 0.1m;
             }
             decimal percent = 0;
             if (discount > 0)
             {
-                percent = 20;
+                percent = 10;
             }
 
             TransactionLine newTransLine = new()
@@ -110,12 +110,12 @@ namespace FuelStation.Web.Blazor.Server.Controllers
             decimal discount = 0;
             if (itemType == ItemType.Fuel && (itemPrice * qnt) > 20)
             {
-                discount = 0.2m;
+                discount = 0.1m;
             }
             decimal percent = 0;
             if (discount > 0)
             {
-                percent = 20;
+                percent = 10;
             }
             var dbTransLine = _transLineRepo.GetById(transLine.ID);
             if (dbTransLine == null)
