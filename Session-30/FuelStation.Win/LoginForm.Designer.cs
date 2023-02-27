@@ -30,99 +30,133 @@
         {
             this.btnCustomers = new System.Windows.Forms.Button();
             this.btnItems = new System.Windows.Forms.Button();
-            this.btnMangerLg = new System.Windows.Forms.Button();
-            this.btnCashierLg = new System.Windows.Forms.Button();
-            this.btnStaffLg = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnTransaction = new System.Windows.Forms.Button();
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.lblpassword = new System.Windows.Forms.Label();
+            this.btnEnter = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCustomers
             // 
-            this.btnCustomers.Location = new System.Drawing.Point(88, 169);
+            this.btnCustomers.BackColor = System.Drawing.Color.Khaki;
+            this.btnCustomers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCustomers.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCustomers.Location = new System.Drawing.Point(12, 76);
             this.btnCustomers.Name = "btnCustomers";
-            this.btnCustomers.Size = new System.Drawing.Size(192, 69);
+            this.btnCustomers.Size = new System.Drawing.Size(136, 47);
             this.btnCustomers.TabIndex = 0;
-            this.btnCustomers.Text = "To Customers";
-            this.btnCustomers.UseVisualStyleBackColor = true;
+            this.btnCustomers.Text = "Customers";
+            this.btnCustomers.UseVisualStyleBackColor = false;
             this.btnCustomers.Click += new System.EventHandler(this.btnCustomers_Click);
             // 
             // btnItems
             // 
-            this.btnItems.Location = new System.Drawing.Point(286, 169);
+            this.btnItems.BackColor = System.Drawing.Color.Khaki;
+            this.btnItems.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnItems.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnItems.Location = new System.Drawing.Point(12, 129);
             this.btnItems.Name = "btnItems";
-            this.btnItems.Size = new System.Drawing.Size(192, 69);
+            this.btnItems.Size = new System.Drawing.Size(136, 47);
             this.btnItems.TabIndex = 1;
-            this.btnItems.Text = "To Items";
-            this.btnItems.UseVisualStyleBackColor = true;
+            this.btnItems.Text = "Items";
+            this.btnItems.UseVisualStyleBackColor = false;
             this.btnItems.Click += new System.EventHandler(this.btnItems_Click);
-            // 
-            // btnMangerLg
-            // 
-            this.btnMangerLg.Location = new System.Drawing.Point(88, 62);
-            this.btnMangerLg.Name = "btnMangerLg";
-            this.btnMangerLg.Size = new System.Drawing.Size(192, 69);
-            this.btnMangerLg.TabIndex = 3;
-            this.btnMangerLg.Text = "Manager";
-            this.btnMangerLg.UseVisualStyleBackColor = true;
-            this.btnMangerLg.Click += new System.EventHandler(this.btnManagerLg_Click);
-            // 
-            // btnCashierLg
-            // 
-            this.btnCashierLg.Location = new System.Drawing.Point(286, 62);
-            this.btnCashierLg.Name = "btnCashierLg";
-            this.btnCashierLg.Size = new System.Drawing.Size(192, 69);
-            this.btnCashierLg.TabIndex = 4;
-            this.btnCashierLg.Text = "Cashier";
-            this.btnCashierLg.UseVisualStyleBackColor = true;
-            this.btnCashierLg.Click += new System.EventHandler(this.btnCashier_Click);
-            // 
-            // btnStaffLg
-            // 
-            this.btnStaffLg.Location = new System.Drawing.Point(484, 62);
-            this.btnStaffLg.Name = "btnStaffLg";
-            this.btnStaffLg.Size = new System.Drawing.Size(192, 69);
-            this.btnStaffLg.TabIndex = 5;
-            this.btnStaffLg.Text = "Staff";
-            this.btnStaffLg.UseVisualStyleBackColor = true;
-            this.btnStaffLg.Click += new System.EventHandler(this.btnStaff_Click);
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(663, 388);
+            this.btnLogout.BackColor = System.Drawing.Color.Goldenrod;
+            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogout.Location = new System.Drawing.Point(235, 199);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(125, 50);
+            this.btnLogout.Size = new System.Drawing.Size(91, 27);
             this.btnLogout.TabIndex = 6;
-            this.btnLogout.Text = "Exit";
-            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = false;
             this.btnLogout.Click += new System.EventHandler(this.LoginFrom_Load);
             // 
             // btnTransaction
             // 
-            this.btnTransaction.Location = new System.Drawing.Point(484, 169);
+            this.btnTransaction.BackColor = System.Drawing.Color.Khaki;
+            this.btnTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransaction.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnTransaction.Location = new System.Drawing.Point(175, 76);
             this.btnTransaction.Name = "btnTransaction";
-            this.btnTransaction.Size = new System.Drawing.Size(192, 69);
+            this.btnTransaction.Size = new System.Drawing.Size(136, 47);
             this.btnTransaction.TabIndex = 7;
-            this.btnTransaction.Text = "To Transactions";
-            this.btnTransaction.UseVisualStyleBackColor = true;
+            this.btnTransaction.Text = "Transactions";
+            this.btnTransaction.UseVisualStyleBackColor = false;
             this.btnTransaction.Click += new System.EventHandler(this.btnTransactions);
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.Location = new System.Drawing.Point(12, 28);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(136, 23);
+            this.txtUsername.TabIndex = 8;
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(175, 28);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(136, 23);
+            this.txtPassword.TabIndex = 9;
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.lblUsername.Location = new System.Drawing.Point(12, 4);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(101, 21);
+            this.lblUsername.TabIndex = 10;
+            this.lblUsername.Text = "Usernmane:";
+            // 
+            // lblpassword
+            // 
+            this.lblpassword.AutoSize = true;
+            this.lblpassword.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.lblpassword.Location = new System.Drawing.Point(175, 4);
+            this.lblpassword.Name = "lblpassword";
+            this.lblpassword.Size = new System.Drawing.Size(86, 21);
+            this.lblpassword.TabIndex = 11;
+            this.lblpassword.Text = "Password:";
+            // 
+            // btnEnter
+            // 
+            this.btnEnter.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnEnter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEnter.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnEnter.Location = new System.Drawing.Point(12, 66);
+            this.btnEnter.Name = "btnEnter";
+            this.btnEnter.Size = new System.Drawing.Size(299, 47);
+            this.btnEnter.TabIndex = 12;
+            this.btnEnter.Text = "Enter";
+            this.btnEnter.UseVisualStyleBackColor = false;
+            this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.Color.Honeydew;
+            this.ClientSize = new System.Drawing.Size(338, 232);
+            this.Controls.Add(this.btnEnter);
+            this.Controls.Add(this.lblpassword);
+            this.Controls.Add(this.lblUsername);
+            this.Controls.Add(this.txtPassword);
+            this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.btnTransaction);
             this.Controls.Add(this.btnLogout);
-            this.Controls.Add(this.btnStaffLg);
-            this.Controls.Add(this.btnCashierLg);
-            this.Controls.Add(this.btnMangerLg);
             this.Controls.Add(this.btnItems);
             this.Controls.Add(this.btnCustomers);
             this.Name = "LoginForm";
-            this.Text = "LoginForm";
+            this.Text = "Login";
             this.Load += new System.EventHandler(this.LoginFrom_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -131,10 +165,12 @@
         private Button btnCustomers;
         private Button btnItems;
         private Button button3;
-        private Button btnMangerLg;
-        private Button btnCashierLg;
-        private Button btnStaffLg;
         private Button btnLogout;
         private Button btnTransaction;
+        private TextBox txtUsername;
+        private TextBox txtPassword;
+        private Label lblUsername;
+        private Label lblpassword;
+        private Button btnEnter;
     }
 }

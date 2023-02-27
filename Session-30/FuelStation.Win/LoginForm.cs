@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FuelStation.Web.Blazor.Shared.DTO;
+using FuelStation.Win.Handler;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,38 +14,83 @@ namespace FuelStation.Win
 {
     public partial class LoginForm : Form
     {
+        private EmployeeHandler handler = new EmployeeHandler();
         public LoginForm()
         {
             InitializeComponent();
         }
         private void LoginFrom_Load(object sender, EventArgs e)
         {
-            btnMangerLg.Visible = true;
-            btnCashierLg.Visible = true;
-            btnStaffLg.Visible = true;
+            SetVisibility();
+            TextConfigurations();
+        }
+        private void SetVisibility()
+        {
+            btnEnter.Visible = true;
             btnCustomers.Visible = false;
             btnItems.Visible = false;
+            btnTransaction.Visible = false;
             btnLogout.Visible = false;
         }
-        private void btnManagerLg_Click(object sender, EventArgs e)
+        private void TextConfigurations()
         {
-            HideLogins();
-            btnCustomers.Visible = true;
-            btnItems.Visible = true;
-            btnLogout.Visible = true;
+            txtUsername.Text = "";
+            txtUsername.MaxLength= 40;
+            txtPassword.Text = "";
+            txtPassword.PasswordChar = '*';
+            txtPassword.MaxLength= 14;
         }
-        private void btnCashier_Click(object sender, EventArgs e)
+        private async void btnEnter_Click(object sender, EventArgs e)
         {
-            HideLogins();
-            btnCustomers.Visible = true;
-            btnLogout.Visible = true;
+            var dbEmployee = await handler.PopulateDataGridView();
+            string input = txtPassword.Text.Remove(0,8);
+            Int32.TryParse(input, out int result);
+            string username = txtUsername.Text;
+            var user = (dbEmployee.SingleOrDefault(x => x.ID == result));
+            if (user == null)
+            {
+                MessageBox.Show("Wrong credentials!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextConfigurations();
+                return;
+            }
+            if (username == (user.Name + user.Surname).ToLower()
+                && user.ID == result)
+            {
+                btnEnter.Visible = false;
+                if (user.EmployeeType == Model.Enums.EmployeeType.Manager)
+                {
+                    btnCustomers.Visible = true;
+                    btnItems.Visible = true;
+                    btnTransaction.Visible = true;
+                    btnLogout.Visible = true;
+                }
+                else if (user.EmployeeType == Model.Enums.EmployeeType.Cashier)
+                {
+                    btnCustomers.Visible = true;
+                    btnTransaction.Visible = true;
+                    btnLogout.Visible = true;
+                }
+                else
+                {
+                    btnItems.Visible = true;
+                    btnLogout.Visible = true;
+                }
+            }
+            else if (username == "admin" && txtPassword.Text == "sysadmin")
+            {
+                btnEnter.Visible = false;
+                btnCustomers.Visible = true;
+                btnItems.Visible = true;
+                btnTransaction.Visible = true;
+                btnLogout.Visible = true;
+            }
         }
-        private void btnStaff_Click(object sender, EventArgs e)
+        private void btnLogout_CLick(object sender, EventArgs e)
         {
-            HideLogins();
-            btnItems.Visible = true;
-            btnLogout.Visible = true;
+            TextConfigurations();
+            SetVisibility();
         }
+
         private void btnCustomers_Click(object sender, EventArgs e)
         {
             CustomerForm customerForm = new CustomerForm();
@@ -77,12 +124,6 @@ namespace FuelStation.Win
         private void transactionForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Show();
-        }
-        private void HideLogins()
-        {
-            btnMangerLg.Visible = false;
-            btnCashierLg.Visible = false;
-            btnStaffLg.Visible = false;
         }
         #endregion
     }
