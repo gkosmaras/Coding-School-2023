@@ -1,4 +1,5 @@
 ﻿using FuelStation.Web.Blazor.Shared.DTO;
+using FuelStation.Web.Blazor.Shared.Validators;
 using FuelStation.Win.Handler;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace FuelStation.Win
 {
     public partial class LoginForm : Form
     {
-        private EmployeeHandler handler = new EmployeeHandler();
+        private Validator validator = new Validator();
         public LoginForm()
         {
             InitializeComponent();
@@ -42,49 +43,37 @@ namespace FuelStation.Win
         }
         private async void btnEnter_Click(object sender, EventArgs e)
         {
-            var dbEmployee = await handler.PopulateDataGridView();
-            string input = txtPassword.Text.Remove(0,8);
-            Int32.TryParse(input, out int result);
-            string username = txtUsername.Text;
-            var user = (dbEmployee.SingleOrDefault(x => x.ID == result));
-            if (user == null)
+            int credential = validator.LoginCred(txtUsername.Text, txtPassword.Text);
+            if (credential == 0)
             {
                 MessageBox.Show("Wrong credentials!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 TextConfigurations();
                 return;
             }
-            if (username == (user.Name + user.Surname).ToLower()
-                && user.ID == result)
+            else
             {
                 btnEnter.Visible = false;
-                if (user.EmployeeType == Model.Enums.EmployeeType.Manager)
+                if (credential == 1)
                 {
                     btnCustomers.Visible = true;
                     btnItems.Visible = true;
                     btnTransaction.Visible = true;
                     btnLogout.Visible = true;
                 }
-                else if (user.EmployeeType == Model.Enums.EmployeeType.Cashier)
+                else if (credential == 2)
                 {
                     btnCustomers.Visible = true;
                     btnTransaction.Visible = true;
                     btnLogout.Visible = true;
                 }
-                else
+                else if (credential == 3)
                 {
                     btnItems.Visible = true;
                     btnLogout.Visible = true;
                 }
-            }
-            else if (username == "admin" && txtPassword.Text == "sysadmin")
-            {
-                btnEnter.Visible = false;
-                btnCustomers.Visible = true;
-                btnItems.Visible = true;
-                btnTransaction.Visible = true;
-                btnLogout.Visible = true;
             }
         }
+
         private void btnLogout_CLick(object sender, EventArgs e)
         {
             TextConfigurations();

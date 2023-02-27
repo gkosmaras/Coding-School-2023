@@ -226,5 +226,35 @@ namespace FuelStation.Web.Blazor.Shared.Validators
             }
             return result;
         }
+
+        public int LoginCred(string username, string passKey)
+        {
+            int result = 0;
+            var dbEmployee = context.Employees;
+            string input = passKey.Remove(0, 8);
+            Int32.TryParse(input, out int password);
+            var user = (dbEmployee.SingleOrDefault(x => x.ID == password));
+            if (username == (user.Name + user.Surname).ToLower()
+                && user.ID == password)
+            {
+                if (user.EmployeeType == EmployeeType.Manager)
+                {
+                    result = 1;
+                }
+                else if (user.EmployeeType == EmployeeType.Cashier)
+                {
+                    result = 2;
+                }
+                else
+                {
+                    result = 3;
+                }
+            }
+            else if (username == "admin" && passKey == "sysadmin")
+            {
+                result = 1;
+            }
+            return result;
+        }
     }
 }
