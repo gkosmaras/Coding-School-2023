@@ -234,8 +234,7 @@ namespace FuelStation.Web.Blazor.Shared.Validators
             string input = passKey.Remove(0, 8);
             Int32.TryParse(input, out int password);
             var user = (dbEmployee.SingleOrDefault(x => x.ID == password));
-            if (username == (user.Name + user.Surname).ToLower()
-                && user.ID == password)
+            if (username == (user.Name + user.Surname).ToLower())
             {
                 if (user.EmployeeType == EmployeeType.Manager)
                 {

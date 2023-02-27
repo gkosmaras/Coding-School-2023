@@ -110,9 +110,9 @@
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.lblUsername.Location = new System.Drawing.Point(12, 4);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(101, 21);
+            this.lblUsername.Size = new System.Drawing.Size(91, 21);
             this.lblUsername.TabIndex = 10;
-            this.lblUsername.Text = "Usernmane:";
+            this.lblUsername.Text = "Username:";
             // 
             // lblpassword
             // 
