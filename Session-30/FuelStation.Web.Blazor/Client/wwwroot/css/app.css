@@ -8,6 +8,13 @@ h1:focus {
     outline: none;
 }
 
+.spin {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 a, .btn-link {
     color: #0071c1;
 }

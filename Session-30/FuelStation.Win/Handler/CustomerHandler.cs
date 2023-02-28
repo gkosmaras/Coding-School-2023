@@ -47,7 +47,7 @@ namespace FuelStation.Win.Handler
             var response = await httpClient.DeleteAsync($"https://localhost:7209/customer/{id}");
             if (!response.IsSuccessStatusCode)
             {
-                MessageBox.Show("FailureDelete", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("Customer can not be deleted as it has transactions", "Error", MessageBoxButtons.OK);
             }
         }
     }
