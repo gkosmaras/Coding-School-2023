@@ -2,10 +2,12 @@
 using FuelStation.Model;
 using FuelStation.Model.People;
 using FuelStation.Model.Transactions;
+using FuelStation.Web.Blazor.Shared;
 using FuelStation.Web.Blazor.Shared.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query;
+using Syncfusion.Blazor.Inputs;
 using System.Globalization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -19,6 +21,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
         private readonly IEntityRepo<TransactionLine> _transLineRepo;
         private readonly IEntityRepo<Employee> _employeeRepo;
         private readonly IEntityRepo<Item> _itemRepo;
+        private Serializer serial = new Serializer();
 
         public MonthlyLedgerController(IEntityRepo<TransactionLine> transLineRepo, IEntityRepo<Employee> employeeRepo, IEntityRepo<Transaction> transactionRepo, IEntityRepo<Item> itemRepo)
         {
@@ -32,6 +35,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
         public async Task<IEnumerable<MonthlyLedgerDto>> Get()
         {
             var dbTransaction = _transactionRepo.GetAll();
+            List<Rent> rents = serial.DeserializeFromFile<List<Rent>>(@"C:\Users\giorg\Desktop\rent.txt");
             foreach (var date in dbTransaction)
             {
                 date.Date = new DateTime(date.Date.Year, date.Date.Month, 1);
@@ -42,10 +46,16 @@ namespace FuelStation.Web.Blazor.Server.Controllers
                     Year = ledge.First().Date.Year,
                     Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ledge.First().Date.Month),
                     Income = ledge.SelectMany(x => x.TransactionLines).Sum(it => (it.TotalValue)),
-                    Expenses = GetExpenses(ledge) + GetWages(ledge) + 2000,
-                    Total = ledge.SelectMany(x => x.TransactionLines).Sum(it => (it.TotalValue)) - (GetExpenses(ledge) + GetWages(ledge) + 2000)
+                    Expenses = GetExpenses(ledge) + GetWages(ledge) + rents.Last().monthlyRent,
+                    Total = ledge.SelectMany(x => x.TransactionLines).Sum(it => (it.TotalValue)) - (GetExpenses(ledge) + GetWages(ledge) + rents.Last().monthlyRent)
                 });
             return result;
+        }
+
+        [HttpPut]
+        public async void UpdateRent(List<Rent> rents)
+        {
+            serial.SerializeToFile(rents, @"C:\Users\giorg\Desktop\rent.txt");
         }
 
         private decimal GetExpenses(IGrouping<DateTime, Transaction> ledge)

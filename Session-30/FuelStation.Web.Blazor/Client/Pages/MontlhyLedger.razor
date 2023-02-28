@@ -1,7 +1,10 @@
 ﻿@page "/monthlyLedger"
 @using FuelStation.Web.Blazor.Shared.DTO;
+@using FuelStation.Web.Blazor.Shared;
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
+@using System.Text.Json;
+@using System.Text.Json.Serialization;
 
 
 @if (loading)
@@ -44,15 +47,28 @@ else
 
         </table>
 
-    </div>
+        <div class="col-md-6">
+            <label class="form-label">Rent Cost</label>
+            <InputNumber class="form-select" @bind-Value=@input>
+            </InputNumber>
+        </div>
+
+            <div class="col-md-6">
+                <button class="btn btn-success" type="submit" @onclick="OnUpdate">Update</button>
+            </div>
+        </div>
 
 }
 
 @code {
-
+    private Serializer serial = new Serializer();
     private List<MonthlyLedgerDto> ledger = new();
 
+    public List<Rent> rents = new();
+
     bool loading { get; set; } = true;
+
+    public int input;
 
     protected override async Task OnInitializedAsync()
     {
@@ -69,4 +85,12 @@ else
         ledger = await httpClient.GetFromJsonAsync<List<MonthlyLedgerDto>>("monthlyledger");
     }
 
+    private async void OnUpdate()
+    {
+        rents.Add(new Rent()
+            {
+                monthlyRent = input
+            });
+        await httpClient.PutAsJsonAsync<List<Rent>>("monthlyledger", rents);
+    }
 }
