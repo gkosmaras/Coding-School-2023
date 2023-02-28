@@ -1,0 +1,84 @@
+﻿@page "/itemLedger"
+@using FuelStation.Web.Blazor.Shared.DTO;
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+
+@if (loading)
+{
+    <Spinner />
+}
+else
+{
+
+    <PageTitle>Fuel Station Monthly Ledger - Fuel Station Retail System</PageTitle>
+
+    <h1 class="mb-5">Fuel Station Monthly Ledger</h1>
+
+    <div class="table-responsive">
+
+        <table class="table table-dark table-striped">
+
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Month</th>
+                    <th>Product Type</th>
+                    <th>Volume Sold</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in ledger)
+                {
+                    <tr>
+                        <td>@item.Year</td>
+                        <td>@item.Month</td>
+                        <td>
+                            <ul class="list-unstyled">
+                                @foreach (var it in item.ItemNames)
+                                {
+                                    <li>@it</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="list-unstyled">
+                                @foreach (var it in item.ItemQnt)
+                                {
+                                    <li>@it</li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+}
+
+@code {
+
+    private List<ItemLedgerDto> ledger = new();
+
+    bool loading { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ledger == null)
+        {
+            throw new ArgumentNullException();
+        }
+        await LoadItemsFromServer();
+        loading = false;
+    }
+
+    private async Task LoadItemsFromServer()
+    {
+        ledger = await httpClient.GetFromJsonAsync<List<ItemLedgerDto>>("itemledger");
+    }
+
+}
