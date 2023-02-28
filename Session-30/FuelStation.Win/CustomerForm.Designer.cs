@@ -31,16 +31,16 @@
             this.components = new System.ComponentModel.Container();
             this.bsCustomer = new System.Windows.Forms.BindingSource(this.components);
             this.grvCustomer = new System.Windows.Forms.DataGridView();
+            this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.chkEditMode = new System.Windows.Forms.CheckBox();
-            this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmSurname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmCardNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bsCustomer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomer)).BeginInit();
             this.SuspendLayout();
@@ -63,6 +63,32 @@
             this.grvCustomer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvCustomer_CellClick);
             this.grvCustomer.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvCustomer_CellDoubleClick);
             // 
+            // clmID
+            // 
+            this.clmID.DataPropertyName = "ID";
+            this.clmID.HeaderText = "ID";
+            this.clmID.Name = "clmID";
+            this.clmID.Visible = false;
+            this.clmID.Width = 5;
+            // 
+            // clmName
+            // 
+            this.clmName.DataPropertyName = "Name";
+            this.clmName.HeaderText = "Name";
+            this.clmName.Name = "clmName";
+            // 
+            // clmSurname
+            // 
+            this.clmSurname.DataPropertyName = "Surname";
+            this.clmSurname.HeaderText = "Surname";
+            this.clmSurname.Name = "clmSurname";
+            // 
+            // clmCardNumber
+            // 
+            this.clmCardNumber.DataPropertyName = "CardNumber";
+            this.clmCardNumber.HeaderText = "Card Number";
+            this.clmCardNumber.Name = "clmCardNumber";
+            // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
@@ -75,9 +101,11 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
+            this.lblName.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.lblName.Location = new System.Drawing.Point(12, 217);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(39, 15);
+            this.lblName.Size = new System.Drawing.Size(48, 19);
             this.lblName.TabIndex = 20;
             this.lblName.Text = "Name";
             // 
@@ -127,32 +155,6 @@
             this.chkEditMode.Text = "Edit Mode";
             this.chkEditMode.UseVisualStyleBackColor = true;
             this.chkEditMode.CheckedChanged += new System.EventHandler(this.chkEditMode_CheckChanged);
-            // 
-            // clmID
-            // 
-            this.clmID.DataPropertyName = "ID";
-            this.clmID.HeaderText = "ID";
-            this.clmID.Name = "clmID";
-            this.clmID.Visible = false;
-            this.clmID.Width = 5;
-            // 
-            // clmName
-            // 
-            this.clmName.DataPropertyName = "Name";
-            this.clmName.HeaderText = "Name";
-            this.clmName.Name = "clmName";
-            // 
-            // clmSurname
-            // 
-            this.clmSurname.DataPropertyName = "Surname";
-            this.clmSurname.HeaderText = "Surname";
-            this.clmSurname.Name = "clmSurname";
-            // 
-            // clmCardNumber
-            // 
-            this.clmCardNumber.DataPropertyName = "CardNumber";
-            this.clmCardNumber.HeaderText = "Card Number";
-            this.clmCardNumber.Name = "clmCardNumber";
             // 
             // CustomerForm
             // 

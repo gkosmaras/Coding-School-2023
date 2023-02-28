@@ -47,13 +47,13 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.grvItem = new System.Windows.Forms.DataGridView();
-            this.chkEditMode = new System.Windows.Forms.CheckBox();
             this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmItemType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.clmPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkEditMode = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.bsItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCost)).BeginInit();
@@ -64,9 +64,11 @@
             // lblDetail
             // 
             this.lblDetail.AutoSize = true;
+            this.lblDetail.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.lblDetail.Location = new System.Drawing.Point(32, 344);
             this.lblDetail.Name = "lblDetail";
-            this.lblDetail.Size = new System.Drawing.Size(39, 15);
+            this.lblDetail.Size = new System.Drawing.Size(48, 19);
             this.lblDetail.TabIndex = 43;
             this.lblDetail.Text = "Name";
             // 
@@ -228,18 +230,6 @@
             this.grvItem.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvItem_CellClick);
             this.grvItem.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvItem_CellDoubleClick);
             // 
-            // chkEditMode
-            // 
-            this.chkEditMode.AutoSize = true;
-            this.chkEditMode.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.chkEditMode.Location = new System.Drawing.Point(554, 19);
-            this.chkEditMode.Name = "chkEditMode";
-            this.chkEditMode.Size = new System.Drawing.Size(99, 24);
-            this.chkEditMode.TabIndex = 44;
-            this.chkEditMode.Text = "Edit Mode";
-            this.chkEditMode.UseVisualStyleBackColor = true;
-            this.chkEditMode.CheckedChanged += new System.EventHandler(this.chkEditMode_CheckChanged);
-            // 
             // clmID
             // 
             this.clmID.DataPropertyName = "ID";
@@ -278,6 +268,18 @@
             this.clmCost.DataPropertyName = "Cost";
             this.clmCost.HeaderText = "Cost";
             this.clmCost.Name = "clmCost";
+            // 
+            // chkEditMode
+            // 
+            this.chkEditMode.AutoSize = true;
+            this.chkEditMode.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.chkEditMode.Location = new System.Drawing.Point(554, 19);
+            this.chkEditMode.Name = "chkEditMode";
+            this.chkEditMode.Size = new System.Drawing.Size(99, 24);
+            this.chkEditMode.TabIndex = 44;
+            this.chkEditMode.Text = "Edit Mode";
+            this.chkEditMode.UseVisualStyleBackColor = true;
+            this.chkEditMode.CheckedChanged += new System.EventHandler(this.chkEditMode_CheckChanged);
             // 
             // ItemForm
             // 

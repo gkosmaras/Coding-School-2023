@@ -35,7 +35,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
         public async Task<IEnumerable<MonthlyLedgerDto>> Get()
         {
             var dbTransaction = _transactionRepo.GetAll();
-            List<Rent> rents = serial.DeserializeFromFile<List<Rent>>(@"C:\Users\giorg\Desktop\rent.txt");
+            List<Rent> rents = serial.DeserializeFromFile<List<Rent>>(@"..\Shared\rent.txt");
             foreach (var date in dbTransaction)
             {
                 date.Date = new DateTime(date.Date.Year, date.Date.Month, 1);
@@ -55,7 +55,7 @@ namespace FuelStation.Web.Blazor.Server.Controllers
         [HttpPut]
         public async void UpdateRent(List<Rent> rents)
         {
-            serial.SerializeToFile(rents, @"C:\Users\giorg\Desktop\rent.txt");
+            serial.SerializeToFile(rents, @"..\Shared\rent.txt");
         }
 
         private decimal GetExpenses(IGrouping<DateTime, Transaction> ledge)

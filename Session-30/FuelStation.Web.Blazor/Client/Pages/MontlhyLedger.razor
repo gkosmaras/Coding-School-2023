@@ -49,28 +49,31 @@ else
 
         </table>
 
+        <EditForm Model="rents" OnValidSubmit="OnUpdate">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
         <div class="col-md-6">
             <label class="form-label">Rent Cost</label>
-            <InputNumber class="form-select" @bind-Value=@input>
+            <InputNumber class="form-select" @bind-Value=@rent.monthlyRent>
             </InputNumber>
         </div>
 
             <div class="col-md-6">
-                <button class="btn btn-success" type="submit" @onclick="OnUpdate">Update</button>
+                <button class="btn btn-success" type="submit">Update</button>
             </div>
-        </div>
+
+    </EditForm>
+    </div>
 
 }
 
 @code {
     private Serializer serial = new Serializer();
     private List<MonthlyLedgerDto> ledger = new();
-
+    public Rent rent = new();
     public List<Rent> rents = new();
 
     bool loading { get; set; } = true;
-
-    public int input;
 
     protected override async Task OnInitializedAsync()
     {
@@ -91,7 +94,7 @@ else
     {
         rents.Add(new Rent()
             {
-                monthlyRent = input
+                monthlyRent = rent.monthlyRent
             });
         await httpClient.PutAsJsonAsync<List<Rent>>("monthlyledger", rents);
     }
